@@ -39,12 +39,10 @@ const PublicService: IPublicService = {
         });
     },
 
-    async getAreas({ params }) {
-        const { academyId } = params;
+    async getAreas() {
 
         return prisma.area.findMany({
             where: {
-                academyId,
                 isActive: true,
             },
         });

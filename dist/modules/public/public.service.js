@@ -37,11 +37,9 @@ const PublicService = {
             }
         });
     },
-    async getAreas({ params }) {
-        const { academyId } = params;
+    async getAreas() {
         return prisma_1.prisma.area.findMany({
             where: {
-                academyId,
                 isActive: true,
             },
         });

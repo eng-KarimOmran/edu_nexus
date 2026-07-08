@@ -53,11 +53,15 @@ const WalletMovementService = {
                 academyId,
             },
             include: {
-                sender: { select: { academy: { select: { id: true, name: true } }, jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } }, subscription: { select: { id: true, client: { select: { id: true, name: true, phone: true } } } } } },
-                receiver: { select: { academy: { select: { id: true, name: true } }, jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } }, subscription: { select: { id: true, client: { select: { id: true, name: true, phone: true } } } } } },
+                sender: {
+                    select: { academy: { select: { id: true, name: true } }, jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } }, client: { select: { id: true, name: true, phone: true } } }
+                },
+                receiver: {
+                    select: { academy: { select: { id: true, name: true } }, jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } }, client: { select: { id: true, name: true, phone: true } } }
+                },
                 lessons: true,
-                image: true,
                 academy: true,
+                paymentProofImage: true
             },
         });
         if (!WalletMovement) {

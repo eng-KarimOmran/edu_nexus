@@ -1,23 +1,26 @@
-import * as argon2 from "argon2";
 import { CookieOptions } from "express";
 import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
 import env from "../../config/env";
 import { ITokenPayload, VerifyTokenProps } from "./auth.type";
+import bcrypt from "bcrypt";
 
 export const HashHelper = {
   async hash(password: string): Promise<string> {
-    return argon2.hash(password, {
-      type: argon2.argon2id,
-      memoryCost: 2 ** 16,
-      timeCost: 4,
-      parallelism: 2,
-    });
+    const saltRounds = 12;
+
+    return await bcrypt.hash(password, saltRounds);
   },
 
-  async compare({ plainPassword, hashedPassword }: { plainPassword: string; hashedPassword: string }): Promise<boolean> {
+  async compare({
+    plainPassword,
+    hashedPassword,
+  }: {
+    plainPassword: string;
+    hashedPassword: string;
+  }): Promise<boolean> {
     try {
-      return await argon2.verify(hashedPassword, plainPassword);
+      return await bcrypt.compare(plainPassword, hashedPassword);
     } catch (error) {
       console.error("HashHelper compare error:", error);
       return false;

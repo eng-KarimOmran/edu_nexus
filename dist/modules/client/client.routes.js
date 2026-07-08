@@ -1,0 +1,51 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const validate_middleware_1 = __importDefault(require("../../shared/middlewares/validate.middleware"));
+const Schema = __importStar(require("./client.schema"));
+const client_controller_1 = __importDefault(require("./client.controller"));
+const academy_middleware_1 = require("../academy/academy.middleware");
+const jobProfile_middlewares_1 = __importDefault(require("../jobProfile/jobProfile.middlewares"));
+const router = (0, express_1.Router)({ mergeParams: true });
+router.post("/", (0, validate_middleware_1.default)(Schema.CreateClientSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), client_controller_1.default.create);
+router.get("/details", (0, validate_middleware_1.default)(Schema.GetClientDetailsSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), client_controller_1.default.getDetails);
+router.patch("/:clientId", (0, validate_middleware_1.default)(Schema.UpdateClientSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), client_controller_1.default.update);
+router.get("/", (0, validate_middleware_1.default)(Schema.GetAllClientsSchema), (0, academy_middleware_1.checkAcademyExists)({ isAcademyOwner: true }), client_controller_1.default.getAll);
+router.delete("/:clientId", (0, validate_middleware_1.default)(Schema.DeleteClientSchema), (0, academy_middleware_1.checkAcademyExists)({ isAcademyOwner: true }), client_controller_1.default.delete);
+exports.default = router;

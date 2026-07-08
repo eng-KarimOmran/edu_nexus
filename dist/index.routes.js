@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_type_1 = require("./modules/auth/auth.type");
+const auth_middleware_1 = require("./modules/auth/auth.middleware");
+const auth_routes_1 = __importDefault(require("./modules/auth/auth.routes"));
+const academy_routes_1 = __importDefault(require("./modules/academy/academy.routes"));
+const employee_router_1 = __importDefault(require("./modules/employee/employee.router"));
+const public_routes_1 = __importDefault(require("./modules/public/public.routes"));
+const admin_routes_1 = __importDefault(require("./modules/admin/admin.routes"));
+const router = (0, express_1.Router)();
+router.use("/auth", auth_routes_1.default);
+router.use("/public/:academyId", public_routes_1.default);
+router.use((0, auth_middleware_1.auth)(auth_type_1.TokenType.ACCESS), auth_middleware_1.checkPasswordChange);
+router.use("/academies", academy_routes_1.default);
+router.use("/admin", admin_routes_1.default);
+router.use("/employee", employee_router_1.default);
+exports.default = router;

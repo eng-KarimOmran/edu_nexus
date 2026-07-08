@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+
+    "module": "CommonJS",
+    "moduleResolution": "bundler",
+
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "prisma/**/*.ts"
+  ]
+}

@@ -1,0 +1,407 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/prisma/generated"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Address {
+  id        String  @id @default(cuid())
+  address   String
+  academyId String
+  academy   Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
+
+  @@index([academyId], map: "Address_academyId_fkey")
+}
+
+model PaymentLink {
+  id             String  @id @default(cuid())
+  url            String
+  phone          String?
+  walletProvider String
+  academyId      String
+  academy        Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
+
+  @@index([academyId], map: "PaymentLink_academyId_fkey")
+}
+
+model SocialMedia {
+  id        String   @id @default(cuid())
+  platform  Platform
+  url       String
+  academyId String
+  academy   Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
+
+  @@index([academyId], map: "SocialMedia_academyId_fkey")
+}
+
+model AcademyPhone {
+  id        String  @id @default(cuid())
+  phone     String  @unique
+  academyId String
+  academy   Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
+
+  @@index([academyId], map: "AcademyPhone_academyId_fkey")
+}
+
+model Academy {
+  id              String           @id @default(cuid())
+  name            String           @unique
+  createdAt       DateTime         @default(now())
+  logoId          String?
+  logo            Image?           @relation(fields: [logoId], references: [id])
+  academyPhones   AcademyPhone[]
+  addresses       Address[]
+  clients         Client[]
+  courses         Course[]
+  lessons         Lesson[]
+  paymentLinks    PaymentLink[]
+  payrolls        Payroll[]
+  socialMedia     SocialMedia[]
+  subscriptions   Subscription[]
+  wallet          Wallet[]
+  walletMovements WalletMovement[]
+  owners          User[]           @relation("AcademyOwners")
+
+  @@index([logoId], map: "Academy_logoId_fkey")
+}
+
+model Image {
+  id              String           @id @default(cuid())
+  imageUrl        String
+  publicId        String           @unique
+  academies       Academy[]
+  walletMovements WalletMovement[]
+}
+
+model Wallet {
+  id           String           @id @default(cuid())
+  walletType   WalletType
+  clientId     String?          @unique
+  academyId    String
+  jobProfileId String?
+  balance      Float            @default(0)
+  academy      Academy          @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  client       Client?          @relation(fields: [clientId], references: [id])
+  jobProfile   JobProfile?      @relation(fields: [jobProfileId], references: [id], onDelete: Cascade)
+  receivers    WalletMovement[] @relation("ReceiverAccount")
+  senders      WalletMovement[] @relation("SenderAccount")
+
+  @@unique([jobProfileId, academyId])
+  @@index([academyId], map: "Wallet_academyId_fkey")
+}
+
+model BlacklistedToken {
+  id        String   @id @default(cuid())
+  jti       String   @unique
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
+model Client {
+  id            String         @id @default(cuid())
+  name          String
+  phone         String
+  source        ClientSource   @default(OFFICE)
+  academyId     String
+  createdAt     DateTime       @default(now())
+  academy       Academy        @relation(fields: [academyId], references: [id])
+  lessons       Lesson[]
+  subscriptions Subscription[]
+  wallet        Wallet?
+
+  @@unique([phone, academyId])
+  @@index([academyId], map: "Client_academyId_fkey")
+}
+
+model Course {
+  id                        String          @id @default(cuid())
+  name                      String
+  description               String
+  isActive                  Boolean         @default(true)
+  priceOriginal             Float
+  priceDiscounted           Float
+  requiredInitialDeposit    Float
+  totalSessions             Int
+  sessionsBeforeFullPayment Int
+  sessionDurationMinutes    Int
+  featuredReason            String?
+  academyId                 String
+  createdAt                 DateTime        @default(now())
+  academy                   Academy         @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  features                  CourseFeature[]
+  subscriptions             Subscription[]
+
+  @@unique([academyId, name])
+}
+
+model Subscription {
+  id                         String             @id @default(cuid())
+  subscriptionStatus         SubscriptionStatus @default(PENDING_DEPOSIT)
+  priceAtBooking             Float
+  totalSessions              Int
+  sessionDurationMinutes     Int
+  requiredInitialDeposit     Float
+  sessionsBeforeFullPayment  Int
+  trainingTypeAtRegistration Transmission
+  courseName                 String
+  createdAt                  DateTime           @default(now())
+  walletClientId             String
+  clientId                   String
+  courseId                   String
+  academyId                  String
+  areaId                     String
+  payrollId                  String?
+  createdById                String?
+  lessons                    Lesson[]
+  academy                    Academy            @relation(fields: [academyId], references: [id])
+  area                       Area               @relation(fields: [areaId], references: [id])
+  client                     Client             @relation(fields: [clientId], references: [id])
+  course                     Course             @relation(fields: [courseId], references: [id])
+  createdBy                  JobProfile?        @relation("CreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  payroll                    Payroll?           @relation(fields: [payrollId], references: [id])
+  walletMovements            WalletMovement[]
+
+  @@index([clientId])
+  @@index([academyId])
+  @@index([areaId], map: "Subscription_areaId_fkey")
+  @@index([courseId], map: "Subscription_courseId_fkey")
+  @@index([createdById], map: "Subscription_createdById_fkey")
+  @@index([payrollId], map: "Subscription_payrollId_fkey")
+}
+
+model JobProfile {
+  id             String         @id @default(cuid())
+  isActive       Boolean        @default(true)
+  userId         String         @unique
+  createdAt      DateTime       @default(now())
+  supportType    SupportType?
+  jobProfileType JobProfileType
+  baseSalary     Float          @default(0)
+  lessonPrice    Float          @default(0)
+  targetCount    Int            @default(0)
+  bonusAmount    Float          @default(0)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessons        Lesson[]
+  payrolls       Payroll[]
+  subscriptions  Subscription[] @relation("CreatedBy")
+  wallets        Wallet[]
+}
+
+model User {
+  id                String      @id @default(cuid())
+  name              String
+  phone             String      @unique
+  password          String
+  isActive          Boolean     @default(true)
+  isAdmin           Boolean     @default(false)
+  email             String?     @unique
+  logoutAt          DateTime    @default(now())
+  isPasswordChanged Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  jobProfile        JobProfile?
+  academies         Academy[]   @relation("AcademyOwners")
+}
+
+model CourseFeature {
+  id       String @id @default(cuid())
+  feature  String
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId], map: "CourseFeature_courseId_fkey")
+}
+
+model Car {
+  id              String       @id @default(cuid())
+  modelName       String
+  plateNumber     String       @unique
+  gearType        Transmission
+  carSessionPrice Float
+  isActive        Boolean      @default(true)
+  createdAt       DateTime     @default(now())
+  lessons         Lesson[]
+}
+
+model Area {
+  id            String         @id @default(cuid())
+  name          String         @unique
+  supportType   SupportType
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  lessons       Lesson[]
+  subscriptions Subscription[]
+}
+
+model Lesson {
+  id                     String          @id @default(cuid())
+  startTime              DateTime
+  endTime                DateTime
+  lessonStatus           LessonStatus    @default(SCHEDULED)
+  transmission           Transmission
+  sessionDurationMinutes Int
+  expectedPaymentAmount  Float?
+  carSessionPrice        Float
+  captainLessonPrice     Float
+  academyId              String
+  subscriptionId         String
+  carId                  String
+  clientId               String
+  jobProfileId           String
+  areaId                 String
+  walletMovementId       String?
+  payrollId              String?
+  createdAt              DateTime        @default(now())
+  academy                Academy         @relation(fields: [academyId], references: [id])
+  area                   Area            @relation(fields: [areaId], references: [id])
+  car                    Car             @relation(fields: [carId], references: [id])
+  client                 Client          @relation(fields: [clientId], references: [id])
+  jobProfile             JobProfile      @relation(fields: [jobProfileId], references: [id])
+  payroll                Payroll?        @relation(fields: [payrollId], references: [id])
+  subscription           Subscription    @relation(fields: [subscriptionId], references: [id])
+  walletMovement         WalletMovement? @relation(fields: [walletMovementId], references: [id], onDelete: Restrict)
+
+  @@index([academyId], map: "Lesson_academyId_fkey")
+  @@index([areaId], map: "Lesson_areaId_fkey")
+  @@index([carId], map: "Lesson_carId_fkey")
+  @@index([clientId], map: "Lesson_clientId_fkey")
+  @@index([jobProfileId], map: "Lesson_jobProfileId_fkey")
+  @@index([payrollId], map: "Lesson_payrollId_fkey")
+  @@index([subscriptionId], map: "Lesson_subscriptionId_fkey")
+  @@index([walletMovementId], map: "Lesson_walletMovementId_fkey")
+}
+
+model WalletMovement {
+  id                   String               @id @default(cuid())
+  academyId            String
+  receiverId           String
+  senderId             String
+  transactionType      TransactionType
+  paymentMethod        PaymentMethod        @default(TRANSFER)
+  amount               Decimal              @db.Decimal(12, 2)
+  paymentProofImageId  String?
+  createdAt            DateTime             @default(now())
+  subscriptionId       String?
+  walletMovementStatus WalletMovementStatus @default(PENDING)
+  lessons              Lesson[]
+  academy              Academy              @relation(fields: [academyId], references: [id])
+  paymentProofImage    Image?               @relation(fields: [paymentProofImageId], references: [id], onDelete: Restrict)
+  receiver             Wallet               @relation("ReceiverAccount", fields: [receiverId], references: [id])
+  sender               Wallet               @relation("SenderAccount", fields: [senderId], references: [id])
+  subscription         Subscription?        @relation(fields: [subscriptionId], references: [id], onDelete: Restrict)
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([academyId], map: "WalletMovement_academyId_fkey")
+  @@index([paymentProofImageId], map: "WalletMovement_paymentProofImageId_fkey")
+  @@index([subscriptionId], map: "WalletMovement_subscriptionId_fkey")
+}
+
+model Payroll {
+  id                      String         @id @default(cuid())
+  academyId               String
+  jobProfileId            String?
+  createdAt               DateTime       @default(now())
+  baseSalary              Float
+  totalLessonsCount       Int
+  lessonsAmount           Float
+  totalSubscriptionsCount Int
+  subscriptionsAmount     Float
+  earningsAmount          Float
+  grossAmount             Float
+  bonusAmount             Float          @default(0)
+  deductions              Float          @default(0)
+  netAmount               Float
+  lessons                 Lesson[]
+  academy                 Academy        @relation(fields: [academyId], references: [id])
+  jobProfile              JobProfile?    @relation(fields: [jobProfileId], references: [id])
+  subscriptions           Subscription[]
+
+  @@index([academyId], map: "Payroll_academyId_fkey")
+  @@index([jobProfileId], map: "Payroll_jobProfileId_fkey")
+}
+
+enum Platform {
+  FACEBOOK
+  TIKTOK
+  INSTAGRAM
+  TWITTER
+  YOUTUBE
+  LINKEDIN
+  SNAPCHAT
+  WHATSAPP
+  GOOGLEMAP
+  GMAIL
+}
+
+enum WalletType {
+  CLIENT
+  ACADEMY
+  JOB_PROFILE
+}
+
+enum ClientSource {
+  PLATFORM
+  OFFICE
+}
+
+enum SubscriptionStatus {
+  PENDING_DEPOSIT
+  PENDING_FIRST_SESSION
+  GRACE_PERIOD
+  SUSPENDED
+  ACTIVE
+  CANCELED
+  COMPLETED
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+}
+
+enum JobProfileType {
+  CAPTAIN
+  SECRETARY
+  MANAGER
+}
+
+enum SupportType {
+  MANUAL
+  AUTOMATIC
+  BOTH
+}
+
+enum LessonStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELED
+  CANCELED_CHARGED
+}
+
+enum WalletMovementStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PaymentMethod {
+  MONETARY
+  ELECTRONIC
+  TRANSFER
+}
+
+enum TransactionType {
+  SUBSCRIPTION_CREATED
+  CUSTOMER_PAYMENT
+  SUBSCRIPTION_CANCELLED
+  CUSTOMER_REFUND
+  EMPLOYEE_TRANSFER_TO_EMPLOYEE
+  ACADEMY_TRANSFER_TO_EMPLOYEE
+  EMPLOYEE_TRANSFER_TO_ACADEMY
+  MANUAL_ADJUSTMENT
+}

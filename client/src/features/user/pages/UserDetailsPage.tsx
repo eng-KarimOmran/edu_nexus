@@ -267,7 +267,7 @@ export default function UserDetailsPage() {
           </div>
         )}
 
-        {data.jobProfile && (
+        {!data.jobProfile && (
           <Button
             variant="outline"
             onClick={handleOpenCreateJobProfile}

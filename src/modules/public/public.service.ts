@@ -35,12 +35,12 @@ const PublicService: IPublicService = {
             },
             include: {
                 features: true,
-            }
+            },
+            orderBy: { createdAt: "asc" }
         });
     },
 
     async getAreas() {
-
         return prisma.area.findMany({
             where: {
                 isActive: true,

@@ -52,31 +52,37 @@ export default function UpdateCourseForm({
         name: "priceOriginal",
         type: "number",
         label: "السعر الأصلي",
+        col: "half",
       },
       {
         name: "priceDiscounted",
         type: "number",
         label: "السعر بعد الخصم",
+        col: "half",
       },
       {
         name: "requiredInitialDeposit",
         type: "number",
         label: "المقدم",
+        col: "half",
       },
       {
         name: "sessionsBeforeFullPayment",
         type: "number",
         label: "عدد الحصص قبل السداد",
+        col: "half",
       },
       {
         name: "totalSessions",
         type: "number",
         label: "عدد الحصص",
+        col: "half",
       },
       {
         name: "sessionDurationMinutes",
         type: "number",
         label: "مدة الحصة",
+        col: "half",
       },
       {
         name: "featuredReason",
@@ -94,7 +100,6 @@ export default function UpdateCourseForm({
 
     submitButton: {
       text: "حفظ التعديلات",
-      
     },
 
     service: (body) =>

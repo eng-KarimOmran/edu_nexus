@@ -126,29 +126,6 @@ export default function AcademyDetailsPage() {
         />
 
         <DisplayArray
-          title="وسائل التواصل الاجتماعي"
-          data={data.socialMedia.map((s) => {
-            const { platform, ...rest } = s;
-
-            return {
-              platform: enumTranslations[platform],
-              ...rest,
-            };
-          })}
-          titleKey="platform"
-          descKey="url"
-          forms={{
-            add: () => <AddSocialMediaForm academyId={data.id} />,
-            delete: (item) => (
-              <DeleteSocialMediaForm
-                academyId={data.id}
-                socialMediaId={item.id}
-              />
-            ),
-          }}
-        />
-
-        <DisplayArray
           title="أرقام الهاتف"
           data={data.academyPhones}
           titleKey="phone"
@@ -183,6 +160,29 @@ export default function AcademyDetailsPage() {
               <DeletePaymentLinkForm
                 academyId={data.id}
                 paymentLinkId={item.id}
+              />
+            ),
+          }}
+        />
+
+        <DisplayArray
+          title="وسائل التواصل الاجتماعي"
+          data={data.socialMedia.map((s) => {
+            const { platform, ...rest } = s;
+
+            return {
+              platform: enumTranslations[platform],
+              ...rest,
+            };
+          })}
+          titleKey="platform"
+          descKey="url"
+          forms={{
+            add: () => <AddSocialMediaForm academyId={data.id} />,
+            delete: (item) => (
+              <DeleteSocialMediaForm
+                academyId={data.id}
+                socialMediaId={item.id}
               />
             ),
           }}

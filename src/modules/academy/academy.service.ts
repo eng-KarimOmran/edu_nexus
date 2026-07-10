@@ -51,7 +51,7 @@ const AcademyService: IAcademyService = {
   },
 
   async update({ body, params }) {
-    const { name } = body;
+    const { name, profileTrackingUrl } = body;
     const { academyId } = params;
 
     return prisma.$transaction(async (tx) => {
@@ -68,6 +68,10 @@ const AcademyService: IAcademyService = {
 
       if (name && academy.name !== name) {
         data.name = name
+      }
+
+      if (profileTrackingUrl) {
+        data.profileTrackingUrl = profileTrackingUrl
       }
 
       return tx.academy.update({

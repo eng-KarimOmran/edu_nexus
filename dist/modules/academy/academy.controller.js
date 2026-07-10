@@ -143,5 +143,23 @@ const AcademyController = {
             message: "تم حذف رابط الدفع بنجاح",
         });
     },
+    addRule: async (req, res) => {
+        const dataSafe = req.dataSafe;
+        const data = await academy_service_1.default.addRule(dataSafe);
+        return (0, successResponse_1.default)({
+            res,
+            data,
+            message: "تم إضافة القاعدة بنجاح",
+        });
+    },
+    deleteRule: async (req, res) => {
+        const dataSafe = req.dataSafe;
+        const data = await academy_service_1.default.deleteRule(dataSafe);
+        return (0, successResponse_1.default)({
+            res,
+            data,
+            message: "تم حذف القاعدة بنجاح",
+        });
+    },
 };
 exports.default = AcademyController;

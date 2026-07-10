@@ -31,12 +31,16 @@ const getSubscriptionStatus = (params) => {
     const isDepositPaid = netPaidAmount >= requiredInitialDeposit;
     const hasScheduledSession = scheduledLessons > 0;
     const reachedPaymentLimit = usedLessons + scheduledLessons >= sessionsBeforeFullPayment;
+    const occupiedLessons = scheduledLessons + usedLessons;
     if (!isDepositPaid)
         return enums_1.SubscriptionStatus.PENDING_DEPOSIT;
     if (!hasScheduledSession)
         return enums_1.SubscriptionStatus.PENDING_FIRST_SESSION;
     if (!isFullyPaid)
         return reachedPaymentLimit ? enums_1.SubscriptionStatus.SUSPENDED : enums_1.SubscriptionStatus.GRACE_PERIOD;
+    if (occupiedLessons >= totalLessons) {
+        return enums_1.SubscriptionStatus.FULLY_BOOKED;
+    }
     return enums_1.SubscriptionStatus.ACTIVE;
 };
 exports.getSubscriptionStatus = getSubscriptionStatus;

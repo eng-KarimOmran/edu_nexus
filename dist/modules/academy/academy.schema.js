@@ -10,6 +10,7 @@ exports.AcademySchema = {
     create: {
         body: zod_1.default.object({
             name: common_validation_1.entityName,
+            profileTrackingUrl: common_validation_1.url.optional(),
             phone: common_validation_1.phone,
             userId: common_validation_1.id,
         }),
@@ -20,12 +21,7 @@ exports.AcademySchema = {
         }),
         body: zod_1.default.object({
             name: common_validation_1.entityName.optional(),
-            image: zod_1.default
-                .object({
-                publicId: zod_1.default.string().min(1, "معرف الصورة مطلوب"),
-                imageUrl: common_validation_1.url,
-            })
-                .optional(),
+            profileTrackingUrl: common_validation_1.url.optional()
         }),
     },
     delete: {
@@ -125,5 +121,21 @@ exports.AcademySchema = {
                 paymentLinkId: common_validation_1.id,
             }),
         }
-    }
+    },
+    rule: {
+        add: {
+            params: zod_1.default.object({
+                academyId: common_validation_1.id,
+            }),
+            body: zod_1.default.object({
+                content: zod_1.default.string().trim().min(1).max(5000),
+            }),
+        },
+        delete: {
+            params: zod_1.default.object({
+                academyId: common_validation_1.id,
+                ruleId: common_validation_1.id,
+            }),
+        },
+    },
 };

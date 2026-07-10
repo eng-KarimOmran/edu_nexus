@@ -28,21 +28,21 @@ export type AcademyMinAggregateOutputType = {
   id: string | null
   name: string | null
   createdAt: Date | null
-  logoId: string | null
+  profileTrackingUrl: string | null
 }
 
 export type AcademyMaxAggregateOutputType = {
   id: string | null
   name: string | null
   createdAt: Date | null
-  logoId: string | null
+  profileTrackingUrl: string | null
 }
 
 export type AcademyCountAggregateOutputType = {
   id: number
   name: number
   createdAt: number
-  logoId: number
+  profileTrackingUrl: number
   _all: number
 }
 
@@ -51,21 +51,21 @@ export type AcademyMinAggregateInputType = {
   id?: true
   name?: true
   createdAt?: true
-  logoId?: true
+  profileTrackingUrl?: true
 }
 
 export type AcademyMaxAggregateInputType = {
   id?: true
   name?: true
   createdAt?: true
-  logoId?: true
+  profileTrackingUrl?: true
 }
 
 export type AcademyCountAggregateInputType = {
   id?: true
   name?: true
   createdAt?: true
-  logoId?: true
+  profileTrackingUrl?: true
   _all?: true
 }
 
@@ -145,7 +145,7 @@ export type AcademyGroupByOutputType = {
   id: string
   name: string
   createdAt: Date
-  logoId: string | null
+  profileTrackingUrl: string | null
   _count: AcademyCountAggregateOutputType | null
   _min: AcademyMinAggregateOutputType | null
   _max: AcademyMaxAggregateOutputType | null
@@ -173,8 +173,7 @@ export type AcademyWhereInput = {
   id?: Prisma.StringFilter<"Academy"> | string
   name?: Prisma.StringFilter<"Academy"> | string
   createdAt?: Prisma.DateTimeFilter<"Academy"> | Date | string
-  logoId?: Prisma.StringNullableFilter<"Academy"> | string | null
-  logo?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
+  profileTrackingUrl?: Prisma.StringNullableFilter<"Academy"> | string | null
   academyPhones?: Prisma.AcademyPhoneListRelationFilter
   addresses?: Prisma.AddressListRelationFilter
   clients?: Prisma.ClientListRelationFilter
@@ -187,14 +186,14 @@ export type AcademyWhereInput = {
   wallet?: Prisma.WalletListRelationFilter
   walletMovements?: Prisma.WalletMovementListRelationFilter
   owners?: Prisma.UserListRelationFilter
+  academyRules?: Prisma.AcademyRuleListRelationFilter
 }
 
 export type AcademyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  logoId?: Prisma.SortOrderInput | Prisma.SortOrder
-  logo?: Prisma.ImageOrderByWithRelationInput
+  profileTrackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   academyPhones?: Prisma.AcademyPhoneOrderByRelationAggregateInput
   addresses?: Prisma.AddressOrderByRelationAggregateInput
   clients?: Prisma.ClientOrderByRelationAggregateInput
@@ -207,6 +206,7 @@ export type AcademyOrderByWithRelationInput = {
   wallet?: Prisma.WalletOrderByRelationAggregateInput
   walletMovements?: Prisma.WalletMovementOrderByRelationAggregateInput
   owners?: Prisma.UserOrderByRelationAggregateInput
+  academyRules?: Prisma.AcademyRuleOrderByRelationAggregateInput
   _relevance?: Prisma.AcademyOrderByRelevanceInput
 }
 
@@ -217,8 +217,7 @@ export type AcademyWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AcademyWhereInput[]
   NOT?: Prisma.AcademyWhereInput | Prisma.AcademyWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"Academy"> | Date | string
-  logoId?: Prisma.StringNullableFilter<"Academy"> | string | null
-  logo?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
+  profileTrackingUrl?: Prisma.StringNullableFilter<"Academy"> | string | null
   academyPhones?: Prisma.AcademyPhoneListRelationFilter
   addresses?: Prisma.AddressListRelationFilter
   clients?: Prisma.ClientListRelationFilter
@@ -231,13 +230,14 @@ export type AcademyWhereUniqueInput = Prisma.AtLeast<{
   wallet?: Prisma.WalletListRelationFilter
   walletMovements?: Prisma.WalletMovementListRelationFilter
   owners?: Prisma.UserListRelationFilter
+  academyRules?: Prisma.AcademyRuleListRelationFilter
 }, "id" | "name">
 
 export type AcademyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  logoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileTrackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AcademyCountOrderByAggregateInput
   _max?: Prisma.AcademyMaxOrderByAggregateInput
   _min?: Prisma.AcademyMinOrderByAggregateInput
@@ -250,14 +250,14 @@ export type AcademyScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Academy"> | string
   name?: Prisma.StringWithAggregatesFilter<"Academy"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Academy"> | Date | string
-  logoId?: Prisma.StringNullableWithAggregatesFilter<"Academy"> | string | null
+  profileTrackingUrl?: Prisma.StringNullableWithAggregatesFilter<"Academy"> | string | null
 }
 
 export type AcademyCreateInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -270,13 +270,14 @@ export type AcademyCreateInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -289,13 +290,14 @@ export type AcademyUncheckedCreateInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -308,13 +310,14 @@ export type AcademyUpdateInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -327,26 +330,28 @@ export type AcademyUncheckedUpdateInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateManyInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
 }
 
 export type AcademyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AcademyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AcademyScalarRelationFilter = {
@@ -364,21 +369,21 @@ export type AcademyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  logoId?: Prisma.SortOrder
+  profileTrackingUrl?: Prisma.SortOrder
 }
 
 export type AcademyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  logoId?: Prisma.SortOrder
+  profileTrackingUrl?: Prisma.SortOrder
 }
 
 export type AcademyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  logoId?: Prisma.SortOrder
+  profileTrackingUrl?: Prisma.SortOrder
 }
 
 export type AcademyListRelationFilter = {
@@ -389,6 +394,20 @@ export type AcademyListRelationFilter = {
 
 export type AcademyOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type AcademyCreateNestedOneWithoutAcademyRulesInput = {
+  create?: Prisma.XOR<Prisma.AcademyCreateWithoutAcademyRulesInput, Prisma.AcademyUncheckedCreateWithoutAcademyRulesInput>
+  connectOrCreate?: Prisma.AcademyCreateOrConnectWithoutAcademyRulesInput
+  connect?: Prisma.AcademyWhereUniqueInput
+}
+
+export type AcademyUpdateOneRequiredWithoutAcademyRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.AcademyCreateWithoutAcademyRulesInput, Prisma.AcademyUncheckedCreateWithoutAcademyRulesInput>
+  connectOrCreate?: Prisma.AcademyCreateOrConnectWithoutAcademyRulesInput
+  upsert?: Prisma.AcademyUpsertWithoutAcademyRulesInput
+  connect?: Prisma.AcademyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AcademyUpdateToOneWithWhereWithoutAcademyRulesInput, Prisma.AcademyUpdateWithoutAcademyRulesInput>, Prisma.AcademyUncheckedUpdateWithoutAcademyRulesInput>
 }
 
 export type AcademyCreateNestedOneWithoutAddressesInput = {
@@ -449,48 +468,6 @@ export type AcademyUpdateOneRequiredWithoutAcademyPhonesNestedInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
-}
-
-export type AcademyCreateNestedManyWithoutLogoInput = {
-  create?: Prisma.XOR<Prisma.AcademyCreateWithoutLogoInput, Prisma.AcademyUncheckedCreateWithoutLogoInput> | Prisma.AcademyCreateWithoutLogoInput[] | Prisma.AcademyUncheckedCreateWithoutLogoInput[]
-  connectOrCreate?: Prisma.AcademyCreateOrConnectWithoutLogoInput | Prisma.AcademyCreateOrConnectWithoutLogoInput[]
-  createMany?: Prisma.AcademyCreateManyLogoInputEnvelope
-  connect?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-}
-
-export type AcademyUncheckedCreateNestedManyWithoutLogoInput = {
-  create?: Prisma.XOR<Prisma.AcademyCreateWithoutLogoInput, Prisma.AcademyUncheckedCreateWithoutLogoInput> | Prisma.AcademyCreateWithoutLogoInput[] | Prisma.AcademyUncheckedCreateWithoutLogoInput[]
-  connectOrCreate?: Prisma.AcademyCreateOrConnectWithoutLogoInput | Prisma.AcademyCreateOrConnectWithoutLogoInput[]
-  createMany?: Prisma.AcademyCreateManyLogoInputEnvelope
-  connect?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-}
-
-export type AcademyUpdateManyWithoutLogoNestedInput = {
-  create?: Prisma.XOR<Prisma.AcademyCreateWithoutLogoInput, Prisma.AcademyUncheckedCreateWithoutLogoInput> | Prisma.AcademyCreateWithoutLogoInput[] | Prisma.AcademyUncheckedCreateWithoutLogoInput[]
-  connectOrCreate?: Prisma.AcademyCreateOrConnectWithoutLogoInput | Prisma.AcademyCreateOrConnectWithoutLogoInput[]
-  upsert?: Prisma.AcademyUpsertWithWhereUniqueWithoutLogoInput | Prisma.AcademyUpsertWithWhereUniqueWithoutLogoInput[]
-  createMany?: Prisma.AcademyCreateManyLogoInputEnvelope
-  set?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  disconnect?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  delete?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  connect?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  update?: Prisma.AcademyUpdateWithWhereUniqueWithoutLogoInput | Prisma.AcademyUpdateWithWhereUniqueWithoutLogoInput[]
-  updateMany?: Prisma.AcademyUpdateManyWithWhereWithoutLogoInput | Prisma.AcademyUpdateManyWithWhereWithoutLogoInput[]
-  deleteMany?: Prisma.AcademyScalarWhereInput | Prisma.AcademyScalarWhereInput[]
-}
-
-export type AcademyUncheckedUpdateManyWithoutLogoNestedInput = {
-  create?: Prisma.XOR<Prisma.AcademyCreateWithoutLogoInput, Prisma.AcademyUncheckedCreateWithoutLogoInput> | Prisma.AcademyCreateWithoutLogoInput[] | Prisma.AcademyUncheckedCreateWithoutLogoInput[]
-  connectOrCreate?: Prisma.AcademyCreateOrConnectWithoutLogoInput | Prisma.AcademyCreateOrConnectWithoutLogoInput[]
-  upsert?: Prisma.AcademyUpsertWithWhereUniqueWithoutLogoInput | Prisma.AcademyUpsertWithWhereUniqueWithoutLogoInput[]
-  createMany?: Prisma.AcademyCreateManyLogoInputEnvelope
-  set?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  disconnect?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  delete?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  connect?: Prisma.AcademyWhereUniqueInput | Prisma.AcademyWhereUniqueInput[]
-  update?: Prisma.AcademyUpdateWithWhereUniqueWithoutLogoInput | Prisma.AcademyUpdateWithWhereUniqueWithoutLogoInput[]
-  updateMany?: Prisma.AcademyUpdateManyWithWhereWithoutLogoInput | Prisma.AcademyUpdateManyWithWhereWithoutLogoInput[]
-  deleteMany?: Prisma.AcademyScalarWhereInput | Prisma.AcademyScalarWhereInput[]
 }
 
 export type AcademyCreateNestedOneWithoutWalletInput = {
@@ -629,12 +606,13 @@ export type AcademyUpdateOneRequiredWithoutPayrollsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AcademyUpdateToOneWithWhereWithoutPayrollsInput, Prisma.AcademyUpdateWithoutPayrollsInput>, Prisma.AcademyUncheckedUpdateWithoutPayrollsInput>
 }
 
-export type AcademyCreateWithoutAddressesInput = {
+export type AcademyCreateWithoutAcademyRulesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
+  addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
   courses?: Prisma.CourseCreateNestedManyWithoutAcademyInput
   lessons?: Prisma.LessonCreateNestedManyWithoutAcademyInput
@@ -647,11 +625,103 @@ export type AcademyCreateWithoutAddressesInput = {
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
 }
 
+export type AcademyUncheckedCreateWithoutAcademyRulesInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  profileTrackingUrl?: string | null
+  academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
+  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
+  clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutAcademyInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutAcademyInput
+  paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutAcademyInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutAcademyInput
+  socialMedia?: Prisma.SocialMediaUncheckedCreateNestedManyWithoutAcademyInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutAcademyInput
+  wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
+  walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
+  owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+}
+
+export type AcademyCreateOrConnectWithoutAcademyRulesInput = {
+  where: Prisma.AcademyWhereUniqueInput
+  create: Prisma.XOR<Prisma.AcademyCreateWithoutAcademyRulesInput, Prisma.AcademyUncheckedCreateWithoutAcademyRulesInput>
+}
+
+export type AcademyUpsertWithoutAcademyRulesInput = {
+  update: Prisma.XOR<Prisma.AcademyUpdateWithoutAcademyRulesInput, Prisma.AcademyUncheckedUpdateWithoutAcademyRulesInput>
+  create: Prisma.XOR<Prisma.AcademyCreateWithoutAcademyRulesInput, Prisma.AcademyUncheckedCreateWithoutAcademyRulesInput>
+  where?: Prisma.AcademyWhereInput
+}
+
+export type AcademyUpdateToOneWithWhereWithoutAcademyRulesInput = {
+  where?: Prisma.AcademyWhereInput
+  data: Prisma.XOR<Prisma.AcademyUpdateWithoutAcademyRulesInput, Prisma.AcademyUncheckedUpdateWithoutAcademyRulesInput>
+}
+
+export type AcademyUpdateWithoutAcademyRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
+  addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
+  clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutAcademyNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutAcademyNestedInput
+  paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutAcademyNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutAcademyNestedInput
+  socialMedia?: Prisma.SocialMediaUpdateManyWithoutAcademyNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutAcademyNestedInput
+  wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
+  walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
+  owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+}
+
+export type AcademyUncheckedUpdateWithoutAcademyRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
+  addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
+  clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutAcademyNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutAcademyNestedInput
+  paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutAcademyNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutAcademyNestedInput
+  socialMedia?: Prisma.SocialMediaUncheckedUpdateManyWithoutAcademyNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutAcademyNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
+  walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
+  owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+}
+
+export type AcademyCreateWithoutAddressesInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  profileTrackingUrl?: string | null
+  academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
+  clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
+  courses?: Prisma.CourseCreateNestedManyWithoutAcademyInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutAcademyInput
+  paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutAcademyInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutAcademyInput
+  socialMedia?: Prisma.SocialMediaCreateNestedManyWithoutAcademyInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutAcademyInput
+  wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
+  walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
+  owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
+}
+
 export type AcademyUncheckedCreateWithoutAddressesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutAcademyInput
@@ -663,6 +733,7 @@ export type AcademyUncheckedCreateWithoutAddressesInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutAddressesInput = {
@@ -685,7 +756,7 @@ export type AcademyUpdateWithoutAddressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
   courses?: Prisma.CourseUpdateManyWithoutAcademyNestedInput
@@ -697,13 +768,14 @@ export type AcademyUpdateWithoutAddressesInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutAddressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutAcademyNestedInput
@@ -715,13 +787,14 @@ export type AcademyUncheckedUpdateWithoutAddressesInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutPaymentLinksInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -733,13 +806,14 @@ export type AcademyCreateWithoutPaymentLinksInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutPaymentLinksInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -751,6 +825,7 @@ export type AcademyUncheckedCreateWithoutPaymentLinksInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutPaymentLinksInput = {
@@ -773,7 +848,7 @@ export type AcademyUpdateWithoutPaymentLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -785,13 +860,14 @@ export type AcademyUpdateWithoutPaymentLinksInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutPaymentLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -803,13 +879,14 @@ export type AcademyUncheckedUpdateWithoutPaymentLinksInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutSocialMediaInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -821,13 +898,14 @@ export type AcademyCreateWithoutSocialMediaInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutSocialMediaInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -839,6 +917,7 @@ export type AcademyUncheckedCreateWithoutSocialMediaInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutSocialMediaInput = {
@@ -861,7 +940,7 @@ export type AcademyUpdateWithoutSocialMediaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -873,13 +952,14 @@ export type AcademyUpdateWithoutSocialMediaInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutSocialMediaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -891,13 +971,14 @@ export type AcademyUncheckedUpdateWithoutSocialMediaInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutAcademyPhonesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
   courses?: Prisma.CourseCreateNestedManyWithoutAcademyInput
@@ -909,13 +990,14 @@ export type AcademyCreateWithoutAcademyPhonesInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutAcademyPhonesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutAcademyInput
@@ -927,6 +1009,7 @@ export type AcademyUncheckedCreateWithoutAcademyPhonesInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutAcademyPhonesInput = {
@@ -949,7 +1032,7 @@ export type AcademyUpdateWithoutAcademyPhonesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
   courses?: Prisma.CourseUpdateManyWithoutAcademyNestedInput
@@ -961,13 +1044,14 @@ export type AcademyUpdateWithoutAcademyPhonesInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutAcademyPhonesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutAcademyNestedInput
@@ -979,85 +1063,14 @@ export type AcademyUncheckedUpdateWithoutAcademyPhonesInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
-}
-
-export type AcademyCreateWithoutLogoInput = {
-  id?: string
-  name: string
-  createdAt?: Date | string
-  academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
-  addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
-  clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
-  courses?: Prisma.CourseCreateNestedManyWithoutAcademyInput
-  lessons?: Prisma.LessonCreateNestedManyWithoutAcademyInput
-  paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutAcademyInput
-  payrolls?: Prisma.PayrollCreateNestedManyWithoutAcademyInput
-  socialMedia?: Prisma.SocialMediaCreateNestedManyWithoutAcademyInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutAcademyInput
-  wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
-  walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
-  owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
-}
-
-export type AcademyUncheckedCreateWithoutLogoInput = {
-  id?: string
-  name: string
-  createdAt?: Date | string
-  academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
-  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
-  clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
-  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutAcademyInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutAcademyInput
-  paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutAcademyInput
-  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutAcademyInput
-  socialMedia?: Prisma.SocialMediaUncheckedCreateNestedManyWithoutAcademyInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutAcademyInput
-  wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
-  walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
-  owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
-}
-
-export type AcademyCreateOrConnectWithoutLogoInput = {
-  where: Prisma.AcademyWhereUniqueInput
-  create: Prisma.XOR<Prisma.AcademyCreateWithoutLogoInput, Prisma.AcademyUncheckedCreateWithoutLogoInput>
-}
-
-export type AcademyCreateManyLogoInputEnvelope = {
-  data: Prisma.AcademyCreateManyLogoInput | Prisma.AcademyCreateManyLogoInput[]
-  skipDuplicates?: boolean
-}
-
-export type AcademyUpsertWithWhereUniqueWithoutLogoInput = {
-  where: Prisma.AcademyWhereUniqueInput
-  update: Prisma.XOR<Prisma.AcademyUpdateWithoutLogoInput, Prisma.AcademyUncheckedUpdateWithoutLogoInput>
-  create: Prisma.XOR<Prisma.AcademyCreateWithoutLogoInput, Prisma.AcademyUncheckedCreateWithoutLogoInput>
-}
-
-export type AcademyUpdateWithWhereUniqueWithoutLogoInput = {
-  where: Prisma.AcademyWhereUniqueInput
-  data: Prisma.XOR<Prisma.AcademyUpdateWithoutLogoInput, Prisma.AcademyUncheckedUpdateWithoutLogoInput>
-}
-
-export type AcademyUpdateManyWithWhereWithoutLogoInput = {
-  where: Prisma.AcademyScalarWhereInput
-  data: Prisma.XOR<Prisma.AcademyUpdateManyMutationInput, Prisma.AcademyUncheckedUpdateManyWithoutLogoInput>
-}
-
-export type AcademyScalarWhereInput = {
-  AND?: Prisma.AcademyScalarWhereInput | Prisma.AcademyScalarWhereInput[]
-  OR?: Prisma.AcademyScalarWhereInput[]
-  NOT?: Prisma.AcademyScalarWhereInput | Prisma.AcademyScalarWhereInput[]
-  id?: Prisma.StringFilter<"Academy"> | string
-  name?: Prisma.StringFilter<"Academy"> | string
-  createdAt?: Prisma.DateTimeFilter<"Academy"> | Date | string
-  logoId?: Prisma.StringNullableFilter<"Academy"> | string | null
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutWalletInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -1069,13 +1082,14 @@ export type AcademyCreateWithoutWalletInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutWalletInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -1087,6 +1101,7 @@ export type AcademyUncheckedCreateWithoutWalletInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutWalletInput = {
@@ -1109,7 +1124,7 @@ export type AcademyUpdateWithoutWalletInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -1121,13 +1136,14 @@ export type AcademyUpdateWithoutWalletInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutWalletInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1139,13 +1155,14 @@ export type AcademyUncheckedUpdateWithoutWalletInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutClientsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   courses?: Prisma.CourseCreateNestedManyWithoutAcademyInput
@@ -1157,13 +1174,14 @@ export type AcademyCreateWithoutClientsInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutClientsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutAcademyInput
@@ -1175,6 +1193,7 @@ export type AcademyUncheckedCreateWithoutClientsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutClientsInput = {
@@ -1197,7 +1216,7 @@ export type AcademyUpdateWithoutClientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   courses?: Prisma.CourseUpdateManyWithoutAcademyNestedInput
@@ -1209,13 +1228,14 @@ export type AcademyUpdateWithoutClientsInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutClientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1227,13 +1247,14 @@ export type AcademyUncheckedUpdateWithoutClientsInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutCoursesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -1245,13 +1266,14 @@ export type AcademyCreateWithoutCoursesInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutCoursesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -1263,6 +1285,7 @@ export type AcademyUncheckedCreateWithoutCoursesInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutCoursesInput = {
@@ -1285,7 +1308,7 @@ export type AcademyUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -1297,13 +1320,14 @@ export type AcademyUpdateWithoutCoursesInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1315,13 +1339,14 @@ export type AcademyUncheckedUpdateWithoutCoursesInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutSubscriptionsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -1333,13 +1358,14 @@ export type AcademyCreateWithoutSubscriptionsInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutSubscriptionsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -1351,6 +1377,7 @@ export type AcademyUncheckedCreateWithoutSubscriptionsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutSubscriptionsInput = {
@@ -1373,7 +1400,7 @@ export type AcademyUpdateWithoutSubscriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -1385,13 +1412,14 @@ export type AcademyUpdateWithoutSubscriptionsInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutSubscriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1403,13 +1431,14 @@ export type AcademyUncheckedUpdateWithoutSubscriptionsInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutOwnersInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -1421,13 +1450,14 @@ export type AcademyCreateWithoutOwnersInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutAcademyInput
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutOwnersInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -1439,6 +1469,7 @@ export type AcademyUncheckedCreateWithoutOwnersInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutAcademyInput
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutOwnersInput = {
@@ -1462,11 +1493,21 @@ export type AcademyUpdateManyWithWhereWithoutOwnersInput = {
   data: Prisma.XOR<Prisma.AcademyUpdateManyMutationInput, Prisma.AcademyUncheckedUpdateManyWithoutOwnersInput>
 }
 
+export type AcademyScalarWhereInput = {
+  AND?: Prisma.AcademyScalarWhereInput | Prisma.AcademyScalarWhereInput[]
+  OR?: Prisma.AcademyScalarWhereInput[]
+  NOT?: Prisma.AcademyScalarWhereInput | Prisma.AcademyScalarWhereInput[]
+  id?: Prisma.StringFilter<"Academy"> | string
+  name?: Prisma.StringFilter<"Academy"> | string
+  createdAt?: Prisma.DateTimeFilter<"Academy"> | Date | string
+  profileTrackingUrl?: Prisma.StringNullableFilter<"Academy"> | string | null
+}
+
 export type AcademyCreateWithoutLessonsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -1478,13 +1519,14 @@ export type AcademyCreateWithoutLessonsInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutLessonsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -1496,6 +1538,7 @@ export type AcademyUncheckedCreateWithoutLessonsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutLessonsInput = {
@@ -1518,7 +1561,7 @@ export type AcademyUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -1530,13 +1573,14 @@ export type AcademyUpdateWithoutLessonsInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1548,13 +1592,14 @@ export type AcademyUncheckedUpdateWithoutLessonsInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutWalletMovementsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -1566,13 +1611,14 @@ export type AcademyCreateWithoutWalletMovementsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutAcademyInput
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutWalletMovementsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -1584,6 +1630,7 @@ export type AcademyUncheckedCreateWithoutWalletMovementsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutAcademyInput
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutWalletMovementsInput = {
@@ -1606,7 +1653,7 @@ export type AcademyUpdateWithoutWalletMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -1618,13 +1665,14 @@ export type AcademyUpdateWithoutWalletMovementsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutAcademyNestedInput
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutWalletMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1636,13 +1684,14 @@ export type AcademyUncheckedUpdateWithoutWalletMovementsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutAcademyNestedInput
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyCreateWithoutPayrollsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logo?: Prisma.ImageCreateNestedOneWithoutAcademiesInput
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientCreateNestedManyWithoutAcademyInput
@@ -1654,13 +1703,14 @@ export type AcademyCreateWithoutPayrollsInput = {
   wallet?: Prisma.WalletCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyUncheckedCreateWithoutPayrollsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  logoId?: string | null
+  profileTrackingUrl?: string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedCreateNestedManyWithoutAcademyInput
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAcademyInput
   clients?: Prisma.ClientUncheckedCreateNestedManyWithoutAcademyInput
@@ -1672,6 +1722,7 @@ export type AcademyUncheckedCreateWithoutPayrollsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedManyWithoutAcademyInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutAcademyInput
   owners?: Prisma.UserUncheckedCreateNestedManyWithoutAcademiesInput
+  academyRules?: Prisma.AcademyRuleUncheckedCreateNestedManyWithoutAcademyInput
 }
 
 export type AcademyCreateOrConnectWithoutPayrollsInput = {
@@ -1694,7 +1745,7 @@ export type AcademyUpdateWithoutPayrollsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -1706,13 +1757,14 @@ export type AcademyUpdateWithoutPayrollsInput = {
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutPayrollsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1724,61 +1776,14 @@ export type AcademyUncheckedUpdateWithoutPayrollsInput = {
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
   owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
-}
-
-export type AcademyCreateManyLogoInput = {
-  id?: string
-  name: string
-  createdAt?: Date | string
-}
-
-export type AcademyUpdateWithoutLogoInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
-  addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
-  clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
-  courses?: Prisma.CourseUpdateManyWithoutAcademyNestedInput
-  lessons?: Prisma.LessonUpdateManyWithoutAcademyNestedInput
-  paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutAcademyNestedInput
-  payrolls?: Prisma.PayrollUpdateManyWithoutAcademyNestedInput
-  socialMedia?: Prisma.SocialMediaUpdateManyWithoutAcademyNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutAcademyNestedInput
-  wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
-  walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
-  owners?: Prisma.UserUpdateManyWithoutAcademiesNestedInput
-}
-
-export type AcademyUncheckedUpdateWithoutLogoInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
-  addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
-  clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
-  courses?: Prisma.CourseUncheckedUpdateManyWithoutAcademyNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutAcademyNestedInput
-  paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutAcademyNestedInput
-  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutAcademyNestedInput
-  socialMedia?: Prisma.SocialMediaUncheckedUpdateManyWithoutAcademyNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutAcademyNestedInput
-  wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
-  walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
-  owners?: Prisma.UserUncheckedUpdateManyWithoutAcademiesNestedInput
-}
-
-export type AcademyUncheckedUpdateManyWithoutLogoInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUpdateWithoutOwnersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logo?: Prisma.ImageUpdateOneWithoutAcademiesNestedInput
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUpdateManyWithoutAcademyNestedInput
@@ -1790,13 +1795,14 @@ export type AcademyUpdateWithoutOwnersInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutAcademyNestedInput
   wallet?: Prisma.WalletUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutAcademyNestedInput
+  academyRules?: Prisma.AcademyRuleUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateWithoutOwnersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   academyPhones?: Prisma.AcademyPhoneUncheckedUpdateManyWithoutAcademyNestedInput
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAcademyNestedInput
   clients?: Prisma.ClientUncheckedUpdateManyWithoutAcademyNestedInput
@@ -1808,13 +1814,14 @@ export type AcademyUncheckedUpdateWithoutOwnersInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutAcademyNestedInput
   wallet?: Prisma.WalletUncheckedUpdateManyWithoutAcademyNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutAcademyNestedInput
+  academyRules?: Prisma.AcademyRuleUncheckedUpdateManyWithoutAcademyNestedInput
 }
 
 export type AcademyUncheckedUpdateManyWithoutOwnersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  logoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileTrackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1835,6 +1842,7 @@ export type AcademyCountOutputType = {
   wallet: number
   walletMovements: number
   owners: number
+  academyRules: number
 }
 
 export type AcademyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1850,6 +1858,7 @@ export type AcademyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   wallet?: boolean | AcademyCountOutputTypeCountWalletArgs
   walletMovements?: boolean | AcademyCountOutputTypeCountWalletMovementsArgs
   owners?: boolean | AcademyCountOutputTypeCountOwnersArgs
+  academyRules?: boolean | AcademyCountOutputTypeCountAcademyRulesArgs
 }
 
 /**
@@ -1946,13 +1955,19 @@ export type AcademyCountOutputTypeCountOwnersArgs<ExtArgs extends runtime.Types.
   where?: Prisma.UserWhereInput
 }
 
+/**
+ * AcademyCountOutputType without action
+ */
+export type AcademyCountOutputTypeCountAcademyRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AcademyRuleWhereInput
+}
+
 
 export type AcademySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   createdAt?: boolean
-  logoId?: boolean
-  logo?: boolean | Prisma.Academy$logoArgs<ExtArgs>
+  profileTrackingUrl?: boolean
   academyPhones?: boolean | Prisma.Academy$academyPhonesArgs<ExtArgs>
   addresses?: boolean | Prisma.Academy$addressesArgs<ExtArgs>
   clients?: boolean | Prisma.Academy$clientsArgs<ExtArgs>
@@ -1965,6 +1980,7 @@ export type AcademySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   wallet?: boolean | Prisma.Academy$walletArgs<ExtArgs>
   walletMovements?: boolean | Prisma.Academy$walletMovementsArgs<ExtArgs>
   owners?: boolean | Prisma.Academy$ownersArgs<ExtArgs>
+  academyRules?: boolean | Prisma.Academy$academyRulesArgs<ExtArgs>
   _count?: boolean | Prisma.AcademyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["academy"]>
 
@@ -1974,12 +1990,11 @@ export type AcademySelectScalar = {
   id?: boolean
   name?: boolean
   createdAt?: boolean
-  logoId?: boolean
+  profileTrackingUrl?: boolean
 }
 
-export type AcademyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "logoId", ExtArgs["result"]["academy"]>
+export type AcademyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "profileTrackingUrl", ExtArgs["result"]["academy"]>
 export type AcademyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  logo?: boolean | Prisma.Academy$logoArgs<ExtArgs>
   academyPhones?: boolean | Prisma.Academy$academyPhonesArgs<ExtArgs>
   addresses?: boolean | Prisma.Academy$addressesArgs<ExtArgs>
   clients?: boolean | Prisma.Academy$clientsArgs<ExtArgs>
@@ -1992,13 +2007,13 @@ export type AcademyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   wallet?: boolean | Prisma.Academy$walletArgs<ExtArgs>
   walletMovements?: boolean | Prisma.Academy$walletMovementsArgs<ExtArgs>
   owners?: boolean | Prisma.Academy$ownersArgs<ExtArgs>
+  academyRules?: boolean | Prisma.Academy$academyRulesArgs<ExtArgs>
   _count?: boolean | Prisma.AcademyCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $AcademyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Academy"
   objects: {
-    logo: Prisma.$ImagePayload<ExtArgs> | null
     academyPhones: Prisma.$AcademyPhonePayload<ExtArgs>[]
     addresses: Prisma.$AddressPayload<ExtArgs>[]
     clients: Prisma.$ClientPayload<ExtArgs>[]
@@ -2011,12 +2026,13 @@ export type $AcademyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     wallet: Prisma.$WalletPayload<ExtArgs>[]
     walletMovements: Prisma.$WalletMovementPayload<ExtArgs>[]
     owners: Prisma.$UserPayload<ExtArgs>[]
+    academyRules: Prisma.$AcademyRulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     createdAt: Date
-    logoId: string | null
+    profileTrackingUrl: string | null
   }, ExtArgs["result"]["academy"]>
   composites: {}
 }
@@ -2357,7 +2373,6 @@ readonly fields: AcademyFieldRefs;
  */
 export interface Prisma__AcademyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  logo<T extends Prisma.Academy$logoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$logoArgs<ExtArgs>>): Prisma.Prisma__ImageClient<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   academyPhones<T extends Prisma.Academy$academyPhonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$academyPhonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AcademyPhonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   addresses<T extends Prisma.Academy$addressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clients<T extends Prisma.Academy$clientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2370,6 +2385,7 @@ export interface Prisma__AcademyClient<T, Null = never, ExtArgs extends runtime.
   wallet<T extends Prisma.Academy$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$walletArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   walletMovements<T extends Prisma.Academy$walletMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$walletMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WalletMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   owners<T extends Prisma.Academy$ownersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$ownersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  academyRules<T extends Prisma.Academy$academyRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Academy$academyRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AcademyRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2402,7 +2418,7 @@ export interface AcademyFieldRefs {
   readonly id: Prisma.FieldRef<"Academy", 'String'>
   readonly name: Prisma.FieldRef<"Academy", 'String'>
   readonly createdAt: Prisma.FieldRef<"Academy", 'DateTime'>
-  readonly logoId: Prisma.FieldRef<"Academy", 'String'>
+  readonly profileTrackingUrl: Prisma.FieldRef<"Academy", 'String'>
 }
     
 
@@ -2751,25 +2767,6 @@ export type AcademyDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Academy.logo
- */
-export type Academy$logoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Image
-   */
-  select?: Prisma.ImageSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Image
-   */
-  omit?: Prisma.ImageOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ImageInclude<ExtArgs> | null
-  where?: Prisma.ImageWhereInput
-}
-
-/**
  * Academy.academyPhones
  */
 export type Academy$academyPhonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3055,6 +3052,30 @@ export type Academy$ownersArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * Academy.academyRules
+ */
+export type Academy$academyRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AcademyRule
+   */
+  select?: Prisma.AcademyRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AcademyRule
+   */
+  omit?: Prisma.AcademyRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AcademyRuleInclude<ExtArgs> | null
+  where?: Prisma.AcademyRuleWhereInput
+  orderBy?: Prisma.AcademyRuleOrderByWithRelationInput | Prisma.AcademyRuleOrderByWithRelationInput[]
+  cursor?: Prisma.AcademyRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AcademyRuleScalarFieldEnum | Prisma.AcademyRuleScalarFieldEnum[]
 }
 
 /**

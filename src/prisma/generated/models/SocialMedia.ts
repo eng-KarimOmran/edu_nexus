@@ -188,6 +188,7 @@ export type SocialMediaOrderByWithRelationInput = {
 
 export type SocialMediaWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  academyId_platform?: Prisma.SocialMediaAcademyIdPlatformCompoundUniqueInput
   AND?: Prisma.SocialMediaWhereInput | Prisma.SocialMediaWhereInput[]
   OR?: Prisma.SocialMediaWhereInput[]
   NOT?: Prisma.SocialMediaWhereInput | Prisma.SocialMediaWhereInput[]
@@ -195,7 +196,7 @@ export type SocialMediaWhereUniqueInput = Prisma.AtLeast<{
   url?: Prisma.StringFilter<"SocialMedia"> | string
   academyId?: Prisma.StringFilter<"SocialMedia"> | string
   academy?: Prisma.XOR<Prisma.AcademyScalarRelationFilter, Prisma.AcademyWhereInput>
-}, "id">
+}, "id" | "academyId_platform">
 
 export type SocialMediaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -269,6 +270,11 @@ export type SocialMediaOrderByRelevanceInput = {
   fields: Prisma.SocialMediaOrderByRelevanceFieldEnum | Prisma.SocialMediaOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type SocialMediaAcademyIdPlatformCompoundUniqueInput = {
+  academyId: string
+  platform: $Enums.Platform
 }
 
 export type SocialMediaCountOrderByAggregateInput = {

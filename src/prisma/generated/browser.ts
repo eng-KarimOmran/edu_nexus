@@ -18,6 +18,11 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model AcademyRule
+ * 
+ */
+export type AcademyRule = Prisma.AcademyRuleModel
+/**
  * Model Address
  * 
  */

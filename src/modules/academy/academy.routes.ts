@@ -103,6 +103,19 @@ router.delete(
   AcademyController.deleteAddress
 );
 
+router.post(
+  "/:academyId/rule",
+  validate(AcademySchema.rule.add),
+  checkAcademyExists({ isAcademyOwner: true }),
+  AcademyController.addRule
+);
+
+router.delete(
+  "/:academyId/rule/:ruleId",
+  validate(AcademySchema.rule.delete),
+  checkAcademyExists({ isAcademyOwner: true }),
+  AcademyController.deleteRule
+);
 
 router.post(
   "/:academyId/payment-link",

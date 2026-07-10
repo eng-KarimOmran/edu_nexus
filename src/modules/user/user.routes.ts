@@ -6,13 +6,13 @@ import { isAdmin } from "../admin/admin.middleware";
 
 const router = Router();
 
-router.use(isAdmin)
-
 router.get(
   "/",
   validate(Schema.GetAllUsersSchema),
   UserController.getAllUser,
 );
+
+router.use(isAdmin)
 
 router.post(
   "/",

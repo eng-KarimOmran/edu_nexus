@@ -21,10 +21,17 @@ export default function UpdateAcademyForm({ item }: { item: Academy }) {
         label: "اسم الأكاديمية",
         placeholder: "اكتب اسم الأكاديمية",
       },
+      {
+        name: "profileTrackingUrl",
+        type: "url",
+        label: "رابط متابعة العميل",
+        placeholder: "اكتب رابط متابعة العميل",
+      },
     ],
 
     defaultValues: {
       name: item.name,
+      profileTrackingUrl: item.profileTrackingUrl,
     },
 
     schema: AcademySchema.update.body,

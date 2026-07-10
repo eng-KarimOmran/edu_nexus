@@ -48,7 +48,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PayrollOrderByRelevanceFieldEnum = exports.WalletMovementOrderByRelevanceFieldEnum = exports.LessonOrderByRelevanceFieldEnum = exports.AreaOrderByRelevanceFieldEnum = exports.CarOrderByRelevanceFieldEnum = exports.CourseFeatureOrderByRelevanceFieldEnum = exports.UserOrderByRelevanceFieldEnum = exports.JobProfileOrderByRelevanceFieldEnum = exports.SubscriptionOrderByRelevanceFieldEnum = exports.CourseOrderByRelevanceFieldEnum = exports.ClientOrderByRelevanceFieldEnum = exports.BlacklistedTokenOrderByRelevanceFieldEnum = exports.WalletOrderByRelevanceFieldEnum = exports.ImageOrderByRelevanceFieldEnum = exports.AcademyOrderByRelevanceFieldEnum = exports.AcademyPhoneOrderByRelevanceFieldEnum = exports.SocialMediaOrderByRelevanceFieldEnum = exports.PaymentLinkOrderByRelevanceFieldEnum = exports.NullsOrder = exports.AddressOrderByRelevanceFieldEnum = exports.SortOrder = exports.PayrollScalarFieldEnum = exports.WalletMovementScalarFieldEnum = exports.LessonScalarFieldEnum = exports.AreaScalarFieldEnum = exports.CarScalarFieldEnum = exports.CourseFeatureScalarFieldEnum = exports.UserScalarFieldEnum = exports.JobProfileScalarFieldEnum = exports.SubscriptionScalarFieldEnum = exports.CourseScalarFieldEnum = exports.ClientScalarFieldEnum = exports.BlacklistedTokenScalarFieldEnum = exports.WalletScalarFieldEnum = exports.ImageScalarFieldEnum = exports.AcademyScalarFieldEnum = exports.AcademyPhoneScalarFieldEnum = exports.SocialMediaScalarFieldEnum = exports.PaymentLinkScalarFieldEnum = exports.AddressScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.PayrollOrderByRelevanceFieldEnum = exports.WalletMovementOrderByRelevanceFieldEnum = exports.LessonOrderByRelevanceFieldEnum = exports.AreaOrderByRelevanceFieldEnum = exports.CarOrderByRelevanceFieldEnum = exports.CourseFeatureOrderByRelevanceFieldEnum = exports.UserOrderByRelevanceFieldEnum = exports.JobProfileOrderByRelevanceFieldEnum = exports.SubscriptionOrderByRelevanceFieldEnum = exports.CourseOrderByRelevanceFieldEnum = exports.ClientOrderByRelevanceFieldEnum = exports.BlacklistedTokenOrderByRelevanceFieldEnum = exports.WalletOrderByRelevanceFieldEnum = exports.ImageOrderByRelevanceFieldEnum = exports.AcademyOrderByRelevanceFieldEnum = exports.AcademyPhoneOrderByRelevanceFieldEnum = exports.SocialMediaOrderByRelevanceFieldEnum = exports.PaymentLinkOrderByRelevanceFieldEnum = exports.NullsOrder = exports.AddressOrderByRelevanceFieldEnum = exports.AcademyRuleOrderByRelevanceFieldEnum = exports.SortOrder = exports.PayrollScalarFieldEnum = exports.WalletMovementScalarFieldEnum = exports.LessonScalarFieldEnum = exports.AreaScalarFieldEnum = exports.CarScalarFieldEnum = exports.CourseFeatureScalarFieldEnum = exports.UserScalarFieldEnum = exports.JobProfileScalarFieldEnum = exports.SubscriptionScalarFieldEnum = exports.CourseScalarFieldEnum = exports.ClientScalarFieldEnum = exports.BlacklistedTokenScalarFieldEnum = exports.WalletScalarFieldEnum = exports.ImageScalarFieldEnum = exports.AcademyScalarFieldEnum = exports.AcademyPhoneScalarFieldEnum = exports.SocialMediaScalarFieldEnum = exports.PaymentLinkScalarFieldEnum = exports.AddressScalarFieldEnum = exports.AcademyRuleScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/index-browser"));
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -75,6 +75,7 @@ exports.JsonNull = runtime.JsonNull;
  */
 exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
+    AcademyRule: 'AcademyRule',
     Address: 'Address',
     PaymentLink: 'PaymentLink',
     SocialMedia: 'SocialMedia',
@@ -104,6 +105,11 @@ exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
 });
+exports.AcademyRuleScalarFieldEnum = {
+    id: 'id',
+    content: 'content',
+    academyId: 'academyId'
+};
 exports.AddressScalarFieldEnum = {
     id: 'id',
     address: 'address',
@@ -131,7 +137,7 @@ exports.AcademyScalarFieldEnum = {
     id: 'id',
     name: 'name',
     createdAt: 'createdAt',
-    logoId: 'logoId'
+    profileTrackingUrl: 'profileTrackingUrl'
 };
 exports.ImageScalarFieldEnum = {
     id: 'id',
@@ -291,6 +297,11 @@ exports.SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
+exports.AcademyRuleOrderByRelevanceFieldEnum = {
+    id: 'id',
+    content: 'content',
+    academyId: 'academyId'
+};
 exports.AddressOrderByRelevanceFieldEnum = {
     id: 'id',
     address: 'address',
@@ -320,7 +331,7 @@ exports.AcademyPhoneOrderByRelevanceFieldEnum = {
 exports.AcademyOrderByRelevanceFieldEnum = {
     id: 'id',
     name: 'name',
-    logoId: 'logoId'
+    profileTrackingUrl: 'profileTrackingUrl'
 };
 exports.ImageOrderByRelevanceFieldEnum = {
     id: 'id',

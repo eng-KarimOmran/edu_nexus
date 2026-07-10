@@ -43,6 +43,7 @@ import type { ErrorResponse } from "@/types/axios";
 import type { Subscription } from "@/features/subscription/subscription.type";
 import { columns } from "@/features/subscription/config/subscription.columns";
 import AddSubscriptionForm from "@/features/subscription/components/subscriptionForm/AddSubscriptionForm";
+import { sendClientTrackingInfo } from "../config/client.utility";
 
 export default function ClientDetailsPage() {
   const { academyId, clientId } = useParams();
@@ -154,6 +155,12 @@ export default function ClientDetailsPage() {
         <div className="flex items-center gap-2">
           <GetContactLink phone={currentClient.phone} />
           <GetWhatsappLink phone={currentClient.phone} />
+          <Button
+            disabled={!data.currentClient.academy.profileTrackingUrl}
+            onClick={() => sendClientTrackingInfo(data.currentClient)}
+          >
+            إرسال رابط المتابعة
+          </Button>
         </div>
       ),
     },

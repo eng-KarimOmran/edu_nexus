@@ -280,10 +280,6 @@ export type AddressOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type AddressCreateNestedManyWithoutAcademyInput = {
   create?: Prisma.XOR<Prisma.AddressCreateWithoutAcademyInput, Prisma.AddressUncheckedCreateWithoutAcademyInput> | Prisma.AddressCreateWithoutAcademyInput[] | Prisma.AddressUncheckedCreateWithoutAcademyInput[]
   connectOrCreate?: Prisma.AddressCreateOrConnectWithoutAcademyInput | Prisma.AddressCreateOrConnectWithoutAcademyInput[]

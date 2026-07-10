@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  AcademyRule: 'AcademyRule',
   Address: 'Address',
   PaymentLink: 'PaymentLink',
   SocialMedia: 'SocialMedia',
@@ -86,6 +87,15 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const AcademyRuleScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  academyId: 'academyId'
+} as const
+
+export type AcademyRuleScalarFieldEnum = (typeof AcademyRuleScalarFieldEnum)[keyof typeof AcademyRuleScalarFieldEnum]
 
 
 export const AddressScalarFieldEnum = {
@@ -131,7 +141,7 @@ export const AcademyScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  logoId: 'logoId'
+  profileTrackingUrl: 'profileTrackingUrl'
 } as const
 
 export type AcademyScalarFieldEnum = (typeof AcademyScalarFieldEnum)[keyof typeof AcademyScalarFieldEnum]
@@ -355,6 +365,15 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const AcademyRuleOrderByRelevanceFieldEnum = {
+  id: 'id',
+  content: 'content',
+  academyId: 'academyId'
+} as const
+
+export type AcademyRuleOrderByRelevanceFieldEnum = (typeof AcademyRuleOrderByRelevanceFieldEnum)[keyof typeof AcademyRuleOrderByRelevanceFieldEnum]
+
+
 export const AddressOrderByRelevanceFieldEnum = {
   id: 'id',
   address: 'address',
@@ -404,7 +423,7 @@ export type AcademyPhoneOrderByRelevanceFieldEnum = (typeof AcademyPhoneOrderByR
 export const AcademyOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  logoId: 'logoId'
+  profileTrackingUrl: 'profileTrackingUrl'
 } as const
 
 export type AcademyOrderByRelevanceFieldEnum = (typeof AcademyOrderByRelevanceFieldEnum)[keyof typeof AcademyOrderByRelevanceFieldEnum]

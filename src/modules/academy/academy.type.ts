@@ -17,6 +17,7 @@ export type AcademyWithFullRelations =
             owners: true,
             paymentLinks: true,
             socialMedia: true,
+            academyRules: true
         };
     }>;
 
@@ -65,6 +66,14 @@ export interface IAcademyService {
     deletePaymentLink: (data: DTO.DeletePaymentLinkDto) => Promise<AcademyGetPayload<{ include: { paymentLinks: true } }>>;
 
     addPaymentLink: (data: DTO.AddPaymentLinkDto) => Promise<AcademyGetPayload<{ include: { paymentLinks: true } }>>;
+
+    addRule: (
+        data: DTO.AddRuleDto
+    ) => Promise<AcademyGetPayload<{ include: { academyRules: true } }>>;
+
+    deleteRule: (
+        data: DTO.DeleteRuleDto
+    ) => Promise<AcademyGetPayload<{ include: { academyRules: true } }>>;
 }
 
 
@@ -91,4 +100,7 @@ export interface IAcademyController {
 
     addPaymentLink: AcademyRequestHandler
     deletePaymentLink: AcademyRequestHandler
+
+    addRule: AcademyRequestHandler
+    deleteRule: AcademyRequestHandler
 }

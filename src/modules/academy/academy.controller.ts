@@ -143,6 +143,7 @@ const AcademyController: IAcademyController = {
       message: "تم اضافة العنوان بنجاح",
     });
   },
+
   deleteAddress: async (req, res) => {
     const dataSafe = req.dataSafe as DTO.DeleteAddressDto;
 
@@ -154,6 +155,7 @@ const AcademyController: IAcademyController = {
       message: "تم حذف العنوان بنجاح",
     });
   },
+
   addPaymentLink: async (req, res) => {
     const dataSafe = req.dataSafe as DTO.AddPaymentLinkDto;
 
@@ -165,6 +167,7 @@ const AcademyController: IAcademyController = {
       message: "تم اضافة رابط الدفع بنجاح",
     });
   },
+
   deletePaymentLink: async (req, res) => {
     const dataSafe = req.dataSafe as DTO.DeletePaymentLinkDto;
 
@@ -174,6 +177,30 @@ const AcademyController: IAcademyController = {
       res,
       data,
       message: "تم حذف رابط الدفع بنجاح",
+    });
+  },
+
+  addRule: async (req, res) => {
+    const dataSafe = req.dataSafe as DTO.AddRuleDto;
+
+    const data = await AcademyService.addRule(dataSafe);
+
+    return sendSuccess({
+      res,
+      data,
+      message: "تم إضافة القاعدة بنجاح",
+    });
+  },
+
+  deleteRule: async (req, res) => {
+    const dataSafe = req.dataSafe as DTO.DeleteRuleDto;
+
+    const data = await AcademyService.deleteRule(dataSafe);
+
+    return sendSuccess({
+      res,
+      data,
+      message: "تم حذف القاعدة بنجاح",
     });
   },
 };

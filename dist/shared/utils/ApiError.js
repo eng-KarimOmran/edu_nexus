@@ -34,6 +34,7 @@ const NOT_FOUND_MESSAGES = {
     Receiver: "الحساب المالى للمستلم غير موجود",
     wallet: "المحفظة غير موجود",
     Payroll: "الراتب غير موجود",
+    AcademyRule: "القاعدة غير موجوده"
 };
 exports.CONFLICT_MESSAGES = {
     // Identity / Uniqueness

@@ -384,6 +384,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  AcademyRule: 'AcademyRule',
   Address: 'Address',
   PaymentLink: 'PaymentLink',
   SocialMedia: 'SocialMedia',
@@ -418,10 +419,76 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "address" | "paymentLink" | "socialMedia" | "academyPhone" | "academy" | "image" | "wallet" | "blacklistedToken" | "client" | "course" | "subscription" | "jobProfile" | "user" | "courseFeature" | "car" | "area" | "lesson" | "walletMovement" | "payroll"
+    modelProps: "academyRule" | "address" | "paymentLink" | "socialMedia" | "academyPhone" | "academy" | "image" | "wallet" | "blacklistedToken" | "client" | "course" | "subscription" | "jobProfile" | "user" | "courseFeature" | "car" | "area" | "lesson" | "walletMovement" | "payroll"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    AcademyRule: {
+      payload: Prisma.$AcademyRulePayload<ExtArgs>
+      fields: Prisma.AcademyRuleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AcademyRuleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AcademyRuleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload>
+        }
+        findFirst: {
+          args: Prisma.AcademyRuleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AcademyRuleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload>
+        }
+        findMany: {
+          args: Prisma.AcademyRuleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload>[]
+        }
+        create: {
+          args: Prisma.AcademyRuleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload>
+        }
+        createMany: {
+          args: Prisma.AcademyRuleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.AcademyRuleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload>
+        }
+        update: {
+          args: Prisma.AcademyRuleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload>
+        }
+        deleteMany: {
+          args: Prisma.AcademyRuleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AcademyRuleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.AcademyRuleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyRulePayload>
+        }
+        aggregate: {
+          args: Prisma.AcademyRuleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAcademyRule>
+        }
+        groupBy: {
+          args: Prisma.AcademyRuleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyRuleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AcademyRuleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyRuleCountAggregateOutputType> | number
+        }
+      }
+    }
     Address: {
       payload: Prisma.$AddressPayload<ExtArgs>
       fields: Prisma.AddressFieldRefs
@@ -1715,6 +1782,15 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const AcademyRuleScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  academyId: 'academyId'
+} as const
+
+export type AcademyRuleScalarFieldEnum = (typeof AcademyRuleScalarFieldEnum)[keyof typeof AcademyRuleScalarFieldEnum]
+
+
 export const AddressScalarFieldEnum = {
   id: 'id',
   address: 'address',
@@ -1758,7 +1834,7 @@ export const AcademyScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  logoId: 'logoId'
+  profileTrackingUrl: 'profileTrackingUrl'
 } as const
 
 export type AcademyScalarFieldEnum = (typeof AcademyScalarFieldEnum)[keyof typeof AcademyScalarFieldEnum]
@@ -1982,6 +2058,15 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const AcademyRuleOrderByRelevanceFieldEnum = {
+  id: 'id',
+  content: 'content',
+  academyId: 'academyId'
+} as const
+
+export type AcademyRuleOrderByRelevanceFieldEnum = (typeof AcademyRuleOrderByRelevanceFieldEnum)[keyof typeof AcademyRuleOrderByRelevanceFieldEnum]
+
+
 export const AddressOrderByRelevanceFieldEnum = {
   id: 'id',
   address: 'address',
@@ -2031,7 +2116,7 @@ export type AcademyPhoneOrderByRelevanceFieldEnum = (typeof AcademyPhoneOrderByR
 export const AcademyOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  logoId: 'logoId'
+  profileTrackingUrl: 'profileTrackingUrl'
 } as const
 
 export type AcademyOrderByRelevanceFieldEnum = (typeof AcademyOrderByRelevanceFieldEnum)[keyof typeof AcademyOrderByRelevanceFieldEnum]
@@ -2415,6 +2500,7 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
+  academyRule?: Prisma.AcademyRuleOmit
   address?: Prisma.AddressOmit
   paymentLink?: Prisma.PaymentLinkOmit
   socialMedia?: Prisma.SocialMediaOmit

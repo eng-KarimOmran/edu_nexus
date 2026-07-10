@@ -12,7 +12,7 @@ const PublicService: IPublicService = {
         const academy = await prisma.academy.findUnique({
             where: { id: academyId },
             include: {
-                logo: true,
+                academyRules: true,
                 academyPhones: true,
                 addresses: true,
                 socialMedia: true,
@@ -60,6 +60,11 @@ const PublicService: IPublicService = {
                 subscriptions: {
                     include: {
                         walletMovements: true
+                    }
+                },
+                academy: {
+                    include: {
+                        academyRules: true
                     }
                 }
             },

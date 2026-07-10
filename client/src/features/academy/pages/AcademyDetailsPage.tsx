@@ -32,6 +32,8 @@ import displayError from "@/lib/displayError";
 import DisplayDetails, {
   type DisplayDetailsProps,
 } from "@/components/DisplayDetails/DisplayDetails";
+import AddRuleForm from "../components/ruleForm/AddRuleForm";
+import DeleteRuleForm from "../components/ruleForm/DeleteRuleForm";
 
 export default function AcademyDetailsPage() {
   const { academyId } = useParams();
@@ -102,7 +104,7 @@ export default function AcademyDetailsPage() {
 
   return (
     <DisplayDetails {...displayConfig}>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
         <DisplayArray
           title="المالكين"
           data={data.owners}
@@ -184,6 +186,18 @@ export default function AcademyDetailsPage() {
                 academyId={data.id}
                 socialMediaId={item.id}
               />
+            ),
+          }}
+        />
+
+        <DisplayArray
+          title="القواعد"
+          data={data.academyRules}
+          titleKey="content"
+          forms={{
+            add: () => <AddRuleForm academyId={data.id} />,
+            delete: (item) => (
+              <DeleteRuleForm academyId={data.id} ruleId={item.id} />
             ),
           }}
         />

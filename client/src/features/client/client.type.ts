@@ -16,7 +16,7 @@ interface WalletClient extends Wallet {
     clientId: string;
 }
 
-interface CurrentClient extends Client {
+export interface CurrentClient extends Client {
     subscriptions: Subscription[];
     academy: Academy
     wallet: WalletClient

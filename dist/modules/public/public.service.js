@@ -14,7 +14,7 @@ const PublicService = {
         const academy = await prisma_1.prisma.academy.findUnique({
             where: { id: academyId },
             include: {
-                logo: true,
+                academyRules: true,
                 academyPhones: true,
                 addresses: true,
                 socialMedia: true,
@@ -34,7 +34,8 @@ const PublicService = {
             },
             include: {
                 features: true,
-            }
+            },
+            orderBy: { createdAt: "asc" }
         });
     },
     async getAreas() {
@@ -55,6 +56,11 @@ const PublicService = {
                 subscriptions: {
                     include: {
                         walletMovements: true
+                    }
+                },
+                academy: {
+                    include: {
+                        academyRules: true
                     }
                 }
             },

@@ -53,6 +53,12 @@ export default function AddAcademyForm() {
         })),
         disabled: isLoading || !!error,
       },
+      {
+        name: "profileTrackingUrl",
+        type: "url",
+        label: "رابط متابعة العميل",
+        placeholder: "اكتب رابط متابعة العميل",
+      },
     ],
     submitButton: {
       text: "اضافة الأكادمية",

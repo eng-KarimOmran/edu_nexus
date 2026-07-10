@@ -52,7 +52,9 @@ export default function DisplayDetails({
                 )}
               </CardHeader>
               <CardContent className="flex justify-between items-center p-1">
-                <div className="font-semibold break-all p-1 w-full">{item.content}</div>
+                <div className="font-semibold break-all p-1 w-full">
+                  {item.content}
+                </div>
                 {item.copyButton && typeof item.content === "string" && (
                   <CopyBtn text={item.content} />
                 )}
@@ -60,8 +62,8 @@ export default function DisplayDetails({
             </Card>
           ))}
         </div>
+        {children && <>{children}</>}
       </main>
-      {children && <footer className="space-y-4">{children}</footer>}
     </section>
   );
 }

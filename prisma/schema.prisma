@@ -8,6 +8,17 @@ datasource db {
   provider = "mysql"
 }
 
+model AcademyRule {
+  id String @id @default(cuid())
+
+  content String
+
+  academyId String
+  academy   Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
+
+  @@index([academyId], map: "AcademyRule_academyId_fkey")
+}
+
 model Address {
   id        String  @id @default(cuid())
   address   String
@@ -35,6 +46,7 @@ model SocialMedia {
   academyId String
   academy   Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
 
+  @@unique([academyId, platform])
   @@index([academyId], map: "SocialMedia_academyId_fkey")
 }
 
@@ -48,11 +60,11 @@ model AcademyPhone {
 }
 
 model Academy {
-  id              String           @id @default(cuid())
-  name            String           @unique
-  createdAt       DateTime         @default(now())
-  logoId          String?
-  logo            Image?           @relation(fields: [logoId], references: [id])
+  id                 String   @id @default(cuid())
+  name               String   @unique
+  createdAt          DateTime @default(now())
+  profileTrackingUrl String?
+
   academyPhones   AcademyPhone[]
   addresses       Address[]
   clients         Client[]
@@ -65,15 +77,13 @@ model Academy {
   wallet          Wallet[]
   walletMovements WalletMovement[]
   owners          User[]           @relation("AcademyOwners")
-
-  @@index([logoId], map: "Academy_logoId_fkey")
+  academyRules    AcademyRule[]
 }
 
 model Image {
   id              String           @id @default(cuid())
   imageUrl        String
   publicId        String           @unique
-  academies       Academy[]
   walletMovements WalletMovement[]
 }
 

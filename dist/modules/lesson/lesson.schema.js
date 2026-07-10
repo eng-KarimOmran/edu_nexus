@@ -11,7 +11,7 @@ exports.CreateLessonSchema = {
         academyId: common_validation_1.id,
     }),
     body: zod_1.default.object({
-        startTime: common_validation_1.futureDate,
+        startTime: common_validation_1.date,
         transmission: common_validation_1.transmission,
         expectedPaymentAmount: common_validation_1.price.optional(),
         jobProfileId: common_validation_1.id,

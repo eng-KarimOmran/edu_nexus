@@ -61,8 +61,8 @@ __exportStar(require("./enums"), exports);
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Addresses
- * const addresses = await prisma.address.findMany()
+ * // Fetch zero or more AcademyRules
+ * const academyRules = await prisma.academyRule.findMany()
  * ```
  *
  * Read more in our [docs](https://pris.ly/d/client).

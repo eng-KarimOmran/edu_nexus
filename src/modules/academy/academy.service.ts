@@ -18,7 +18,7 @@ import { omit } from "../../shared/utils/omit";
 
 const AcademyService: IAcademyService = {
   async create({ body }) {
-    const { name, userId, phone, } = body;
+    const { name, userId, phone, profileTrackingUrl } = body;
 
     return prisma.$transaction(async (tx) => {
       const [academyEx, user] = await Promise.all([
@@ -40,6 +40,7 @@ const AcademyService: IAcademyService = {
 
       const data: AcademyCreateInput = {
         name,
+        profileTrackingUrl,
         academyPhones: { create: { phone } },
         owners: { connect: { id: userId } },
         wallet: { create: { walletType: "ACADEMY" } },
@@ -50,11 +51,11 @@ const AcademyService: IAcademyService = {
   },
 
   async update({ body, params }) {
-    const { name, image } = body;
+    const { name } = body;
     const { academyId } = params;
 
     return prisma.$transaction(async (tx) => {
-      const academy = await tx.academy.findUnique({ where: { id: academyId }, include: { logo: true } });
+      const academy = await tx.academy.findUnique({ where: { id: academyId } });
 
       if (!academy) throw ApiError.NotFound("Academy");
 
@@ -67,22 +68,6 @@ const AcademyService: IAcademyService = {
 
       if (name && academy.name !== name) {
         data.name = name
-      }
-
-      if (image) {
-        if (academy.logoId) {
-          data.logo = {
-            delete: {
-              id: academy.logoId
-            }
-          }
-        }
-        data.logo = {
-          create: {
-            imageUrl: image.imageUrl,
-            publicId: image.publicId
-          }
-        }
       }
 
       return tx.academy.update({
@@ -134,7 +119,7 @@ const AcademyService: IAcademyService = {
         owners: true,
         paymentLinks: true,
         socialMedia: true,
-        logo: true,
+        academyRules: true,
         wallet: { where: { walletType: "ACADEMY" } }
       }
     });
@@ -231,10 +216,14 @@ const AcademyService: IAcademyService = {
 
     const academyExists = await prisma.academy.findUnique({
       where: { id: academyId },
-      select: { id: true }
+      select: { id: true, socialMedia: { where: { platform }, select: { id: true } } }
     });
 
     if (!academyExists) throw ApiError.NotFound("Academy");
+
+    if (academyExists.socialMedia.length > 0) {
+      throw ApiError.Conflict("SOCIAL_MEDIA_ALREADY_EXISTS")
+    }
 
     return await prisma.academy.update({
       where: { id: academyId },
@@ -354,6 +343,62 @@ const AcademyService: IAcademyService = {
       where: { id: academyId },
       data: { paymentLinks: { delete: { id: paymentLinkId } } },
       include: { paymentLinks: true }
+    });
+  },
+
+  async addRule({ body, params }) {
+    const { content } = body;
+    const { academyId } = params;
+
+    const academyExists = await prisma.academy.findUnique({
+      where: { id: academyId },
+      select: { id: true }
+    });
+
+    if (!academyExists) throw ApiError.NotFound("Academy");
+
+    return await prisma.academy.update({
+      where: { id: academyId },
+      data: {
+        academyRules: {
+          create: { content }
+        }
+      },
+      include: {
+        academyRules: true
+      }
+    });
+  },
+
+  async deleteRule({ params }) {
+    const { academyId, ruleId } = params;
+
+    const academyCheck = await prisma.academy.findUnique({
+      where: { id: academyId },
+      select: {
+        academyRules: {
+          where: { id: ruleId },
+          select: { id: true }
+        }
+      }
+    });
+
+    if (!academyCheck) throw ApiError.NotFound("Academy");
+
+    if (academyCheck.academyRules.length === 0) throw ApiError.NotFound("AcademyRule");
+
+    return await prisma.academy.update({
+      where: { id: academyId },
+      data: {
+        academyRules: {
+          delete: {
+            id: ruleId
+          }
+        }
+      },
+      include: {
+        academyRules: true
+      }
     });
   },
 }

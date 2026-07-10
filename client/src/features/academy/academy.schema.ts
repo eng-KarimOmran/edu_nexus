@@ -15,6 +15,7 @@ export const AcademySchema = {
   create: {
     body: z.object({
       name: entityName,
+      profileTrackingUrl: url.optional(),
       phone,
       userId: id,
     }),
@@ -26,12 +27,7 @@ export const AcademySchema = {
     }),
     body: z.object({
       name: entityName.optional(),
-      image: z
-        .object({
-          publicId: z.string().min(1, "معرف الصورة مطلوب"),
-          imageUrl: url,
-        })
-        .optional(),
+      profileTrackingUrl: url.optional()
     }),
   },
 
@@ -107,7 +103,7 @@ export const AcademySchema = {
         academyId: id,
         socialMediaId: id,
       }),
-    },
+    }
   },
 
   owner: {
@@ -142,5 +138,23 @@ export const AcademySchema = {
         paymentLinkId: id,
       }),
     }
-  }
+  },
+
+  rule: {
+    add: {
+      params: z.object({
+        academyId: id,
+      }),
+      body: z.object({
+        content: z.string().trim().min(1).max(5000),
+      }),
+    },
+
+    delete: {
+      params: z.object({
+        academyId: id,
+        ruleId: id,
+      }),
+    },
+  },
 };

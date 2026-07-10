@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/AcademyRule'
 export type * from './models/Address'
 export type * from './models/PaymentLink'
 export type * from './models/SocialMedia'

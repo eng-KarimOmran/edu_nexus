@@ -65,3 +65,12 @@ export type AddPaymentLinkDto = {
 export type DeletePaymentLinkDto = {
   params: z.infer<typeof AcademySchema.paymentLink.delete.params>;
 };
+
+export type AddRuleDto = {
+  params: z.infer<typeof AcademySchema.rule.add.params>;
+  body: z.infer<typeof AcademySchema.rule.add.body>;
+};
+
+export type DeleteRuleDto = {
+  params: z.infer<typeof AcademySchema.rule.delete.params>;
+};

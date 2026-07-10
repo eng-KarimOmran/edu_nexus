@@ -36,6 +36,12 @@ const academiesUrl = {
         `/academies/${academyId}/payment-link`,
     paymentLinkById: (academyId: string, paymentLinkId: string) =>
         `/academies/${academyId}/payment-link/${paymentLinkId}`,
+
+    rule: (academyId: string) =>
+        `/academies/${academyId}/rule`,
+
+    ruleById: (academyId: string, ruleId: string) =>
+        `/academies/${academyId}/rule/${ruleId}`,
 };
 
 export const getAllAcademies = (data: Dto.GetAllAcademiesDto) => {
@@ -159,5 +165,24 @@ export const deletePaymentLink = (data: Dto.DeletePaymentLinkDto) => {
 
     return axiosClient.delete<SuccessfulResponse<Entity>>(
         academiesUrl.paymentLinkById(academyId, paymentLinkId)
+    );
+};
+
+export const addRule = (data: Dto.AddRuleDto) => {
+    const { params, body } = data;
+    const { academyId } = params;
+
+    return axiosClient.post<SuccessfulResponse<Entity>>(
+        academiesUrl.rule(academyId),
+        body
+    );
+};
+
+export const deleteRule = (data: Dto.DeleteRuleDto) => {
+    const { params } = data;
+    const { academyId, ruleId } = params;
+
+    return axiosClient.delete<SuccessfulResponse<Entity>>(
+        academiesUrl.ruleById(academyId, ruleId)
     );
 };

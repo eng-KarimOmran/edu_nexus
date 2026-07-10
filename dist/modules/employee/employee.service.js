@@ -16,7 +16,7 @@ const EmployeeService = {
             startTime: { gte: startTime },
             endTime: { lte: endTime },
             ...(jobProfileId && { jobProfileId: jobProfileId }),
-            ...(lessonStatus && { lessonStatus: lessonStatus })
+            ...(lessonStatus && { lessonStatus: lessonStatus }),
         };
         const select = {
             id: true,
@@ -31,7 +31,8 @@ const EmployeeService = {
             academy: { select: { id: true, name: true } },
             jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } }
         };
-        return await prisma_1.prisma.lesson.findMany({ where, select, orderBy: { startTime: "asc" } });
+        const lessons = await prisma_1.prisma.lesson.findMany({ where, select, orderBy: { startTime: "asc" } });
+        return lessons;
     },
     async getClient({ query }) {
         const { search } = query;

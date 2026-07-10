@@ -6,8 +6,8 @@ import type { Image } from "@/types/image";
 export interface Academy {
     id: string;
     name: string;
+    profileTrackingUrl?: string
     createdAt: string;
-    logoId: string | null;
 
 }
 
@@ -20,6 +20,12 @@ export interface AcademyPhone {
 export interface AcademyAddress {
     id: string;
     address: string;
+    academyId: string;
+}
+
+export interface AcademyRule {
+    id: string;
+    content: string;
     academyId: string;
 }
 
@@ -52,4 +58,6 @@ export interface AcademyDetails extends Academy {
     logo: Image | null;
 
     wallet: Wallet[]
+
+    academyRules: AcademyRule[]
 }

@@ -166,7 +166,6 @@ export type ImageWhereInput = {
   id?: Prisma.StringFilter<"Image"> | string
   imageUrl?: Prisma.StringFilter<"Image"> | string
   publicId?: Prisma.StringFilter<"Image"> | string
-  academies?: Prisma.AcademyListRelationFilter
   walletMovements?: Prisma.WalletMovementListRelationFilter
 }
 
@@ -174,7 +173,6 @@ export type ImageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
-  academies?: Prisma.AcademyOrderByRelationAggregateInput
   walletMovements?: Prisma.WalletMovementOrderByRelationAggregateInput
   _relevance?: Prisma.ImageOrderByRelevanceInput
 }
@@ -186,7 +184,6 @@ export type ImageWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ImageWhereInput[]
   NOT?: Prisma.ImageWhereInput | Prisma.ImageWhereInput[]
   imageUrl?: Prisma.StringFilter<"Image"> | string
-  academies?: Prisma.AcademyListRelationFilter
   walletMovements?: Prisma.WalletMovementListRelationFilter
 }, "id" | "publicId">
 
@@ -212,7 +209,6 @@ export type ImageCreateInput = {
   id?: string
   imageUrl: string
   publicId: string
-  academies?: Prisma.AcademyCreateNestedManyWithoutLogoInput
   walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutPaymentProofImageInput
 }
 
@@ -220,7 +216,6 @@ export type ImageUncheckedCreateInput = {
   id?: string
   imageUrl: string
   publicId: string
-  academies?: Prisma.AcademyUncheckedCreateNestedManyWithoutLogoInput
   walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutPaymentProofImageInput
 }
 
@@ -228,7 +223,6 @@ export type ImageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
-  academies?: Prisma.AcademyUpdateManyWithoutLogoNestedInput
   walletMovements?: Prisma.WalletMovementUpdateManyWithoutPaymentProofImageNestedInput
 }
 
@@ -236,7 +230,6 @@ export type ImageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
-  academies?: Prisma.AcademyUncheckedUpdateManyWithoutLogoNestedInput
   walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutPaymentProofImageNestedInput
 }
 
@@ -256,11 +249,6 @@ export type ImageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type ImageNullableScalarRelationFilter = {
-  is?: Prisma.ImageWhereInput | null
-  isNot?: Prisma.ImageWhereInput | null
 }
 
 export type ImageOrderByRelevanceInput = {
@@ -287,20 +275,9 @@ export type ImageMinOrderByAggregateInput = {
   publicId?: Prisma.SortOrder
 }
 
-export type ImageCreateNestedOneWithoutAcademiesInput = {
-  create?: Prisma.XOR<Prisma.ImageCreateWithoutAcademiesInput, Prisma.ImageUncheckedCreateWithoutAcademiesInput>
-  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutAcademiesInput
-  connect?: Prisma.ImageWhereUniqueInput
-}
-
-export type ImageUpdateOneWithoutAcademiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ImageCreateWithoutAcademiesInput, Prisma.ImageUncheckedCreateWithoutAcademiesInput>
-  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutAcademiesInput
-  upsert?: Prisma.ImageUpsertWithoutAcademiesInput
-  disconnect?: Prisma.ImageWhereInput | boolean
-  delete?: Prisma.ImageWhereInput | boolean
-  connect?: Prisma.ImageWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ImageUpdateToOneWithWhereWithoutAcademiesInput, Prisma.ImageUpdateWithoutAcademiesInput>, Prisma.ImageUncheckedUpdateWithoutAcademiesInput>
+export type ImageNullableScalarRelationFilter = {
+  is?: Prisma.ImageWhereInput | null
+  isNot?: Prisma.ImageWhereInput | null
 }
 
 export type ImageCreateNestedOneWithoutWalletMovementsInput = {
@@ -319,62 +296,16 @@ export type ImageUpdateOneWithoutWalletMovementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ImageUpdateToOneWithWhereWithoutWalletMovementsInput, Prisma.ImageUpdateWithoutWalletMovementsInput>, Prisma.ImageUncheckedUpdateWithoutWalletMovementsInput>
 }
 
-export type ImageCreateWithoutAcademiesInput = {
-  id?: string
-  imageUrl: string
-  publicId: string
-  walletMovements?: Prisma.WalletMovementCreateNestedManyWithoutPaymentProofImageInput
-}
-
-export type ImageUncheckedCreateWithoutAcademiesInput = {
-  id?: string
-  imageUrl: string
-  publicId: string
-  walletMovements?: Prisma.WalletMovementUncheckedCreateNestedManyWithoutPaymentProofImageInput
-}
-
-export type ImageCreateOrConnectWithoutAcademiesInput = {
-  where: Prisma.ImageWhereUniqueInput
-  create: Prisma.XOR<Prisma.ImageCreateWithoutAcademiesInput, Prisma.ImageUncheckedCreateWithoutAcademiesInput>
-}
-
-export type ImageUpsertWithoutAcademiesInput = {
-  update: Prisma.XOR<Prisma.ImageUpdateWithoutAcademiesInput, Prisma.ImageUncheckedUpdateWithoutAcademiesInput>
-  create: Prisma.XOR<Prisma.ImageCreateWithoutAcademiesInput, Prisma.ImageUncheckedCreateWithoutAcademiesInput>
-  where?: Prisma.ImageWhereInput
-}
-
-export type ImageUpdateToOneWithWhereWithoutAcademiesInput = {
-  where?: Prisma.ImageWhereInput
-  data: Prisma.XOR<Prisma.ImageUpdateWithoutAcademiesInput, Prisma.ImageUncheckedUpdateWithoutAcademiesInput>
-}
-
-export type ImageUpdateWithoutAcademiesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
-  walletMovements?: Prisma.WalletMovementUpdateManyWithoutPaymentProofImageNestedInput
-}
-
-export type ImageUncheckedUpdateWithoutAcademiesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
-  walletMovements?: Prisma.WalletMovementUncheckedUpdateManyWithoutPaymentProofImageNestedInput
-}
-
 export type ImageCreateWithoutWalletMovementsInput = {
   id?: string
   imageUrl: string
   publicId: string
-  academies?: Prisma.AcademyCreateNestedManyWithoutLogoInput
 }
 
 export type ImageUncheckedCreateWithoutWalletMovementsInput = {
   id?: string
   imageUrl: string
   publicId: string
-  academies?: Prisma.AcademyUncheckedCreateNestedManyWithoutLogoInput
 }
 
 export type ImageCreateOrConnectWithoutWalletMovementsInput = {
@@ -397,14 +328,12 @@ export type ImageUpdateWithoutWalletMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
-  academies?: Prisma.AcademyUpdateManyWithoutLogoNestedInput
 }
 
 export type ImageUncheckedUpdateWithoutWalletMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
-  academies?: Prisma.AcademyUncheckedUpdateManyWithoutLogoNestedInput
 }
 
 
@@ -413,12 +342,10 @@ export type ImageUncheckedUpdateWithoutWalletMovementsInput = {
  */
 
 export type ImageCountOutputType = {
-  academies: number
   walletMovements: number
 }
 
 export type ImageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  academies?: boolean | ImageCountOutputTypeCountAcademiesArgs
   walletMovements?: boolean | ImageCountOutputTypeCountWalletMovementsArgs
 }
 
@@ -435,13 +362,6 @@ export type ImageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * ImageCountOutputType without action
  */
-export type ImageCountOutputTypeCountAcademiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AcademyWhereInput
-}
-
-/**
- * ImageCountOutputType without action
- */
 export type ImageCountOutputTypeCountWalletMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.WalletMovementWhereInput
 }
@@ -451,7 +371,6 @@ export type ImageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   imageUrl?: boolean
   publicId?: boolean
-  academies?: boolean | Prisma.Image$academiesArgs<ExtArgs>
   walletMovements?: boolean | Prisma.Image$walletMovementsArgs<ExtArgs>
   _count?: boolean | Prisma.ImageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["image"]>
@@ -466,7 +385,6 @@ export type ImageSelectScalar = {
 
 export type ImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "imageUrl" | "publicId", ExtArgs["result"]["image"]>
 export type ImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  academies?: boolean | Prisma.Image$academiesArgs<ExtArgs>
   walletMovements?: boolean | Prisma.Image$walletMovementsArgs<ExtArgs>
   _count?: boolean | Prisma.ImageCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -474,7 +392,6 @@ export type ImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type $ImagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Image"
   objects: {
-    academies: Prisma.$AcademyPayload<ExtArgs>[]
     walletMovements: Prisma.$WalletMovementPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -821,7 +738,6 @@ readonly fields: ImageFieldRefs;
  */
 export interface Prisma__ImageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  academies<T extends Prisma.Image$academiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$academiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AcademyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   walletMovements<T extends Prisma.Image$walletMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$walletMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WalletMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1200,30 +1116,6 @@ export type ImageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Images to delete.
    */
   limit?: number
-}
-
-/**
- * Image.academies
- */
-export type Image$academiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Academy
-   */
-  select?: Prisma.AcademySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Academy
-   */
-  omit?: Prisma.AcademyOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AcademyInclude<ExtArgs> | null
-  where?: Prisma.AcademyWhereInput
-  orderBy?: Prisma.AcademyOrderByWithRelationInput | Prisma.AcademyOrderByWithRelationInput[]
-  cursor?: Prisma.AcademyWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AcademyScalarFieldEnum | Prisma.AcademyScalarFieldEnum[]
 }
 
 /**

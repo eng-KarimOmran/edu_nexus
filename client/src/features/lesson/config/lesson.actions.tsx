@@ -82,9 +82,7 @@ export default function ActionsLesson({ item }: { item: Lesson }) {
 
           description: "اختر الحالة الجديدة",
 
-          children: (
-            <ChangeLessonStateForm academyId={item.academyId} item={item} />
-          ),
+          children: <ChangeLessonStateForm item={item} />,
         });
 
         break;
@@ -98,12 +96,10 @@ export default function ActionsLesson({ item }: { item: Lesson }) {
           key={action.type}
           onSelect={(e) => {
             e.preventDefault();
-
             handleAction(action.type);
           }}
         >
           <action.icon className="ml-2 h-4 w-4" />
-
           <span>{action.title}</span>
         </DropdownMenuItem>
       ))}

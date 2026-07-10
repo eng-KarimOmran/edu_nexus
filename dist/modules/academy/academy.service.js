@@ -42,7 +42,7 @@ const AcademyService = {
         });
     },
     async update({ body, params }) {
-        const { name } = body;
+        const { name, profileTrackingUrl } = body;
         const { academyId } = params;
         return prisma_1.prisma.$transaction(async (tx) => {
             const academy = await tx.academy.findUnique({ where: { id: academyId } });
@@ -56,6 +56,9 @@ const AcademyService = {
             const data = {};
             if (name && academy.name !== name) {
                 data.name = name;
+            }
+            if (profileTrackingUrl) {
+                data.profileTrackingUrl = profileTrackingUrl;
             }
             return tx.academy.update({
                 where: { id: academyId },

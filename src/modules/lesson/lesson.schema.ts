@@ -3,7 +3,6 @@ import z from "zod";
 import {
   id,
   limit,
-  futureDate,
   lessonStatus,
   transmission,
   price,
@@ -62,7 +61,7 @@ export const UpdateLessonSchema = {
     lessonId: id,
   }),
   body: z.object({
-    startTime: futureDate.optional(),
+    startTime: date.optional(),
     transmission: transmission.optional(),
     expectedPaymentAmount: price.optional(),
     jobProfileId: id.optional(),

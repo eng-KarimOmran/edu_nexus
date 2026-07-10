@@ -18,13 +18,7 @@ import { ChangeLessonStateSchema } from "../../lesson.schema";
 
 import { lessonStatusOptions } from "@/lib/enumOptions";
 
-export default function ChangeLessonStateForm({
-  academyId,
-  item,
-}: {
-  academyId: string;
-  item: Lesson;
-}) {
+export default function ChangeLessonStateForm({ item }: { item: Lesson }) {
   const { setConfigDialog } = useDialogState();
 
   const config: FormProps<ChangeLessonStateDto["body"], Lesson> = {
@@ -59,7 +53,7 @@ export default function ChangeLessonStateForm({
     service: (body) =>
       changeLessonState({
         params: {
-          academyId,
+          academyId: item.academyId,
           lessonId: item.id,
         },
         body,

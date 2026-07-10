@@ -55,7 +55,14 @@ const PublicService = {
             include: {
                 subscriptions: {
                     include: {
-                        walletMovements: true
+                        walletMovements: true,
+                        lessons: {
+                            include: {
+                                jobProfile: {
+                                    select: { user: { select: { id: true, name: true, phone: true } } }
+                                }
+                            }
+                        }
                     }
                 },
                 academy: {

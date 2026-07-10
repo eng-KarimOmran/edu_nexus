@@ -36,6 +36,7 @@ import type { WalletMovement } from "@/features/ledgerTransaction/ledgerTransact
 import { columns as lessonColumns } from "@/features/lesson/config/lesson.columns";
 import type { Lesson } from "@/features/lesson/lesson.type";
 import AddLessonForm from "@/features/lesson/components/lessonForm/AddLessonForm";
+import ActionsLesson from "@/features/lesson/config/lesson.actions";
 
 export default function SubscriptionDetailsPage() {
   const navigate = useNavigate();
@@ -208,6 +209,7 @@ export default function SubscriptionDetailsPage() {
         data.subscriptionStatus,
       ),
     },
+    actions: (item) => ActionsLesson({ item }),
   };
 
   const paymentTable: DataTableProps<WalletMovement> = {

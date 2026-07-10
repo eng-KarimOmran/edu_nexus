@@ -58,6 +58,7 @@ import {
 import { ROLES } from "./roles";
 
 import ChangePasswordDashboardPage from "@/features/auth/pages/ChangePasswordDashboard";
+import GetAllCarAndLesson from "@/features/employee/pages/GetAllCarAndLesson";
 
 export const DASHBOARD_ROUTES: AppRoute[] = [
   {
@@ -85,6 +86,15 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     element: <GetAllLessonsPage />,
     nav: {
       label: "جدول الحصص",
+      icon: <RiCalendarScheduleLine />,
+    },
+    roles: [ROLES.OWNER, ROLES.SECRETARY, ROLES.MANAGER],
+  },
+  {
+    path: PATHS.carAndLesson,
+    element: <GetAllCarAndLesson />,
+    nav: {
+      label: "جدول الحصص المحجوزه",
       icon: <RiCalendarScheduleLine />,
     },
     roles: [ROLES.OWNER, ROLES.SECRETARY, ROLES.MANAGER],
@@ -187,7 +197,7 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
       label: "الأكاديميات",
       icon: <RiSchoolFill />,
     },
-    roles: [ROLES.OWNER , ROLES.ADMIN],
+    roles: [ROLES.OWNER, ROLES.ADMIN],
   },
 
   {
@@ -271,7 +281,7 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
   {
     path: PATHS.myDebts,
     element: <MyDebtsPage />,
-    roles: [ROLES.SECRETARY, ROLES.CAPTAIN, ROLES.MANAGER , ROLES.OWNER],
+    roles: [ROLES.SECRETARY, ROLES.CAPTAIN, ROLES.MANAGER, ROLES.OWNER],
   },
 
   {

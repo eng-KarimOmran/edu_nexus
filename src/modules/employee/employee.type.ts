@@ -1,5 +1,5 @@
 import { JobProfileSelectType } from './employee.select';
-import { Client, Lesson, Wallet } from "@/prisma/generated/client";
+import { Car, Client, Lesson, Wallet } from "@/prisma/generated/client";
 import { JobProfileRequestHandler } from "../jobProfile/jobProfile.type";
 import * as Dto from "./employee.dto"
 
@@ -11,6 +11,10 @@ export interface IEmployeeService {
     getClient(data: Dto.GetClient): Promise<Client | null>;
 
     getEmployeesWithDebts(): Promise<JobProfileSelectType[]>
+
+    getAllCarAndLesson(
+        data: Dto.GetAllCarAndLessonDto
+    ): Promise<Car[]>;
 }
 
 
@@ -19,4 +23,5 @@ export interface IEmployeeController {
     getAllLessons: JobProfileRequestHandler;
     getClient: JobProfileRequestHandler;
     getEmployeesWithDebts: JobProfileRequestHandler;
+    getAllCarAndLesson: JobProfileRequestHandler;
 }

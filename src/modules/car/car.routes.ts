@@ -38,5 +38,4 @@ router.delete(
   validate(Schema.DeleteCarSchema),
   CarController.deleteCar
 );
-
 export default router;

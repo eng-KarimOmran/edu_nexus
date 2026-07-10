@@ -3,12 +3,14 @@ import * as Dto from "../employee.dto";
 
 import type { SuccessfulResponse } from "@/types/axios";
 import type { Client } from "@/features/client/client.type";
-import type { EmployeeWithDebts, Lesson, wallets } from "../employee.type";
+import type { CarWithLessons, EmployeeWithDebts, Lesson, wallets } from "../employee.type";
 
 const employeeUrl = {
     base: "/employee",
 
     lessons: "/employee/lessons",
+
+    lessonsAndCar: "/employee/lessons-and-car",
 
     allDebts: "/employee/all-debts",
 
@@ -53,4 +55,16 @@ export const getClient = (
             params: query,
         }
     );
+};
+
+export const getAllCarAndLesson = (
+    data: Dto.GetAllCarAndLessonDto
+) => {
+    const { query } = data;
+
+    return axiosClient.get<
+        SuccessfulResponse<CarWithLessons[]>
+    >(employeeUrl.lessonsAndCar, {
+        params: query,
+    });
 };

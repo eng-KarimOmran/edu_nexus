@@ -1,4 +1,5 @@
 import type { LessonStatus } from "@/types/enums";
+import type { Car } from "../car/car.type";
 
 export interface wallets {
     id: string;
@@ -59,3 +60,15 @@ export interface Lesson {
     };
 }
 
+export interface CarWithLessons extends Car {
+    lessons: {
+        id: string
+        startTime: string,
+        endTime: string
+        client: {
+            id: true,
+            name: true,
+            phone: true
+        }
+    }[]
+}

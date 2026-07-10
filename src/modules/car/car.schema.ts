@@ -8,6 +8,7 @@ import {
   price,
   booleanQuery,
   page,
+  date,
 } from "../../shared/utils/common.validation";
 
 export const CreateCarSchema = {

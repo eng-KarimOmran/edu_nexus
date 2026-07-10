@@ -16,3 +16,10 @@ export const getClientSchema = {
         search: z.string().min(11),
     })
 }
+
+export const GetAllCarAndLessonSchema = {
+    query: z.object({
+        startTime: date,
+        endTime: date,
+    }),
+};

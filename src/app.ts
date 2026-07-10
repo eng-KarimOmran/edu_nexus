@@ -10,8 +10,6 @@ import path from "path"
 import helmet from "helmet"
 import hpp from "hpp"
 
-import { rateLimit } from 'express-rate-limit'
-
 const app: Application = express();
 
 app.set("trust proxy", 1);

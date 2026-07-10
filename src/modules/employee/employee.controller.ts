@@ -30,7 +30,18 @@ const EmployeeController: IEmployeeController = {
         const jobProfiles = await EmployeeService.getEmployeesWithDebts();
 
         return sendSuccess({ res, data: jobProfiles });
-    }
+    },
+
+    getAllCarAndLesson: async (req, res) => {
+        const dataSafe = req.dataSafe as DTO.GetAllCarAndLessonDto;
+
+        const data = await EmployeeService.getAllCarAndLesson(dataSafe);
+
+        return sendSuccess({
+            res,
+            data,
+        });
+    },
 };
 
 export default EmployeeController;

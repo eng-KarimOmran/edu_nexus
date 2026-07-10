@@ -12,3 +12,7 @@ export type GetClient = {
         typeof Schema.getClientSchema.query
     >;
 }
+
+export type GetAllCarAndLessonDto = {
+    query: z.infer<typeof Schema.GetAllCarAndLessonSchema.query>;
+};

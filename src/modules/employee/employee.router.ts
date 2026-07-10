@@ -32,4 +32,11 @@ router.get(
     EmployeeController.getClient,
 );
 
+router.get(
+    "/lessons-and-car",
+    validate(Schema.GetAllCarAndLessonSchema),
+    allowJobProfiles(["MANAGER", "SECRETARY"]),
+    EmployeeController.getAllCarAndLesson
+);
+
 export default router;

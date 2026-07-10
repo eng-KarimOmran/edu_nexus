@@ -1,3 +1,4 @@
+
 export const PATHS = {
     // ==========================
     // Common
@@ -69,5 +70,6 @@ export const PATHS = {
         "my-lessons/tomorrow",
 
     myDebts: "my-debts",
-    allDebts: "all-debts"
+    allDebts: "all-debts",
+    carAndLesson: "car-and-lesson"
 } as const;

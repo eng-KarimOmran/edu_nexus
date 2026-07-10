@@ -33,19 +33,6 @@ app.use(cookieParser());
 
 app.use(hpp());
 
-app.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 100,
-    standardHeaders: "draft-8",
-    legacyHeaders: false,
-    message: {
-      success: false,
-      message: "لاحظنا استخدام غير طبيعي حاول في وقت آخر",
-    },
-  })
-);
-
 app.use("/api/v1", router);
 
 const clientPath = path.resolve(process.cwd(), "./client/dist");

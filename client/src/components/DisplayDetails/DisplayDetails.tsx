@@ -62,7 +62,9 @@ export default function DisplayDetails({
             </Card>
           ))}
         </div>
-        {children && <>{children}</>}
+        {children && (
+          <>{children}</>
+        )}
       </main>
     </section>
   );

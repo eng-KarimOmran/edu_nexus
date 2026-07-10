@@ -104,103 +104,105 @@ export default function AcademyDetailsPage() {
 
   return (
     <DisplayDetails {...displayConfig}>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-        <DisplayArray
-          title="المالكين"
-          data={data.owners}
-          titleKey="name"
-          descKey="phone"
-          forms={{
-            add: () => (
-              <AddOwnerForm
-                ownersId={data.owners.map((o) => o.id)}
-                academyId={data.id}
-              />
-            ),
-            delete: (item) => (
-              <DeleteOwnerForm
-                phone={item.phone}
-                academyId={data.id}
-                ownerId={item.id}
-              />
-            ),
-          }}
-        />
+      <div className="flex flex-wrap gap-4">
+        <div className="w-full lg:w-[calc(50%-16px)]">
+          <DisplayArray
+            title="المالكين"
+            data={data.owners}
+            titleKey="name"
+            descKey="phone"
+            forms={{
+              add: () => (
+                <AddOwnerForm
+                  ownersId={data.owners.map((o) => o.id)}
+                  academyId={data.id}
+                />
+              ),
+              delete: (item) => (
+                <DeleteOwnerForm
+                  phone={item.phone}
+                  academyId={data.id}
+                  ownerId={item.id}
+                />
+              ),
+            }}
+          />
 
-        <DisplayArray
-          title="أرقام الهاتف"
-          data={data.academyPhones}
-          titleKey="phone"
-          forms={{
-            add: () => <AddPhoneForm academyId={data.id} />,
-            delete: (item) => (
-              <DeletePhoneForm academyId={data.id} phoneId={item.id} />
-            ),
-          }}
-        />
+          <DisplayArray
+            title="أرقام الهاتف"
+            data={data.academyPhones}
+            titleKey="phone"
+            forms={{
+              add: () => <AddPhoneForm academyId={data.id} />,
+              delete: (item) => (
+                <DeletePhoneForm academyId={data.id} phoneId={item.id} />
+              ),
+            }}
+          />
 
-        <DisplayArray
-          title="العناوين"
-          data={data.addresses}
-          titleKey="address"
-          forms={{
-            add: () => <AddAddressForm academyId={data.id} />,
-            delete: (item) => (
-              <DeleteAddressForm academyId={data.id} addressId={item.id} />
-            ),
-          }}
-        />
+          <DisplayArray
+            title="العناوين"
+            data={data.addresses}
+            titleKey="address"
+            forms={{
+              add: () => <AddAddressForm academyId={data.id} />,
+              delete: (item) => (
+                <DeleteAddressForm academyId={data.id} addressId={item.id} />
+              ),
+            }}
+          />
 
-        <DisplayArray
-          title="روابط الدفع"
-          data={data.paymentLinks}
-          titleKey="walletProvider"
-          descKey="url"
-          forms={{
-            add: () => <AddPaymentLinkForm academyId={data.id} />,
-            delete: (item) => (
-              <DeletePaymentLinkForm
-                academyId={data.id}
-                paymentLinkId={item.id}
-              />
-            ),
-          }}
-        />
+          <DisplayArray
+            title="روابط الدفع"
+            data={data.paymentLinks}
+            titleKey="walletProvider"
+            descKey="url"
+            forms={{
+              add: () => <AddPaymentLinkForm academyId={data.id} />,
+              delete: (item) => (
+                <DeletePaymentLinkForm
+                  academyId={data.id}
+                  paymentLinkId={item.id}
+                />
+              ),
+            }}
+          />
 
-        <DisplayArray
-          title="وسائل التواصل الاجتماعي"
-          data={data.socialMedia.map((s) => {
-            const { platform, ...rest } = s;
+          <DisplayArray
+            title="وسائل التواصل الاجتماعي"
+            data={data.socialMedia.map((s) => {
+              const { platform, ...rest } = s;
 
-            return {
-              platform: enumTranslations[platform],
-              ...rest,
-            };
-          })}
-          titleKey="platform"
-          descKey="url"
-          forms={{
-            add: () => <AddSocialMediaForm academyId={data.id} />,
-            delete: (item) => (
-              <DeleteSocialMediaForm
-                academyId={data.id}
-                socialMediaId={item.id}
-              />
-            ),
-          }}
-        />
+              return {
+                platform: enumTranslations[platform],
+                ...rest,
+              };
+            })}
+            titleKey="platform"
+            descKey="url"
+            forms={{
+              add: () => <AddSocialMediaForm academyId={data.id} />,
+              delete: (item) => (
+                <DeleteSocialMediaForm
+                  academyId={data.id}
+                  socialMediaId={item.id}
+                />
+              ),
+            }}
+          />
 
-        <DisplayArray
-          title="القواعد"
-          data={data.academyRules}
-          titleKey="content"
-          forms={{
-            add: () => <AddRuleForm academyId={data.id} />,
-            delete: (item) => (
-              <DeleteRuleForm academyId={data.id} ruleId={item.id} />
-            ),
-          }}
-        />
+          <DisplayArray
+            title="القواعد"
+            data={data.academyRules}
+            titleKey="content"
+            forms={{
+              add: () => <AddRuleForm academyId={data.id} />,
+              delete: (item) => (
+                <DeleteRuleForm academyId={data.id} ruleId={item.id} />
+              ),
+            }}
+          />
+        </div>
       </div>
     </DisplayDetails>
   );

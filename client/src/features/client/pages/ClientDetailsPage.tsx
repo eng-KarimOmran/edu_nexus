@@ -147,8 +147,7 @@ export default function ClientDetailsPage() {
       },
     },
   };
-console.log(data.currentClient.academy.profileTrackingUrl,data.currentClient.academy);
-
+  
   const displayConfig: DisplayDetailsProps = {
     header: {
       title: currentClient.name,

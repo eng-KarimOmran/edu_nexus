@@ -104,8 +104,8 @@ export default function AcademyDetailsPage() {
 
   return (
     <DisplayDetails {...displayConfig}>
-      <div className="flex flex-wrap gap-4">
-        <div className="w-full lg:w-[calc(50%-16px)]">
+      <div className="columns-1 lg:columns-2 gap-4 space-y-4">
+        <div className="break-inside-avoid">
           <DisplayArray
             title="المالكين"
             data={data.owners}
@@ -127,7 +127,9 @@ export default function AcademyDetailsPage() {
               ),
             }}
           />
+        </div>
 
+        <div className="break-inside-avoid">
           <DisplayArray
             title="أرقام الهاتف"
             data={data.academyPhones}
@@ -139,7 +141,9 @@ export default function AcademyDetailsPage() {
               ),
             }}
           />
+        </div>
 
+        <div className="break-inside-avoid">
           <DisplayArray
             title="العناوين"
             data={data.addresses}
@@ -151,7 +155,9 @@ export default function AcademyDetailsPage() {
               ),
             }}
           />
+        </div>
 
+        <div className="break-inside-avoid">
           <DisplayArray
             title="روابط الدفع"
             data={data.paymentLinks}
@@ -167,7 +173,9 @@ export default function AcademyDetailsPage() {
               ),
             }}
           />
+        </div>
 
+        <div className="break-inside-avoid">
           <DisplayArray
             title="وسائل التواصل الاجتماعي"
             data={data.socialMedia.map((s) => {
@@ -190,7 +198,9 @@ export default function AcademyDetailsPage() {
               ),
             }}
           />
+        </div>
 
+        <div className="break-inside-avoid">
           <DisplayArray
             title="القواعد"
             data={data.academyRules}

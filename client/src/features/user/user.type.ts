@@ -17,5 +17,5 @@ export interface UserWithAcademy extends User {
 }
 
 export interface UserProfile extends UserWithAcademy {
-    jobProfile?: JobProfile[]
+    jobProfile?: JobProfile
 }

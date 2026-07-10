@@ -8,7 +8,7 @@ export function getUserRoles(user: UserProfile): Role[] {
 
     if (user.academies.length) roles.push(ROLES.OWNER);
 
-    switch (user.jobProfile?.[0]?.jobProfileType) {
+    switch (user.jobProfile?.jobProfileType) {
         case "SECRETARY":
             roles.push(ROLES.SECRETARY);
             break;

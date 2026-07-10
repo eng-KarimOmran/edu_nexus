@@ -197,7 +197,11 @@ export default function SubscriptionDetailsPage() {
         title: "إضافة حصة",
         description: "قم بإدخال بيانات الحصة.",
         children: (
-          <AddLessonForm academyId={data.academyId} subscriptionId={data.id} />
+          <AddLessonForm
+            areaId={data.areaId}
+            academyId={data.academyId}
+            subscriptionId={data.id}
+          />
         ),
       },
       disabled: !allowedSessionBookingStatuses.includes(

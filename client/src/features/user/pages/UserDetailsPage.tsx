@@ -189,7 +189,7 @@ export default function UserDetailsPage() {
   };
 
   const jobProfileTable: DataTableProps<JobProfile> = {
-    data: data.jobProfile,
+    data: data.jobProfile ? [data.jobProfile] : [],
 
     headers: [
       {

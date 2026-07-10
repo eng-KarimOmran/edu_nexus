@@ -69,6 +69,7 @@ export const SubscriptionStatus = {
   ACTIVE: "ACTIVE",
   CANCELED: "CANCELED",
   COMPLETED: "COMPLETED",
+  FULLY_BOOKED: "FULLY_BOOKED"
 } as const;
 
 export type SubscriptionStatus =

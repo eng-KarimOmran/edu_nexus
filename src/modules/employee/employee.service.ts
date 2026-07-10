@@ -17,7 +17,7 @@ const EmployeeService: IEmployeeService = {
             startTime: { gte: startTime },
             endTime: { lte: endTime },
             ...(jobProfileId && { jobProfileId: jobProfileId }),
-            ...(lessonStatus && { lessonStatus: lessonStatus })
+            ...(lessonStatus && { lessonStatus: lessonStatus }),
         }
 
         const select: LessonSelect = {
@@ -26,7 +26,7 @@ const EmployeeService: IEmployeeService = {
             endTime: true,
             lessonStatus: true,
             subscriptionId: true,
-            expectedPaymentAmount:true,
+            expectedPaymentAmount: true,
             car: { select: { id: true, modelName: true, plateNumber: true } },
             area: { select: { id: true, name: true } },
             client: { select: { id: true, name: true, phone: true } },
@@ -34,7 +34,9 @@ const EmployeeService: IEmployeeService = {
             jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } }
         }
 
-        return await prisma.lesson.findMany({ where, select, orderBy: { startTime: "asc" } });
+        const lessons = await prisma.lesson.findMany({ where, select, orderBy: { startTime: "asc" } });
+
+        return lessons
     },
 
     async getClient({ query }) {

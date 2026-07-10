@@ -30,9 +30,14 @@ import dayjs from "dayjs";
 type Props = {
   academyId: string;
   subscriptionId?: string;
+  areaId?: string;
 };
 
-export default function AddLessonForm({ academyId, subscriptionId }: Props) {
+export default function AddLessonForm({
+  academyId,
+  subscriptionId,
+  areaId,
+}: Props) {
   const { setConfigDialog } = useDialogState();
   const [transmission, setTransmission] = useState<Transmission>("AUTOMATIC");
 
@@ -165,8 +170,9 @@ export default function AddLessonForm({ academyId, subscriptionId }: Props) {
 
     defaultValues: {
       transmission,
-      subscriptionId: subscriptionId ?? "",
+      subscriptionId,
       startTime: nextDay,
+      areaId,
       expectedPaymentAmount: 0,
     },
 

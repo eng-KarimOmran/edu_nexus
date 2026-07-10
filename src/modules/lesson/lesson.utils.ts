@@ -72,6 +72,8 @@ export const getBookingError = (status: SubscriptionStatus): void => {
       throw ApiError.BadRequest("لا يمكن جدولة حصة جديدة؛ لقد اكتملت جميع الحصص الخاصة بهذا الاشتراك.");
     case 'SUSPENDED':
       throw ApiError.BadRequest("لا يمكن جدولة حصة جديدة لأنه تم استهلاك جميع الحصص المسموح بها قبل السداد الكامل. يرجى استكمال سداد قيمة الاشتراك لإعادة تفعيل الاشتراك.");
+    case 'FULLY_BOOKED':
+      throw ApiError.BadRequest("لا يمكن جدولة حصة جديدة؛ لقد تم حجز جميع حصص هذا الاشتراك..");
   }
 };
 

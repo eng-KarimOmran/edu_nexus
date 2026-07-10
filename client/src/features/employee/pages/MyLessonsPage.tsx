@@ -41,7 +41,7 @@ export default function MyLessonsPage({ date }: { date: DateFilter }) {
 
   const query: GetAllLessonsDto["query"] = {
     lessonStatus: "SCHEDULED",
-    jobProfileId: userProfile?.jobProfile?.[0].id,
+    jobProfileId: userProfile?.jobProfile?.id,
     startTime,
     endTime,
   };
@@ -54,7 +54,7 @@ export default function MyLessonsPage({ date }: { date: DateFilter }) {
     queryKey: [...queryKey, "lesson-schedule", query.startTime],
     queryFn: () => getAllLessons({ query }),
     select: (res) => res.data.data,
-    enabled: !!userProfile,
+    enabled: !!userProfile?.jobProfile,
     staleTime: 1000 * 60 * 5,
   });
 
@@ -66,8 +66,6 @@ export default function MyLessonsPage({ date }: { date: DateFilter }) {
     displayError({ error, mes: "حدث خطأ اثناء جلب الحصص" });
   }
 
-  const reversed = data.reverse();
-
   const handleCompleteLesson = (lesson: Lesson) => {
     const configDialog: ConfigDialog = {
       title: "اكمال الحصة",
@@ -77,13 +75,13 @@ export default function MyLessonsPage({ date }: { date: DateFilter }) {
     setConfigDialog(configDialog);
   };
 
-  if (reversed.length === 0) {
+  if (data.length === 0) {
     return <EmptyState message="لا يوجد حصص" />;
   }
 
   return (
     <section className="space-y-6">
-      {reversed.map((l) => (
+      {data.map((l) => (
         <Card key={l.id}>
           <CardHeader>
             <CardTitle className="flex items-center gap-1">

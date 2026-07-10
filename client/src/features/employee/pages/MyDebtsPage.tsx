@@ -19,7 +19,7 @@ export default function MyDebtsPage() {
     queryKey: [queryKey, "my-debts"],
     queryFn: () => getMyDebts(),
     select: (res) => res.data.data,
-    enabled: !!userProfile?.jobProfile?.[0],
+    enabled: !!userProfile?.jobProfile,
   });
 
   if (isLoading) {

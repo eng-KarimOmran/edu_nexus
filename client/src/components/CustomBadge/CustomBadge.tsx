@@ -31,6 +31,7 @@ const statusVariant: Record<Status, "success" | "warning" | "destructive"> = {
   [SubscriptionStatus.GRACE_PERIOD]: "warning",
   [SubscriptionStatus.SUSPENDED]: "destructive",
   [SubscriptionStatus.ACTIVE]: "success",
+  [SubscriptionStatus.FULLY_BOOKED]: "warning",
 
   // Boolean
   TRUE: "success",

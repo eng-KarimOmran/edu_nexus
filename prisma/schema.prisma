@@ -357,6 +357,7 @@ enum SubscriptionStatus {
   ACTIVE
   CANCELED
   COMPLETED
+  FULLY_BOOKED
 }
 
 enum Transmission {

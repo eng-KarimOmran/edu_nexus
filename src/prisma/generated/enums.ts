@@ -49,7 +49,8 @@ export const SubscriptionStatus = {
   SUSPENDED: 'SUSPENDED',
   ACTIVE: 'ACTIVE',
   CANCELED: 'CANCELED',
-  COMPLETED: 'COMPLETED'
+  COMPLETED: 'COMPLETED',
+  FULLY_BOOKED: 'FULLY_BOOKED'
 } as const
 
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]

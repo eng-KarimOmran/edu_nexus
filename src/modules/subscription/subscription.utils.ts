@@ -20,7 +20,7 @@ export const buildSubscriptionWhere = ({
   if (search) {
     where.OR = [
       { id: { contains: search } },
-      { client: { name: { contains: search,  } } },
+      { client: { name: { contains: search, } } },
       { client: { phone: { contains: search } } },
     ];
   }
@@ -59,12 +59,17 @@ export const getSubscriptionStatus = (params: GetSubscriptionStatusParams): Subs
   const isDepositPaid = netPaidAmount >= requiredInitialDeposit;
   const hasScheduledSession = scheduledLessons > 0;
   const reachedPaymentLimit = usedLessons + scheduledLessons >= sessionsBeforeFullPayment;
+  const occupiedLessons = scheduledLessons + usedLessons;
 
   if (!isDepositPaid) return SubscriptionStatus.PENDING_DEPOSIT
 
   if (!hasScheduledSession) return SubscriptionStatus.PENDING_FIRST_SESSION;
 
   if (!isFullyPaid) return reachedPaymentLimit ? SubscriptionStatus.SUSPENDED : SubscriptionStatus.GRACE_PERIOD;
+
+  if (occupiedLessons >= totalLessons) {
+    return SubscriptionStatus.FULLY_BOOKED
+  }
 
   return SubscriptionStatus.ACTIVE;
 };
@@ -84,7 +89,7 @@ export const calculateSubscriptionPaymentSummary = (walletMovements: WalletMovem
       refundAmount += amount;
     }
   }
-  
+
   const netPaidAmount = totalPaidAmount - refundAmount
 
   const remainingAmount = totalAmountDue - netPaidAmount

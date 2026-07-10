@@ -43,6 +43,7 @@ export const enumTranslations = {
   GRACE_PERIOD: "فترة سماح",
   SUSPENDED: "موقوف",
   ACTIVE: "نشط",
+  FULLY_BOOKED: "تم حجز كل الحصص",
 
   // ClientSource
   PLATFORM: "المنصة",

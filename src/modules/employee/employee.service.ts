@@ -79,7 +79,9 @@ const EmployeeService: IEmployeeService = {
                     },
                     select: {
                         id: true, startTime: true, endTime: true,
-                        client: { select: { id: true, name: true, phone: true } }
+                        client: { select: { id: true, name: true, phone: true } },
+                        jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } },
+                        area: { select: { id: true, name: true } }
                     }
                 }
             }

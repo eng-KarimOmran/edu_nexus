@@ -8,6 +8,13 @@ import { formatArabicDayAndDate } from "@/lib/formatDate";
 import type { CarWithLessons } from "../employee.type";
 import { queryKey } from "@/features/lesson/lesson.constants";
 
+import {
+  RiMapPinLine,
+  RiPhoneLine,
+  RiUserStarLine,
+  RiUser3Line,
+} from "@remixicon/react";
+
 export default function GetAllCarAndLesson() {
   const startTime = dayjs().startOf("day").toDate();
   const endTime = dayjs().add(7, "day").endOf("day").toDate();
@@ -128,14 +135,58 @@ export default function GetAllCarAndLesson() {
                           <td
                             key={car.id}
                             rowSpan={span}
-                            className="border p-3 align-top min-w-44"
+                            className="min-w-72 border p-3 align-top"
                           >
-                            <div className="font-semibold">
-                              {lesson.client.name}
-                            </div>
+                            <div className="space-y-2.5">
+                              {/* العميل */}
+                              <div className="rounded-md bg-muted/40 p-2">
+                                <div className="flex items-center gap-2 text-sm font-medium">
+                                  <RiUser3Line
+                                    size={16}
+                                    className="text-primary shrink-0"
+                                  />
+                                  <span className="text-muted-foreground">
+                                    العميل:
+                                  </span>
+                                  <span>{lesson.client.name}</span>
+                                </div>
 
-                            <div className="text-sm text-muted-foreground">
-                              {lesson.client.phone}
+                                <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+                                  <RiPhoneLine size={14} className="shrink-0" />
+                                  <span>{lesson.client.phone}</span>
+                                </div>
+                              </div>
+
+                              {/* الكابتن */}
+                              <div className="rounded-md bg-muted/40 p-2">
+                                <div className="flex items-center gap-2 text-sm font-medium">
+                                  <RiUserStarLine
+                                    size={16}
+                                    className="text-primary shrink-0"
+                                  />
+                                  <span className="text-muted-foreground">
+                                    الكابتن:
+                                  </span>
+                                  <span>{lesson.jobProfile.user.name}</span>
+                                </div>
+
+                                <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+                                  <RiPhoneLine size={14} className="shrink-0" />
+                                  <span>{lesson.jobProfile.user.phone}</span>
+                                </div>
+                              </div>
+
+                              {/* المنطقة */}
+                              <div className="flex items-center gap-2 rounded-md bg-muted/40 p-2 text-sm font-medium">
+                                <RiMapPinLine
+                                  size={16}
+                                  className="text-primary shrink-0"
+                                />
+                                <span className="text-muted-foreground">
+                                  المنطقة:
+                                </span>
+                                <span>{lesson.area.name}</span>
+                              </div>
                             </div>
                           </td>
                         );

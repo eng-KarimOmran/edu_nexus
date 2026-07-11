@@ -1,6 +1,6 @@
 import { RequestValidation } from './../../shared/middlewares/validate.middleware';
 import { NextFunction, Response } from "express";
-import { Academy, Area, Client, Course } from "@/prisma/generated/client";
+import { Academy, Area, Client, Course, JobProfile } from "@/prisma/generated/client";
 
 import {
     GetAcademyDto,
@@ -37,6 +37,8 @@ export interface IPublicService {
     register(
         data: RegisterDto
     ): Promise<Client>;
+
+    getCaptains(): Promise<JobProfile[]>
 }
 
 export interface IPublicController {
@@ -47,6 +49,8 @@ export interface IPublicController {
     getAreas: PublicRequestHandler;
 
     getClient: PublicRequestHandler;
+
+    getCaptains: PublicRequestHandler
 
     register: PublicRequestHandler;
 }

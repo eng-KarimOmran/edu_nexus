@@ -60,6 +60,15 @@ const PublicController: IPublicController = {
             message: "تم التسجيل بنجاح",
         });
     },
+
+    async getCaptains(req, res) {
+        const result = await PublicService.getCaptains();
+
+        return sendSuccess({
+            res,
+            data: result,
+        });
+    }
 };
 
 export default PublicController;

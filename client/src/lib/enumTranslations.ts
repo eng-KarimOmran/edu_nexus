@@ -10,7 +10,7 @@ export const enumTranslations = {
   BOTH: "مانيوال أو أوتوماتيك",
 
   // LessonStatus
-  SCHEDULED: "مجدول",
+  SCHEDULED: "تم حجز الموعد ولم يكتمل.",
   COMPLETED: "مكتمل",
   CANCELED: "ملغي",
   CANCELED_CHARGED: "ملغي مع احتساب الرسوم",

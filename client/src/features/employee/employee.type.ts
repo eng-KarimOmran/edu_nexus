@@ -70,5 +70,17 @@ export interface CarWithLessons extends Car {
             name: true,
             phone: true
         }
+        jobProfile: {
+            id: true,
+            user: {
+                id: true,
+                name: true,
+                phone: true
+            }
+        },
+        area: {
+            id: true,
+            name: true,
+        }
     }[]
 }

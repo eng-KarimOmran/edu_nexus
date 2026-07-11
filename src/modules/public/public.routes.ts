@@ -30,6 +30,12 @@ router.get(
 );
 
 router.post(
+    "/captains",
+    PublicController.getCaptains
+);
+
+
+router.post(
     "/register",
     validate(Schema.RegisterSchema),
     PublicController.register

@@ -108,6 +108,10 @@ const PublicService: IPublicService = {
             return newClient
         })
     },
+
+    async getCaptains() {
+        return await prisma.jobProfile.findMany({ where: { supportType: { not: null }, isActive: true }, include: { user: { select: { id: true, name: true, phone: true } } } })
+    },
 };
 
 export default PublicService;

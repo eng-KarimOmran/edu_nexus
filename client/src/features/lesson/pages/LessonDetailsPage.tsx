@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import EmptyState from "@/components/EmptyState/EmptyState";
 import DisplayDetails, {
@@ -24,8 +24,6 @@ import { enumTranslations } from "@/lib/enumTranslations";
 import { formatDate } from "@/lib/formatDate";
 import displayError from "@/lib/displayError";
 
-import type { ErrorResponse } from "@/types/axios";
-
 import { LoadingCards, SkeletonGrid } from "@/components/Loading/Loading";
 
 import { useLessonDetails } from "../api/lesson.query";
@@ -33,24 +31,16 @@ import { useLessonDetails } from "../api/lesson.query";
 export default function LessonDetailsPage() {
   const { lessonId, academyId } = useParams();
 
-  const navigate = useNavigate();
-
   const { data, error, isLoading } = useLessonDetails(academyId, lessonId);
 
   useEffect(() => {
-    if (!error) return;
-
-    displayError({
-      error,
-      mes: "حدث خطأ أثناء تحميل بيانات الحصة.",
-    });
-
-    const err = error as ErrorResponse;
-
-    if (err.response?.status === 403) {
-      navigate(-1);
+    if (error) {
+      displayError({
+        error,
+        mes: "حدث خطأ أثناء تحميل بيانات الحصة.",
+      });
     }
-  }, [error, navigate]);
+  }, [error]);
 
   if (isLoading) {
     return (

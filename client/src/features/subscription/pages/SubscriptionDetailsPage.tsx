@@ -15,6 +15,7 @@ import {
 import DisplayDetails, {
   type DisplayDetailsProps,
 } from "@/components/DisplayDetails/DisplayDetails";
+
 import EmptyState from "@/components/EmptyState/EmptyState";
 import TableUi, { type DataTableProps } from "@/components/Table/TableUi";
 
@@ -209,7 +210,7 @@ export default function SubscriptionDetailsPage() {
         data.subscriptionStatus,
       ),
     },
-    actions: (item) => ActionsLesson({ item }),
+    actions: (item) => <ActionsLesson item={item} />,
   };
 
   const paymentTable: DataTableProps<WalletMovement> = {

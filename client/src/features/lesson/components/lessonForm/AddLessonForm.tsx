@@ -25,6 +25,7 @@ import { type Transmission } from "@/types/enums";
 
 import { queryKey as queryKeyClient } from "../../../client/client.constants";
 import { queryKey as queryKeySubscription } from "../../../subscription/subscription.constants";
+
 import dayjs from "dayjs";
 
 type Props = {
@@ -192,9 +193,7 @@ export default function AddLessonForm({
       queryClient.invalidateQueries({ queryKey: queryKeyLesson });
       queryClient.invalidateQueries({ queryKey: queryKeyClient });
       queryClient.invalidateQueries({ queryKey: queryKeySubscription });
-
       toast.success("تم إنشاء الحصة بنجاح");
-
       setConfigDialog(null);
     },
   };

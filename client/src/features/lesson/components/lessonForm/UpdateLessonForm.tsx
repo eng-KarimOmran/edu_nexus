@@ -6,7 +6,9 @@ import { queryClient } from "@/lib/queryClient";
 
 import { useDialogState } from "@/store/DialogState";
 
-import { queryKey } from "../../lesson.constants";
+import { queryKey as queryKeyLesson } from "../../lesson.constants";
+import { queryKey as queryKeyClient } from "../../../client/client.constants";
+import { queryKey as queryKeySubscription } from "../../../subscription/subscription.constants";
 
 import type { Lesson } from "../../lesson.type";
 import type { UpdateLessonDto } from "../../lesson.dto";
@@ -149,9 +151,9 @@ export default function UpdateLessonForm({
       }),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey,
-      });
+      queryClient.invalidateQueries({ queryKey: queryKeyLesson });
+      queryClient.invalidateQueries({ queryKey: queryKeyClient });
+      queryClient.invalidateQueries({ queryKey: queryKeySubscription });
 
       toast.success("تم تحديث الحصة");
 

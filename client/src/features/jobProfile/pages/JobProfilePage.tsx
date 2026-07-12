@@ -34,6 +34,7 @@ export default function JobProfilePage() {
         description: "قم بإدخال بيانات الوظيفة.",
         children: <AddJobProfileForm />,
       },
+      textBtn: "اضف ملف وظيفي",
     },
   };
 

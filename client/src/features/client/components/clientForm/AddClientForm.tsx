@@ -40,7 +40,7 @@ export default function AddClientForm() {
       },
       {
         name: "phone",
-        type: "text",
+        type: "tel",
         label: "رقم الهاتف",
         placeholder: "01xxxxxxxxx",
       },
@@ -66,6 +66,10 @@ export default function AddClientForm() {
 
     submitButton: {
       text: "إضافة العميل",
+    },
+
+    defaultValues: {
+      source: "OFFICE",
     },
 
     service: (body) => {

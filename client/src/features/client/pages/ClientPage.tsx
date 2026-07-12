@@ -46,6 +46,7 @@ export default function ClientPage() {
         description: "قم بإدخال بيانات العميل.",
         children: <AddClientForm />,
       },
+      textBtn: "اضف عميل",
     },
   };
 

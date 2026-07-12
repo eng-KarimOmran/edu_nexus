@@ -6,8 +6,6 @@ import { queryClient } from "@/lib/queryClient";
 
 import { useDialogState } from "@/store/DialogState";
 
-import { queryKey as queryKeyLesson } from "../../lesson.constants";
-
 import type { Lesson } from "../../lesson.type";
 import type { CreateLessonDto } from "../../lesson.dto";
 
@@ -23,6 +21,7 @@ import { transmissionOptions } from "@/lib/enumOptions";
 import { useState } from "react";
 import { type Transmission } from "@/types/enums";
 
+import { queryKey as queryKeyLesson } from "../../lesson.constants";
 import { queryKey as queryKeyClient } from "../../../client/client.constants";
 import { queryKey as queryKeySubscription } from "../../../subscription/subscription.constants";
 

@@ -42,6 +42,7 @@ export default function CoursePage() {
         description: "قم بإدخال بيانات البرنامج.",
         children: <AddCourseForm />,
       },
+      textBtn: "اضف برنامج",
     },
   };
 

@@ -41,6 +41,7 @@ export default function CarPage() {
         description: "أدخل بيانات السيارة الجديدة.",
         children: <AddCarForm />,
       },
+      textBtn:"أضف سيارة"
     },
   };
 

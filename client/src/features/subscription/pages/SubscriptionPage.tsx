@@ -50,6 +50,7 @@ export default function SubscriptionPage() {
 
             children: <AddSubscriptionForm academyId={academyId} />,
           },
+          textBtn: "اضف اشتراك جديد",
         }
       : undefined,
   };

@@ -26,8 +26,8 @@ export default function ButtonAdd({
           setConfigDialog(configDialog);
         }}
       >
-        <RiAddLine />
         {textBtn ? textBtn : "إضافة"}
+        <RiAddLine />
       </Button>
     </>
   );

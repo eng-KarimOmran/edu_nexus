@@ -65,7 +65,7 @@ export default function SubscriptionDetailsPage() {
   }, [error, navigate]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>جاري التحميل...</div>;
   }
 
   if (!data) {
@@ -77,6 +77,10 @@ export default function SubscriptionDetailsPage() {
     "GRACE_PERIOD",
     "PENDING_FIRST_SESSION",
   ];
+
+  const useSessions = data.lessons.filter(
+    (l) => l.lessonStatus !== "CANCELED",
+  ).length;
 
   const displayConfig: DisplayDetailsProps = {
     header: {
@@ -108,6 +112,17 @@ export default function SubscriptionDetailsPage() {
           icon: RiCheckboxCircleLine,
         },
         {
+          key: "isPaidInFull",
+          title: "السداد",
+          content: (
+            <BadgeDemo
+              type={data.paymentSummary.isFullyPaid ? "TRUE" : "FALSE"}
+              text={data.paymentSummary.isFullyPaid ? "مكتمل" : "غير مكتمل"}
+            />
+          ),
+          icon: RiCheckboxCircleLine,
+        },
+        {
           key: "netPaidAmount",
           title: "إجمالي المدفوع",
           content: `${data.paymentSummary.netPaidAmount} ج.م`,
@@ -126,15 +141,10 @@ export default function SubscriptionDetailsPage() {
           icon: RiMoneyDollarCircleLine,
         },
         {
-          key: "isPaidInFull",
-          title: "السداد",
-          content: (
-            <BadgeDemo
-              type={data.paymentSummary.isFullyPaid ? "TRUE" : "FALSE"}
-              text={data.paymentSummary.isFullyPaid ? "مكتمل" : "غير مكتمل"}
-            />
-          ),
-          icon: RiCheckboxCircleLine,
+          key: "totalSessions",
+          title: "عدد الحصص",
+          content: <div>{`${data.totalSessions} / ${useSessions}`}</div>,
+          icon: RiCalendarLine,
         },
         {
           key: "courseName",
@@ -149,31 +159,11 @@ export default function SubscriptionDetailsPage() {
           icon: RiUserLine,
         },
         {
-          key: "sessionsBeforeFullPayment",
-          title: "الحصص قبل السداد",
-          content: data.sessionsBeforeFullPayment,
-          icon: RiCalendarLine,
-        },
-        {
-          key: "totalSessions",
-          title: "عدد الحصص",
-          content: data.totalSessions,
-          icon: RiCalendarLine,
-        },
-
-        {
           key: "sessionDurationMinutes",
           title: "مدة الحصة",
           content: `${data.sessionDurationMinutes} دقيقة`,
           icon: RiTimeLine,
         },
-        {
-          key: "requiredInitialDeposit",
-          title: "المقدم",
-          content: `${data.requiredInitialDeposit} ج.م`,
-          icon: RiWallet3Line,
-        },
-
         {
           key: "createdAt",
           title: "تاريخ الإنشاء",
@@ -209,6 +199,7 @@ export default function SubscriptionDetailsPage() {
       disabled: !allowedSessionBookingStatuses.includes(
         data.subscriptionStatus,
       ),
+      textBtn: "اضف حصة جديدة",
     },
     actions: (item) => <ActionsLesson item={item} />,
   };
@@ -228,6 +219,7 @@ export default function SubscriptionDetailsPage() {
         ),
       },
       disabled: data.paymentSummary.isFullyPaid,
+      textBtn: "اضاف مدفوعات",
     },
   };
 

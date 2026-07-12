@@ -117,7 +117,6 @@ export default function ClientDetailsPage() {
 
   const subscriptionsTable: DataTableProps<Subscription> = {
     headers: [
-      ...columns,
       {
         key: "academyId",
         header: "تفاصيل الأشتركات",
@@ -132,11 +131,12 @@ export default function ClientDetailsPage() {
           </Button>
         ),
       },
+      ...columns,
     ],
     data: subscriptions,
     ButtonAddTable: {
       configDialog: {
-        title: "إضافة اشتراك",
+        title: "اضاف اشتراك",
         description: "إنشاء اشتراك جديد لهذا العميل.",
         children: (
           <AddSubscriptionForm
@@ -147,7 +147,7 @@ export default function ClientDetailsPage() {
       },
     },
   };
-  
+
   const displayConfig: DisplayDetailsProps = {
     header: {
       title: currentClient.name,

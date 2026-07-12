@@ -47,16 +47,17 @@ export default function TableUi<T>({
   return (
     <div className="rounded-md border bg-muted/50 p-2">
       <div className="py-2 flex justify-between items-start md:items-center flex-col gap-2 md:flex-row">
-        <div className="w-full flex items-center gap-1">
-          {isSearch && (
+        {ButtonAddTable && <ButtonAdd {...ButtonAddTable} />}
+        {isSearch && (
+          <div className="flex items-center gap-1 w-full max-w-sm">
             <SearchInput
               searchParams={searchParams}
               setSearchParams={setSearchParams}
             />
-          )}
-          {!isLoading && isFetching && <Spinner />}
-        </div>
-        <div className="flex items-start md:items-center gap-1">
+            {!isLoading && isFetching && <Spinner />}
+          </div>
+        )}
+        <div className="flex justify-end items-start md:items-center gap-1 flex-1">
           {isLimit && (
             <TableLimitSelector
               searchParams={searchParams}
@@ -69,9 +70,6 @@ export default function TableUi<T>({
               setSearchParams={setSearchParams}
               data={filters}
             />
-          )}
-          {ButtonAddTable && (
-            <ButtonAdd className="ms-auto" {...ButtonAddTable} />
           )}
         </div>
       </div>

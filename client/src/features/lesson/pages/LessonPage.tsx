@@ -42,6 +42,7 @@ export default function LessonPage() {
         description: "قم بإدخال بيانات الحصة.",
         children: academyId ? <AddLessonForm academyId={academyId} /> : null,
       },
+      textBtn:"اضف حصة"
     },
   };
 

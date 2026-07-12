@@ -28,6 +28,7 @@ export default function UserPage() {
         description: "قم بإدخال بيانات المستخدم الجديد.",
         children: <AddUserForm />,
       },
+      textBtn: "اضف مستخدم",
     },
   };
 

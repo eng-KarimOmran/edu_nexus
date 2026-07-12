@@ -41,6 +41,7 @@ export default function AreaPage() {
         description: "قم بإدخال بيانات المنطقة.",
         children: <AddAreaForm />,
       },
+      textBtn:"أضف منطقة"
     },
   };
 

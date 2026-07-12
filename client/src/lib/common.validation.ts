@@ -35,9 +35,22 @@ export const entityName = z
     "يجب أن يحتوي الاسم على حروف وأرقام فقط",
   );
 
-export const phone = z
-  .string("رقم الهاتف مطلوب")
-  .regex(/^01[0125]\d{8}$/, "رقم هاتف مصري غير صالح");
+export const phone = z.string("رقم الهاتف مطلوب").transform((value) => {
+  let phone = value.replace(/\D/g, "");
+
+  const index = phone.indexOf("1");
+
+  if (index !== -1) {
+    phone = phone.slice(index);
+  }
+
+  phone = "0" + phone;
+
+  return phone;
+})
+  .pipe(
+    z.string().regex(/^01[0125]\d{8}$/, "رقم هاتف مصري غير صالح")
+  );
 
 export const password = z
   .string("كلمة المرور مطلوبة")

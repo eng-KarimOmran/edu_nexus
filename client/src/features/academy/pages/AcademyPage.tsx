@@ -27,6 +27,7 @@ export default function AcademyPage() {
         description: "قم بإدخال بيانات الأكاديمية لإضافتها إلى النظام.",
         children: <AddAcademyForm />,
       },
+      textBtn:"أضف أكاديمية"
     },
   };
 

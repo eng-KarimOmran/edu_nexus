@@ -51,6 +51,7 @@ export default function LedgerTransactionPage() {
             description: "قم بإدخال بيانات العملية.",
             children: <AddLedgerTransactionForm academyId={academyId} />,
           },
+          textBtn: "اضف مدفوعات",
         }
       : undefined,
   };

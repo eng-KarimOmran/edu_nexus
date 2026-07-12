@@ -56,10 +56,11 @@ export const getSubscriptionStatus = (params: GetSubscriptionStatusParams): Subs
     return SubscriptionStatus.COMPLETED;
   }
 
-  const isDepositPaid = netPaidAmount >= requiredInitialDeposit;
-  const hasScheduledSession = scheduledLessons > 0;
-  const reachedPaymentLimit = usedLessons + scheduledLessons >= sessionsBeforeFullPayment;
   const occupiedLessons = scheduledLessons + usedLessons;
+
+  const isDepositPaid = netPaidAmount >= requiredInitialDeposit;
+  const hasScheduledSession = occupiedLessons > 0;
+  const reachedPaymentLimit = occupiedLessons >= sessionsBeforeFullPayment;
 
   if (!isDepositPaid) return SubscriptionStatus.PENDING_DEPOSIT
 

@@ -16,7 +16,7 @@ export const useCars = (query?: GetAllDto["query"]) => {
             });
         },
 
-        queryKey: [...queryKey],
+        queryKey: [...queryKey, query?.gearType],
 
         keepPrevious: true,
 

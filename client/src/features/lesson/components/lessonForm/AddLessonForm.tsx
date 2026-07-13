@@ -19,7 +19,7 @@ import { useJobProfiles } from "@/features/jobProfile/api/jobProfile.query";
 
 import { transmissionOptions } from "@/lib/enumOptions";
 import { useState } from "react";
-import { type Transmission } from "@/types/enums";
+import { SupportType, type Transmission } from "@/types/enums";
 
 import { queryKey as queryKeyLesson } from "../../lesson.constants";
 import { queryKey as queryKeyClient } from "../../../client/client.constants";
@@ -31,15 +31,20 @@ type Props = {
   academyId: string;
   subscriptionId?: string;
   areaId?: string;
+  transmission?: SupportType;
 };
 
 export default function AddLessonForm({
   academyId,
   subscriptionId,
   areaId,
+  transmission,
 }: Props) {
   const { setConfigDialog } = useDialogState();
-  const [transmission, setTransmission] = useState<Transmission>("AUTOMATIC");
+
+  const [transmissionLesson, setTransmissionLesson] = useState<Transmission>(
+    transmission && transmission !== "BOTH" ? transmission : "AUTOMATIC",
+  );
 
   const nextDay = dayjs()
     .add(1, "day")
@@ -53,20 +58,21 @@ export default function AddLessonForm({
     page: 1,
     limit: 100,
     isActive: true,
+    gearType: transmissionLesson,
   });
 
   const { data: areas, isLoading: isLoadingAreas } = useAreas({
     page: 1,
     limit: 100,
     isActive: true,
-    supportType: transmission,
+    supportType: transmissionLesson,
   });
 
   const { data: captains, isLoading: isLoadingCaptains } = useJobProfiles({
     page: 1,
     limit: 100,
     isActive: true,
-    supportType: transmission,
+    supportType: transmissionLesson,
   });
 
   const config: FormProps<CreateLessonDto["body"], Lesson> = {
@@ -83,7 +89,7 @@ export default function AddLessonForm({
         label: "نوع الحصة",
         options: transmissionOptions,
         onChange(value) {
-          setTransmission(value as Transmission);
+          setTransmissionLesson(value as Transmission);
         },
         col: "half",
       },
@@ -169,7 +175,7 @@ export default function AddLessonForm({
     schema: CreateLessonSchema.body,
 
     defaultValues: {
-      transmission,
+      transmission: transmissionLesson,
       subscriptionId,
       startTime: nextDay,
       areaId,

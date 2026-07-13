@@ -6,14 +6,14 @@ import { getAllJobProfiles, getJobProfileDetails } from "./jobProfile.service";
 import { queryKey } from "../jobProfile.constants";
 import type { GetAllJobProfilesDto } from "../jobProfile.dto";
 
-export const useJobProfiles = ( query?: GetAllJobProfilesDto["query"]) => {
+export const useJobProfiles = (query?: GetAllJobProfilesDto["query"]) => {
     return useAppQuery<GetAllJobProfilesDto, JobProfile>({
         queryFn: (params) => {
             return getAllJobProfiles({
                 query: { ...query, ...params.query },
             })
         },
-        queryKey: [...queryKey],
+        queryKey: [...queryKey, query?.supportType],
         keepPrevious: true,
         filters: ["isActive", "jobProfileType", "supportType"],
     });

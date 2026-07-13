@@ -58,7 +58,8 @@ export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof Subscr
 
 export const Transmission = {
   MANUAL: 'MANUAL',
-  AUTOMATIC: 'AUTOMATIC'
+  AUTOMATIC: 'AUTOMATIC',
+  BOTH: 'BOTH'
 } as const
 
 export type Transmission = (typeof Transmission)[keyof typeof Transmission]

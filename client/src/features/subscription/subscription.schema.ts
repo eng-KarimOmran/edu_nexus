@@ -1,7 +1,7 @@
 import {
     id,
     limit,
-    transmission,
+    supportType,
     subscriptionStatus,
     page
 } from "@/lib/common.validation";
@@ -16,7 +16,7 @@ export const CreateSubscriptionSchema = {
         clientId: id,
         courseId: id,
         areaId: id,
-        trainingTypeAtRegistration: transmission,
+        trainingTypeAtRegistration: supportType,
     }),
 };
 

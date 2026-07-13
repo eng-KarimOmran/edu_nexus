@@ -20,7 +20,7 @@ import type { Subscription } from "../../subscription.type";
 import { useCourses } from "@/features/course/api/course.query";
 import { useAreas } from "@/features/area/api/area.query";
 import { enumTranslations } from "@/lib/enumTranslations";
-import { Transmission } from "@/types/enums";
+import { SupportType } from "@/types/enums";
 import { ROUTE_BUILDERS } from "@/routes/routes.builders";
 import { useNavigate } from "react-router-dom";
 
@@ -100,12 +100,16 @@ export default function AddSubscriptionForm({ academyId, clientId }: Props) {
 
         options: [
           {
-            label: enumTranslations[Transmission.MANUAL],
-            value: Transmission.MANUAL,
+            label: enumTranslations[SupportType.MANUAL],
+            value: SupportType.MANUAL,
           },
           {
-            label: enumTranslations[Transmission.AUTOMATIC],
-            value: Transmission.AUTOMATIC,
+            label: enumTranslations[SupportType.AUTOMATIC],
+            value: SupportType.AUTOMATIC,
+          },
+          {
+            label: enumTranslations[SupportType.BOTH],
+            value: SupportType.BOTH,
           },
         ],
         col: "half",

@@ -22,7 +22,7 @@ export interface IClientService {
 
     updateClient(data: UpdateClientDto): Promise<Client>;
 
-    deleteClient(data: DeleteClientDto): Promise<Client>;
+    deleteClient(data: DeleteClientDto & {tx?:TransactionClient}): Promise<Client>;
 
     getAllClients(data: GetAllClientsDto): Promise<PaginatedResponse<Client>>;
 

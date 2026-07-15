@@ -66,6 +66,17 @@ const LedgerTransactionController: IWalletMovementController = {
       res,
       data: ledgerTransaction,
     });
+  },
+
+  deleteWalletMovement: async (req, res) => {
+    const dataSafe = req.dataSafe as DTO.DeleteWalletMovementDto;
+    
+    const ledgerTransaction = await LedgerTransactionService.deleteWalletMovement(dataSafe);
+
+    return sendSuccess({
+      res,
+      data: ledgerTransaction,
+    });
   }
 };
 

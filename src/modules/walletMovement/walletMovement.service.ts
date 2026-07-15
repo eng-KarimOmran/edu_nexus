@@ -248,6 +248,41 @@ const WalletMovementService: IWalletMovementService = {
       return walletMovement
     })
   },
+
+  async deleteWalletMovement(data) {
+    const { params, tx } = data
+    const { walletMovementId } = params;
+
+    const run = async (tx: TransactionClient) => {
+      const walletMovement = await tx.walletMovement.findUnique({ where: { id: walletMovementId } })
+
+      if (!walletMovement) throw ApiError.NotFound("walletMovement")
+
+      const operations: PrismaPromise<unknown>[] = [tx.walletMovement.delete({ where: { id: walletMovementId } })]
+
+      if (walletMovement.walletMovementStatus === "APPROVED") {
+        operations.push(tx.wallet.update({
+          where: { id: walletMovement.senderId },
+          data: { balance: { increment: Number(walletMovement.amount) } },
+        }))
+
+        operations.push(tx.wallet.update({
+          where: { id: walletMovement.receiverId },
+          data: { balance: { decrement: Number(walletMovement.amount) } },
+        }))
+      }
+
+      await Promise.all(operations)
+
+      if (walletMovement.subscriptionId) {
+        await SubscriptionService.recalculateSubscriptionStatus({ subscriptionId: walletMovement.subscriptionId, tx })
+      }
+
+      return true
+    }
+
+    return tx ? await run(tx) : await prisma.$transaction(run);
+  },
 };
 
 export default WalletMovementService;

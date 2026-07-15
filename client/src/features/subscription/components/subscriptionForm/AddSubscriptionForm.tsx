@@ -141,9 +141,7 @@ export default function AddSubscriptionForm({ academyId, clientId }: Props) {
       toast.success("تم إنشاء الاشتراك بنجاح");
       setConfigDialog(null);
       if ("data" in data) {
-        navigate(
-          ROUTE_BUILDERS.subscriptionDetails(data.data.academyId, data.data.id),
-        );
+        navigate(ROUTE_BUILDERS.subscriptionDetails(data.data.academyId, data.data.id));
       }
     },
   };

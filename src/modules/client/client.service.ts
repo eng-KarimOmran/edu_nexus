@@ -5,6 +5,7 @@ import { buildPagination, buildPaginationMeta } from "../../shared/utils/Paginat
 import { buildClientWhere, orderBy } from "./client.utils";
 import { ClientCreateInput, ClientGetPayload } from "@/prisma/generated/models";
 import { TransactionClient } from "@/prisma/generated/internal/prismaNamespace";
+import SubscriptionService from "../subscription/subscription.service";
 
 const ClientService: IClientService = {
   async createClient({ params, body, tx }) {
@@ -43,18 +44,27 @@ const ClientService: IClientService = {
     });
   },
 
-  async deleteClient({ params }) {
+  async deleteClient({ params, tx }) {
     const { clientId, academyId } = params;
 
-    const client = await prisma.client.findUnique({
-      where: { id: clientId, academyId },
-    });
+    const run = async (tx: TransactionClient) => {
+      const client = await tx.client.findUnique({
+        where: { id: clientId, academyId },
+        include: {
+          subscriptions: true
+        }
+      });
 
-    if (!client) throw ApiError.NotFound("Client");
+      if (!client) throw ApiError.NotFound("Client");
 
-    return prisma.client.delete({
-      where: { id: clientId },
-    });
+      await Promise.all(client.subscriptions.map((s) => SubscriptionService.deleteSubscription({ tx, params: { academyId: s.academyId, subscriptionId: s.id } })))
+
+      return tx.client.delete({
+        where: { id: clientId },
+      });
+    }
+
+    return tx ? await run(tx) : await prisma.$transaction(run);
   },
 
   async getAllClients({ params, query }) {

@@ -7,6 +7,7 @@ import { buildPagination, buildPaginationMeta } from "../../shared/utils/Paginat
 import ApiError from "../../shared/utils/ApiError";
 import { ProcessPaymentTransactionDto } from "../walletMovement/walletMovement.dto";
 import WalletMovementService from "../walletMovement/walletMovement.service";
+import { TransactionClient } from "@/prisma/generated/internal/prismaNamespace";
 
 const LessonService: ILessonService = {
   async createLesson({ params, body }) {
@@ -111,6 +112,7 @@ const LessonService: ILessonService = {
 
     return lesson
   },
+
   async changeLessonState({ params, body }) {
     const { lessonId } = params;
     const { lessonStatus, amount } = body;
@@ -196,6 +198,21 @@ const LessonService: ILessonService = {
     })
 
     return lesson
+  },
+
+  async deleteLesson({ params, tx }) {
+    const run = async (tx: TransactionClient) => {
+      const lessonEx = await tx.lesson.findUnique({ where: { id: params.lessonId }, include: { walletMovement: true } })
+      if (!lessonEx) throw ApiError.NotFound("Lesson")
+      if (lessonEx.walletMovementId) {
+        await WalletMovementService.deleteWalletMovement({ params: { receiverWalletId: lessonEx.walletMovementId, academyId: lessonEx.academyId }, tx })
+      }
+      await tx.lesson.delete({ where: { id: lessonEx.id } })
+      await SubscriptionService.recalculateSubscriptionStatus({ subscriptionId: lessonEx.subscriptionId, tx })
+      return true
+    }
+    
+    return tx ? await run(tx) : await prisma.$transaction(run);
   },
 };
 

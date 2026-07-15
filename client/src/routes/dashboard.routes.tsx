@@ -187,7 +187,7 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
       label: "مديونية الموظفين",
       icon: <RiWalletFill />,
     },
-    roles: [ROLES.OWNER, ROLES.MANAGER],
+    roles: [ROLES.MANAGER],
   },
 
   {

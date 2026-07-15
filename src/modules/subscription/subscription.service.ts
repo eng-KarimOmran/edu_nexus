@@ -6,9 +6,11 @@ import { buildPagination, buildPaginationMeta } from "../../shared/utils/Paginat
 import { getLessonStats } from "../lesson/lesson.utils";
 import { ISubscriptionService } from "./subscription.type";
 import { buildSubscriptionWhere, calculateSubscriptionPaymentSummary, getSubscriptionStatus, orderBy } from "./subscription.utils";
+import WalletMovementService from "../walletMovement/walletMovement.service";
+import LessonService from "../lesson/lesson.service";
 
 const SubscriptionService: ISubscriptionService = {
-  async createSubscription({data, tx, userId}) {
+  async createSubscription({ data, tx, userId }) {
     const { params, body } = data;
     const { academyId } = params;
 
@@ -119,20 +121,33 @@ const SubscriptionService: ISubscriptionService = {
     return { ...subscription, paymentSummary }
   },
 
-  async deleteSubscription({ params }) {
-    const { subscriptionId } = params;
+  async deleteSubscription({ params, tx }) {
+    const { subscriptionId, academyId } = params;
 
-    const subscription = await prisma.subscription.findUnique({
-      where: { id: subscriptionId },
-    })
+    const run = async (tx: TransactionClient) => {
 
-    if (!subscription) throw ApiError.NotFound("Subscription")
+      const subscription = await prisma.subscription.findUnique({
+        where: { id: subscriptionId, academyId },
+        include: { walletMovements: true, lessons: true }
+      })
 
-    return prisma.subscription.delete({
-      where: {
-        id: subscriptionId,
-      },
-    });
+      if (!subscription) throw ApiError.NotFound("Subscription")
+
+      await Promise.all(
+        [
+          ...subscription.walletMovements.map((w) => WalletMovementService.deleteWalletMovement({ params: { receiverWalletId: w.id, academyId: w.academyId }, tx })),
+          ...subscription.lessons.map((l) => LessonService.deleteLesson({ params: { academyId: l.academyId, lessonId: l.id }, tx }))
+        ]
+      )
+
+      return tx.subscription.delete({
+        where: {
+          id: subscriptionId,
+        },
+      });
+    }
+
+    return tx ? await run(tx) : await prisma.$transaction(run);
   },
 
   async cancelSubscription({ params }) {

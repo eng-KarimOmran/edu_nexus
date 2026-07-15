@@ -9,7 +9,9 @@ import {
     GetAllLessonsDto,
     GetLessonDetailsDto,
     ChangeLessonStateDto,
+    DeleteLessonDto,
 } from "./lesson.dto";
+import { TransactionClient } from "@/prisma/generated/internal/prismaNamespace";
 
 export interface ILessonService {
     createLesson(
@@ -29,6 +31,8 @@ export interface ILessonService {
     ): Promise<Lesson>;
 
     changeLessonState(data: ChangeLessonStateDto): Promise<Lesson>;
+
+    deleteLesson(data: DeleteLessonDto & { tx?: TransactionClient }): Promise<boolean>
 }
 
 export interface ILessonController {
@@ -41,4 +45,6 @@ export interface ILessonController {
     getLessonDetails: JobProfileRequestHandler;
 
     changeLessonState: JobProfileRequestHandler;
+
+    deleteLesson: JobProfileRequestHandler
 }

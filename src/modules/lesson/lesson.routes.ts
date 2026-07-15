@@ -42,4 +42,11 @@ router.patch(
   controller.updateLesson,
 );
 
+router.delete(
+  "/:lessonId",
+  validate(Schema.DeleteLessonSchema),
+  allowJobProfiles(["MANAGER", "SECRETARY"]),
+  controller.deleteLesson,
+);
+
 export default router;

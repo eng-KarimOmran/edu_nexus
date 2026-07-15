@@ -6,6 +6,7 @@ import { JobProfileRequestHandler } from "../jobProfile/jobProfile.type";
 
 import {
     ChangeWalletMovementStatusDto,
+    DeleteWalletMovementDto,
     GetAllWalletMovementDto,
     GetLedgerTransactionDetailsDto,
     ProcessPaymentTransactionDto,
@@ -28,6 +29,8 @@ export interface IWalletMovementService {
     transferFunds(data: TransferFundsDto & { tx?: TransactionClient, isOwner?: boolean, jobProfileId?: string }): Promise<WalletMovement>;
 
     processPaymentTransaction(data: ProcessPaymentTransactionDto & { tx?: TransactionClient, isOwner?: boolean, jobProfileId?: string }): Promise<WalletMovement>
+
+    deleteWalletMovement(data: DeleteWalletMovementDto & { tx?: TransactionClient }): Promise<boolean>
 }
 
 export interface IWalletMovementController {
@@ -41,4 +44,5 @@ export interface IWalletMovementController {
 
     transferFunds: JobProfileRequestHandler
 
+    deleteWalletMovement: JobProfileRequestHandler
 }

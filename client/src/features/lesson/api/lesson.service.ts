@@ -22,6 +22,16 @@ const lessonUrl = {
         `/academies/${academyId}/lesson/${lessonId}/status`,
 };
 
+export const deleteLesson = (
+    data: Dto.DeleteLessonDto
+) => {
+    const { params } = data;
+
+    return axiosClient.delete<SuccessfulResponse<Entity>>(
+        lessonUrl.byId(params.academyId, params.lessonId)
+    );
+};
+
 export const createLesson = (data: Dto.CreateLessonDto) => {
     const { params, body } = data;
 

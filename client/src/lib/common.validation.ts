@@ -63,7 +63,7 @@ export const address = z
   .min(5, "يجب أن يتكون العنوان من 5 أحرف على الأقل")
   .max(150, "العنوان طويل جدًا");
 
-export const url = z.string("الرابط مطلوب").url("صيغة الرابط غير صالحة");
+export const url = z.string()
 
 // --- Numbers & Finance ---
 

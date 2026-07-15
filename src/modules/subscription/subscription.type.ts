@@ -16,7 +16,7 @@ export interface ISubscriptionService {
 
     getSubscriptionDetails(data: GetSubscriptionDetailsDto): Promise<SubscriptionDetails>;
 
-    deleteSubscription(data: DeleteSubscriptionDto): Promise<Subscription>;
+    deleteSubscription(data: DeleteSubscriptionDto & { tx?: TransactionClient }): Promise<Subscription>;
 
     cancelSubscription(data: CancelSubscriptionDto): Promise<Subscription>;
 

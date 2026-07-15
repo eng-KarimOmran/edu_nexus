@@ -47,3 +47,9 @@ export type TransferFundsDto = {
         typeof Schema.TransferFundsSchema.body
     >;
 }
+
+export type DeleteLedgerTransactionDto = {
+    params: z.infer<
+        typeof Schema.DeleteLedgerTransactionSchema.params
+    >;
+};

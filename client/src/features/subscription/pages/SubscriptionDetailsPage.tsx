@@ -22,8 +22,6 @@ import TableUi, { type DataTableProps } from "@/components/Table/TableUi";
 import { formatDate } from "@/lib/formatDate";
 import { enumTranslations } from "@/lib/enumTranslations";
 
-import type { ErrorResponse } from "@/types/axios";
-
 import { useSubscriptionDetails } from "../api/subscription.query";
 
 import displayError from "@/lib/displayError";
@@ -56,12 +54,6 @@ export default function SubscriptionDetailsPage() {
       error,
       mes: "حدث خطأ أثناء تحميل الاشتراك.",
     });
-
-    const err = error as ErrorResponse;
-
-    if (err.response?.status === 403) {
-      navigate(-1);
-    }
   }, [error, navigate]);
 
   if (isLoading) {
@@ -86,13 +78,13 @@ export default function SubscriptionDetailsPage() {
     header: {
       title: data.courseName,
       actions: (
-        <Button asChild className="text-pink-500" variant={"link"}>
-          <Link
-            to={ROUTE_BUILDERS.clientDetails(data.academyId, data.clientId)}
-          >
-            ملف العميل
-          </Link>
-        </Button>
+          <Button asChild className="text-pink-500" variant={"link"}>
+            <Link
+              to={ROUTE_BUILDERS.clientDetails(data.academyId, data.clientId)}
+            >
+              ملف العميل
+            </Link>
+          </Button>
       ),
     },
 

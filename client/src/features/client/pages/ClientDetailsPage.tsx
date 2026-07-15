@@ -155,12 +155,11 @@ export default function ClientDetailsPage() {
         <div className="flex items-center gap-2">
           <GetContactLink phone={currentClient.phone} />
           <GetWhatsappLink phone={currentClient.phone} />
-          <Button
-            disabled={!data.currentClient.academy.profileTrackingUrl}
-            onClick={() => sendClientTrackingInfo(data.currentClient)}
-          >
-            إرسال رابط المتابعة
-          </Button>
+          {data.currentClient.academy.profileTrackingUrl && (
+            <Button onClick={() => sendClientTrackingInfo(data.currentClient)}>
+              إرسال رابط المتابعة
+            </Button>
+          )}
         </div>
       ),
     },

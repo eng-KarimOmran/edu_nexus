@@ -20,7 +20,7 @@ const ledgerTransactionUrl = {
         academyId: string,
         ledgerTransactionId: string
     ) =>
-        `/academies/${academyId}/wallet-movement/${ledgerTransactionId}/change-status`,
+        `/academies/${academyId}/wallet-movement/${ledgerTransactionId}`,
 
     changeStatus: (academyId: string,
         ledgerTransactionId: string) => `/academies/${academyId}/wallet-movement/${ledgerTransactionId}/change-status`,
@@ -72,11 +72,7 @@ export const changeLedgerTransactionStatus = (
 ) => {
     const { params, body } = data;
 
-    return axiosClient.patch<SuccessfulResponse<Entity>>(
-        ledgerTransactionUrl.byId(
-            params.academyId,
-            params.ledgerTransactionId
-        ),
+    return axiosClient.patch<SuccessfulResponse<Entity>>(`${ledgerTransactionUrl.byId(params.academyId, params.ledgerTransactionId)}/change-status`,
         body
     );
 };
@@ -89,5 +85,15 @@ export const transferFunds = (
     return axiosClient.post<SuccessfulResponse<Entity>>(
         ledgerTransactionUrl.transferFunds(params.academyId),
         body
+    );
+};
+
+export const deleteLedgerTransaction = (
+    data: Dto.DeleteLedgerTransactionDto
+) => {
+    const { params } = data;
+
+    return axiosClient.delete<SuccessfulResponse<Entity>>(
+        ledgerTransactionUrl.byId(params.academyId, params.walletMovementId)
     );
 };

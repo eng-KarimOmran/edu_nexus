@@ -69,3 +69,7 @@ export const UpdateLessonSchema = {
     areaId: id.optional(),
   }),
 };
+
+export const DeleteLessonSchema = {
+  params: z.object({ lessonId: id, academyId: id }),
+};

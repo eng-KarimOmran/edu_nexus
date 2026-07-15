@@ -88,3 +88,10 @@ export const TransferFundsSchema = {
     amount: price.min(1, "يجب أن يكون مبلغ الدفع أكبر من صفر"),
   }),
 }
+
+export const deleteWalletMovement = {
+  params: z.object({
+    academyId: id,
+    walletMovementId: id,
+  }),
+}

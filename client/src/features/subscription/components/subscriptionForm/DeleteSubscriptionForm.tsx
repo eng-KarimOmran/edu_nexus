@@ -21,17 +21,17 @@ export default function DeleteSubscriptionForm({
 }) {
   const { setConfigDialog } = useDialogState();
 
-  const config: FormProps<{ id: string }, Subscription> = {
+  const config: FormProps<{ text: string }, Subscription> = {
     inputs: [
       {
-        name: "id",
+        name: "text",
         type: "text",
-        label: `اكتب معرف الاشتراك للتأكيد`,
-        placeholder: item.id,
+        label: `اكتب "حذف" لتأكيد الحذف`,
+        placeholder: "اكتب حذف للتأكيد",
       },
     ],
 
-    schema: matchSchema("id", "المعرف", item.id),
+    schema: matchSchema("text", "حذف", "حذف"),
 
     submitButton: {
       text: "حذف الاشتراك",

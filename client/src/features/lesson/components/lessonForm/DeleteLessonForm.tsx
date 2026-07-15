@@ -7,43 +7,43 @@ import { matchSchema } from "@/lib/matchSchema";
 
 import { useDialogState } from "@/store/DialogState";
 
-import { cancelSubscription } from "../../api/subscription.service";
-import { queryKey } from "../../subscription.constants";
+import { deleteLesson } from "../../api/lesson.service";
 
-import type { Subscription } from "../../subscription.type";
+import { queryKey } from "../../lesson.constants";
 
-export default function CancelSubscriptionForm({
+import type { Lesson } from "../../lesson.type";
+
+export default function DeleteLessonForm({
   academyId,
   item,
 }: {
   academyId: string;
-  item: Subscription;
+  item: Lesson;
 }) {
   const { setConfigDialog } = useDialogState();
 
-  const config: FormProps<{ text: string }, Subscription> = {
+  const config: FormProps<{ text: string }, Lesson> = {
     inputs: [
       {
         name: "text",
         type: "text",
-        label: `اكتب "الغاء" لتأكيد الألغاء`,
-        placeholder: "اكتب الغاء للتأكيد",
+        label: `اكتب "حذف" لتأكيد الحذف`,
+        placeholder: "اكتب حذف للتأكيد",
       },
     ],
 
-    schema: matchSchema("text", "الغاء", "الغاء"),
+    schema: matchSchema("text", "حذف", "حذف"),
 
     submitButton: {
-      text: "إلغاء الاشتراك",
-      
+      text: "حذف الحصة",
       variant: "destructive",
     },
 
     service: () =>
-      cancelSubscription({
+      deleteLesson({
         params: {
           academyId,
-          subscriptionId: item.id,
+          lessonId: item.id,
         },
       }),
 
@@ -52,7 +52,7 @@ export default function CancelSubscriptionForm({
         queryKey,
       });
 
-      toast.success("تم إلغاء الاشتراك بنجاح");
+      toast.success("تم حذف الحصة بنجاح");
 
       setConfigDialog(null);
     },

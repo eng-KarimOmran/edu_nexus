@@ -7,43 +7,41 @@ import { matchSchema } from "@/lib/matchSchema";
 
 import { useDialogState } from "@/store/DialogState";
 
-import { cancelSubscription } from "../../api/subscription.service";
-import { queryKey } from "../../subscription.constants";
+import { deleteLedgerTransaction } from "../../api/ledgerTransaction.service";
+import { queryKey } from "../../ledgerTransaction.constants";
+import type { WalletMovement } from "../../ledgerTransaction.type";
 
-import type { Subscription } from "../../subscription.type";
-
-export default function CancelSubscriptionForm({
+export default function DeleteLedgerTransactionForm({
   academyId,
   item,
 }: {
   academyId: string;
-  item: Subscription;
+  item: WalletMovement;
 }) {
   const { setConfigDialog } = useDialogState();
 
-  const config: FormProps<{ text: string }, Subscription> = {
+  const config: FormProps<{ text: string }, WalletMovement> = {
     inputs: [
       {
         name: "text",
         type: "text",
-        label: `اكتب "الغاء" لتأكيد الألغاء`,
-        placeholder: "اكتب الغاء للتأكيد",
+        label: 'اكتب "حذف" لتأكيد الحذف',
+        placeholder: "اكتب حذف للتأكيد",
       },
     ],
 
-    schema: matchSchema("text", "الغاء", "الغاء"),
+    schema: matchSchema("text", "حذف", "حذف"),
 
     submitButton: {
-      text: "إلغاء الاشتراك",
-      
+      text: "حذف الحركة المالية",
       variant: "destructive",
     },
 
     service: () =>
-      cancelSubscription({
+      deleteLedgerTransaction({
         params: {
           academyId,
-          subscriptionId: item.id,
+          walletMovementId: item.id,
         },
       }),
 
@@ -52,7 +50,7 @@ export default function CancelSubscriptionForm({
         queryKey,
       });
 
-      toast.success("تم إلغاء الاشتراك بنجاح");
+      toast.success("تم حذف الحركة المالية بنجاح");
 
       setConfigDialog(null);
     },

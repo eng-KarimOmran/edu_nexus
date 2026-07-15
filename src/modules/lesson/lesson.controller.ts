@@ -62,6 +62,17 @@ const LessonController: ILessonController = {
       message: `تمت تحديث حالة الحصة وإجراء التسووية المالية بنجاح.`,
     });
   },
-};
+
+  deleteLesson: async (req, res) => {
+    const dataSafe = req.dataSafe as DTO.DeleteLessonDto;
+
+    const deleteLesson = await LessonService.deleteLesson(dataSafe);
+
+    return sendSuccess({
+      res,
+      data: deleteLesson,
+    });
+  },
+}
 
 export default LessonController;

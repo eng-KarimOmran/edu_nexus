@@ -24,3 +24,7 @@ export type ChangeLessonStateDto = {
   params: z.infer<typeof Schema.ChangeLessonStateSchema.params>;
   body: z.infer<typeof Schema.ChangeLessonStateSchema.body>;
 };
+
+export type DeleteLessonDto = {
+  params: z.infer<typeof Schema.DeleteLessonSchema.params>;
+};

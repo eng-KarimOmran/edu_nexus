@@ -42,4 +42,11 @@ router.get(
   WalletMovementController.getWalletMovementDetails
 );
 
+router.delete(
+  "/:walletMovementId",
+  validate(Schema.deleteWalletMovement),
+  allowJobProfiles(["MANAGER"]),
+  WalletMovementController.deleteWalletMovement
+);
+
 export default router;

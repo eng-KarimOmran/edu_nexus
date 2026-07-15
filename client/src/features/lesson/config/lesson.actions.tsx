@@ -1,4 +1,5 @@
 import {
+  RiDeleteBinLine,
   RiEditLine,
   RiExternalLinkLine,
   RiRefreshLine,
@@ -17,14 +18,17 @@ import type { Lesson } from "../lesson.type";
 
 import UpdateLessonForm from "../components/lessonForm/UpdateLessonForm";
 import ChangeLessonStateForm from "../components/lessonForm/ChangeLessonStateForm";
+import DeleteLessonForm from "../components/lessonForm/DeleteLessonForm";
 
-type ActionType = "details" | "update" | "change-status";
+type ActionType =
+  | "details"
+  | "update"
+  | "change-status"
+  | "delete";
 
 interface Action {
   title: string;
-
   icon: RemixiconComponentType;
-
   type: ActionType;
 }
 
@@ -36,26 +40,23 @@ export default function ActionsLesson({ item }: { item: Lesson }) {
   const actions: Action[] = [
     {
       title: "التفاصيل",
-
       icon: RiExternalLinkLine,
-
       type: "details",
     },
-
     {
       title: "تعديل",
-
       icon: RiEditLine,
-
       type: "update",
     },
-
     {
       title: "تغيير الحالة",
-
       icon: RiRefreshLine,
-
       type: "change-status",
+    },
+    {
+      title: "حذف",
+      icon: RiDeleteBinLine,
+      type: "delete",
     },
   ];
 
@@ -68,23 +69,32 @@ export default function ActionsLesson({ item }: { item: Lesson }) {
       case "update":
         setConfigDialog({
           title: "تعديل الحصة",
-
           description: "تعديل بيانات الحصة",
-
-          children: <UpdateLessonForm academyId={item.academyId} item={item} />,
+          children: (
+            <UpdateLessonForm academyId={item.academyId} item={item} />
+          ),
         });
-
         break;
 
       case "change-status":
         setConfigDialog({
           title: "تغيير حالة الحصة",
-
           description: "اختر الحالة الجديدة",
-
           children: <ChangeLessonStateForm item={item} />,
         });
+        break;
 
+      case "delete":
+        setConfigDialog({
+          title: "حذف الحصة",
+          description: "لن تتمكن من التراجع عن هذا الإجراء.",
+          children: (
+            <DeleteLessonForm
+              academyId={item.academyId}
+              item={item}
+            />
+          ),
+        });
         break;
     }
   };

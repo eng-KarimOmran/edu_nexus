@@ -29,17 +29,17 @@ export default function DeleteClientForm({
     clientId: item.id,
   };
 
-  const config: FormProps<{ name: string }, Client> = {
+  const config: FormProps<{ text: string }, Client> = {
     inputs: [
       {
-        name: "name",
+        name: "text",
         type: "text",
-        label: `اكتب "${item.name}" لتأكيد الحذف`,
-        placeholder: "اكتب الاسم للتأكيد",
+        label: `اكتب "حذف" لتأكيد الحذف`,
+        placeholder: "اكتب حذف للتأكيد",
       },
     ],
 
-    schema: matchSchema("name", "اسم العميل", item.name),
+    schema: matchSchema("text", "حذف", "حذف"),
 
     submitButton: {
       text: "حذف العميل",

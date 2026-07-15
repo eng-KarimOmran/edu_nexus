@@ -19,7 +19,12 @@ export type ProcessPaymentTransactionDto = {
   params: z.infer<typeof Schema.ProcessPaymentTransactionSchema.params>;
   body: z.infer<typeof Schema.ProcessPaymentTransactionSchema.body>;
 }
+
 export type TransferFundsDto = {
   params: z.infer<typeof Schema.TransferFundsSchema.params>;
   body: z.infer<typeof Schema.TransferFundsSchema.body>;
+}
+
+export type DeleteWalletMovementDto = {
+  params: z.infer<typeof Schema.deleteWalletMovement.params>;
 }

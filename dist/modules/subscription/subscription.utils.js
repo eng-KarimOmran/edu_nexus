@@ -28,10 +28,10 @@ const getSubscriptionStatus = (params) => {
     if (usedLessons >= totalLessons) {
         return enums_1.SubscriptionStatus.COMPLETED;
     }
-    const isDepositPaid = netPaidAmount >= requiredInitialDeposit;
-    const hasScheduledSession = scheduledLessons > 0;
-    const reachedPaymentLimit = usedLessons + scheduledLessons >= sessionsBeforeFullPayment;
     const occupiedLessons = scheduledLessons + usedLessons;
+    const isDepositPaid = netPaidAmount >= requiredInitialDeposit;
+    const hasScheduledSession = occupiedLessons > 0;
+    const reachedPaymentLimit = occupiedLessons >= sessionsBeforeFullPayment;
     if (!isDepositPaid)
         return enums_1.SubscriptionStatus.PENDING_DEPOSIT;
     if (!hasScheduledSession)

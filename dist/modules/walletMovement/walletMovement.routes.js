@@ -48,4 +48,5 @@ router.post("/transfer-funds", (0, validate_middleware_1.default)(Schema.Transfe
 router.get("/", (0, validate_middleware_1.default)(Schema.GetAllWalletMovement), (0, academy_middleware_1.checkAcademyExists)({ isAcademyOwner: true }), walletMovement_controller_1.default.getAllWalletMovements);
 router.patch("/:walletMovementId/change-status", (0, validate_middleware_1.default)(Schema.ChangeWalletMovementStatusSchema), (0, academy_middleware_1.checkAcademyExists)({ isAcademyOwner: true }), walletMovement_controller_1.default.changeWalletMovementStatus);
 router.get("/:walletMovementId", (0, validate_middleware_1.default)(Schema.GetWalletMovementDetailsSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), walletMovement_controller_1.default.getWalletMovementDetails);
+router.delete("/:walletMovementId", (0, validate_middleware_1.default)(Schema.deleteWalletMovement), (0, jobProfile_middlewares_1.default)(["MANAGER"]), walletMovement_controller_1.default.deleteWalletMovement);
 exports.default = router;

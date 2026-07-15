@@ -99,5 +99,8 @@ const PublicService = {
             return newClient;
         });
     },
+    async getCaptains() {
+        return await prisma_1.prisma.jobProfile.findMany({ where: { supportType: { not: null }, isActive: true }, include: { user: { select: { id: true, name: true, phone: true } } } });
+    },
 };
 exports.default = PublicService;

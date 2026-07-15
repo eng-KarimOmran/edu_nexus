@@ -46,4 +46,5 @@ router.get("/lessons", (0, validate_middleware_1.default)(Schema.getAllLessonsSc
 router.get("/all-debts", (0, jobProfile_middlewares_1.default)(["MANAGER"]), employee_controller_1.default.getEmployeesWithDebts);
 router.get("/my-debts", (0, jobProfile_middlewares_1.default)(["CAPTAIN", "MANAGER", "SECRETARY"]), employee_controller_1.default.getJobProfileDebts);
 router.get("/client", (0, validate_middleware_1.default)(Schema.getClientSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), employee_controller_1.default.getClient);
+router.get("/lessons-and-car", (0, validate_middleware_1.default)(Schema.GetAllCarAndLessonSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), employee_controller_1.default.getAllCarAndLesson);
 exports.default = router;

@@ -7,6 +7,7 @@ const prisma_1 = require("../../lib/prisma");
 const ApiError_1 = __importDefault(require("../../shared/utils/ApiError"));
 const Pagination_1 = require("../../shared/utils/Pagination");
 const client_utils_1 = require("./client.utils");
+const subscription_service_1 = __importDefault(require("../subscription/subscription.service"));
 const ClientService = {
     async createClient({ params, body, tx }) {
         const { academyId } = params;
@@ -37,16 +38,23 @@ const ClientService = {
             data: body,
         });
     },
-    async deleteClient({ params }) {
+    async deleteClient({ params, tx }) {
         const { clientId, academyId } = params;
-        const client = await prisma_1.prisma.client.findUnique({
-            where: { id: clientId, academyId },
-        });
-        if (!client)
-            throw ApiError_1.default.NotFound("Client");
-        return prisma_1.prisma.client.delete({
-            where: { id: clientId },
-        });
+        const run = async (tx) => {
+            const client = await tx.client.findUnique({
+                where: { id: clientId, academyId },
+                include: {
+                    subscriptions: true
+                }
+            });
+            if (!client)
+                throw ApiError_1.default.NotFound("Client");
+            await Promise.all(client.subscriptions.map((s) => subscription_service_1.default.deleteSubscription({ tx, params: { academyId: s.academyId, subscriptionId: s.id } })));
+            return tx.client.delete({
+                where: { id: clientId },
+            });
+        };
+        return tx ? await run(tx) : await prisma_1.prisma.$transaction(run);
     },
     async getAllClients({ params, query }) {
         const { academyId } = params;

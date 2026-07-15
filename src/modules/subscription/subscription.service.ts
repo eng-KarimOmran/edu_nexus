@@ -135,7 +135,7 @@ const SubscriptionService: ISubscriptionService = {
 
       await Promise.all(
         [
-          ...subscription.walletMovements.map((w) => WalletMovementService.deleteWalletMovement({ params: { receiverWalletId: w.id, academyId: w.academyId }, tx })),
+          ...subscription.walletMovements.map((w) => WalletMovementService.deleteWalletMovement({ params: { walletMovementId: w.id, academyId: w.academyId }, tx })),
           ...subscription.lessons.map((l) => LessonService.deleteLesson({ params: { academyId: l.academyId, lessonId: l.id }, tx }))
         ]
       )

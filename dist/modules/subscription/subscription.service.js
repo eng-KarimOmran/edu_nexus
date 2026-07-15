@@ -8,6 +8,8 @@ const ApiError_1 = __importDefault(require("../../shared/utils/ApiError"));
 const Pagination_1 = require("../../shared/utils/Pagination");
 const lesson_utils_1 = require("../lesson/lesson.utils");
 const subscription_utils_1 = require("./subscription.utils");
+const walletMovement_service_1 = __importDefault(require("../walletMovement/walletMovement.service"));
+const lesson_service_1 = __importDefault(require("../lesson/lesson.service"));
 const SubscriptionService = {
     async createSubscription({ data, tx, userId }) {
         const { params, body } = data;
@@ -106,18 +108,26 @@ const SubscriptionService = {
         const paymentSummary = (0, subscription_utils_1.calculateSubscriptionPaymentSummary)(subscription.walletMovements, subscription.priceAtBooking);
         return { ...subscription, paymentSummary };
     },
-    async deleteSubscription({ params }) {
-        const { subscriptionId } = params;
-        const subscription = await prisma_1.prisma.subscription.findUnique({
-            where: { id: subscriptionId },
-        });
-        if (!subscription)
-            throw ApiError_1.default.NotFound("Subscription");
-        return prisma_1.prisma.subscription.delete({
-            where: {
-                id: subscriptionId,
-            },
-        });
+    async deleteSubscription({ params, tx }) {
+        const { subscriptionId, academyId } = params;
+        const run = async (tx) => {
+            const subscription = await prisma_1.prisma.subscription.findUnique({
+                where: { id: subscriptionId, academyId },
+                include: { walletMovements: true, lessons: true }
+            });
+            if (!subscription)
+                throw ApiError_1.default.NotFound("Subscription");
+            await Promise.all([
+                ...subscription.walletMovements.map((w) => walletMovement_service_1.default.deleteWalletMovement({ params: { walletMovementId: w.id, academyId: w.academyId }, tx })),
+                ...subscription.lessons.map((l) => lesson_service_1.default.deleteLesson({ params: { academyId: l.academyId, lessonId: l.id }, tx }))
+            ]);
+            return tx.subscription.delete({
+                where: {
+                    id: subscriptionId,
+                },
+            });
+        };
+        return tx ? await run(tx) : await prisma_1.prisma.$transaction(run);
     },
     async cancelSubscription({ params }) {
         const { subscriptionId } = params;

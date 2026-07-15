@@ -45,5 +45,6 @@ router.get("/", (0, validate_middleware_1.default)(Schema.GetAcademySchema), pub
 router.get("/courses", (0, validate_middleware_1.default)(Schema.GetCoursesSchema), public_controller_1.default.getCourses);
 router.get("/areas", (0, validate_middleware_1.default)(Schema.GetAreasSchema), public_controller_1.default.getAreas);
 router.get("/client/:clientId", (0, validate_middleware_1.default)(Schema.GetClientSchema), public_controller_1.default.getClient);
+router.post("/captains", public_controller_1.default.getCaptains);
 router.post("/register", (0, validate_middleware_1.default)(Schema.RegisterSchema), public_controller_1.default.register);
 exports.default = router;

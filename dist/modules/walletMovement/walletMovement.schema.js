@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransferFundsSchema = exports.ProcessPaymentTransactionSchema = exports.ChangeWalletMovementStatusSchema = exports.GetWalletMovementDetailsSchema = exports.GetAllWalletMovement = void 0;
+exports.deleteWalletMovement = exports.TransferFundsSchema = exports.ProcessPaymentTransactionSchema = exports.ChangeWalletMovementStatusSchema = exports.GetWalletMovementDetailsSchema = exports.GetAllWalletMovement = void 0;
 const z = __importStar(require("zod"));
 const common_validation_1 = require("../../shared/utils/common.validation");
 exports.GetAllWalletMovement = {
@@ -98,5 +98,11 @@ exports.TransferFundsSchema = {
             "EMPLOYEE_TRANSFER_TO_EMPLOYEE"
         ]),
         amount: common_validation_1.price.min(1, "يجب أن يكون مبلغ الدفع أكبر من صفر"),
+    }),
+};
+exports.deleteWalletMovement = {
+    params: z.object({
+        academyId: common_validation_1.id,
+        walletMovementId: common_validation_1.id,
     }),
 };

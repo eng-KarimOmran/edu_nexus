@@ -163,5 +163,19 @@ const LessonService = {
         });
         return lesson;
     },
+    async deleteLesson({ params, tx }) {
+        const run = async (tx) => {
+            const lessonEx = await tx.lesson.findUnique({ where: { id: params.lessonId }, include: { walletMovement: true } });
+            if (!lessonEx)
+                throw ApiError_1.default.NotFound("Lesson");
+            if (lessonEx.walletMovementId) {
+                await walletMovement_service_1.default.deleteWalletMovement({ params: { walletMovementId: lessonEx.walletMovementId, academyId: lessonEx.academyId }, tx });
+            }
+            await tx.lesson.delete({ where: { id: lessonEx.id } });
+            await subscription_service_1.default.recalculateSubscriptionStatus({ subscriptionId: lessonEx.subscriptionId, tx });
+            return true;
+        };
+        return tx ? await run(tx) : await prisma_1.prisma.$transaction(run);
+    },
 };
 exports.default = LessonService;

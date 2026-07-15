@@ -43,7 +43,8 @@ exports.SubscriptionStatus = {
 };
 exports.Transmission = {
     MANUAL: 'MANUAL',
-    AUTOMATIC: 'AUTOMATIC'
+    AUTOMATIC: 'AUTOMATIC',
+    BOTH: 'BOTH'
 };
 exports.JobProfileType = {
     CAPTAIN: 'CAPTAIN',

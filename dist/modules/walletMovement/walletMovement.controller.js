@@ -52,6 +52,14 @@ const LedgerTransactionController = {
             res,
             data: ledgerTransaction,
         });
+    },
+    deleteWalletMovement: async (req, res) => {
+        const dataSafe = req.dataSafe;
+        const ledgerTransaction = await walletMovement_service_1.default.deleteWalletMovement(dataSafe);
+        return (0, successResponse_1.default)({
+            res,
+            data: ledgerTransaction,
+        });
     }
 };
 exports.default = LedgerTransactionController;

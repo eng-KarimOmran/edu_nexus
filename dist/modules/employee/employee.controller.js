@@ -27,6 +27,14 @@ const EmployeeController = {
     getEmployeesWithDebts: async (_, res) => {
         const jobProfiles = await employee_service_1.default.getEmployeesWithDebts();
         return (0, successResponse_1.default)({ res, data: jobProfiles });
-    }
+    },
+    getAllCarAndLesson: async (req, res) => {
+        const dataSafe = req.dataSafe;
+        const data = await employee_service_1.default.getAllCarAndLesson(dataSafe);
+        return (0, successResponse_1.default)({
+            res,
+            data,
+        });
+    },
 };
 exports.default = EmployeeController;

@@ -53,5 +53,29 @@ const EmployeeService = {
             select: employee_select_1.jobProfileSelect
         });
     },
+    async getAllCarAndLesson({ query }) {
+        return prisma_1.prisma.car.findMany({
+            include: {
+                lessons: {
+                    where: {
+                        lessonStatus: "SCHEDULED",
+                        ...(query.startTime &&
+                            query.endTime && {
+                            startTime: {
+                                gte: new Date(query.startTime),
+                                lte: new Date(query.endTime),
+                            },
+                        }),
+                    },
+                    select: {
+                        id: true, startTime: true, endTime: true,
+                        client: { select: { id: true, name: true, phone: true } },
+                        jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } },
+                        area: { select: { id: true, name: true } }
+                    }
+                }
+            }
+        });
+    }
 };
 exports.default = EmployeeService;

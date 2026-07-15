@@ -48,5 +48,12 @@ const PublicController = {
             message: "تم التسجيل بنجاح",
         });
     },
+    async getCaptains(req, res) {
+        const result = await public_service_1.default.getCaptains();
+        return (0, successResponse_1.default)({
+            res,
+            data: result,
+        });
+    }
 };
 exports.default = PublicController;

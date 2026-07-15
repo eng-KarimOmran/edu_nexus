@@ -32,7 +32,7 @@ exports.address = zod_1.default
     .trim()
     .min(5, "يجب أن يتكون العنوان من 5 أحرف على الأقل")
     .max(150, "العنوان طويل جدًا");
-exports.url = zod_1.default.string("الرابط مطلوب").url("صيغة الرابط غير صالحة");
+exports.url = zod_1.default.string("الرابط مطلوب");
 // --- Numbers & Finance ---
 exports.positiveNumber = zod_1.default.coerce
     .number()

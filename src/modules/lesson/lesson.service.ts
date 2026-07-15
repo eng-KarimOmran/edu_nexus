@@ -205,7 +205,7 @@ const LessonService: ILessonService = {
       const lessonEx = await tx.lesson.findUnique({ where: { id: params.lessonId }, include: { walletMovement: true } })
       if (!lessonEx) throw ApiError.NotFound("Lesson")
       if (lessonEx.walletMovementId) {
-        await WalletMovementService.deleteWalletMovement({ params: { receiverWalletId: lessonEx.walletMovementId, academyId: lessonEx.academyId }, tx })
+        await WalletMovementService.deleteWalletMovement({ params: { walletMovementId: lessonEx.walletMovementId, academyId: lessonEx.academyId }, tx })
       }
       await tx.lesson.delete({ where: { id: lessonEx.id } })
       await SubscriptionService.recalculateSubscriptionStatus({ subscriptionId: lessonEx.subscriptionId, tx })

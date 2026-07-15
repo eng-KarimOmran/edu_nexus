@@ -48,4 +48,5 @@ router.get("/", (0, validate_middleware_1.default)(Schema.GetAllLessonsSchema), 
 router.get("/:lessonId", (0, validate_middleware_1.default)(Schema.GetLessonDetailsSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), lesson_controller_1.default.getLessonDetails);
 router.patch("/:lessonId/status", (0, validate_middleware_1.default)(Schema.ChangeLessonStateSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY", "CAPTAIN"]), lesson_controller_1.default.changeLessonState);
 router.patch("/:lessonId", (0, validate_middleware_1.default)(Schema.UpdateLessonSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), lesson_controller_1.default.updateLesson);
+router.delete("/:lessonId", (0, validate_middleware_1.default)(Schema.DeleteLessonSchema), (0, jobProfile_middlewares_1.default)(["MANAGER", "SECRETARY"]), lesson_controller_1.default.deleteLesson);
 exports.default = router;

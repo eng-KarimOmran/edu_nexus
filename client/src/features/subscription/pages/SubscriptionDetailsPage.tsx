@@ -36,6 +36,7 @@ import { columns as lessonColumns } from "@/features/lesson/config/lesson.column
 import type { Lesson } from "@/features/lesson/lesson.type";
 import AddLessonForm from "@/features/lesson/components/lessonForm/AddLessonForm";
 import ActionsLesson from "@/features/lesson/config/lesson.actions";
+import ActionsLedgerTransaction from "@/features/ledgerTransaction/config/changeWalletMovement.actions";
 
 export default function SubscriptionDetailsPage() {
   const navigate = useNavigate();
@@ -213,6 +214,9 @@ export default function SubscriptionDetailsPage() {
       disabled: data.paymentSummary.isFullyPaid,
       textBtn: "اضاف مدفوعات",
     },
+        actions: (item) => (
+          <ActionsLedgerTransaction academyId={academyId} item={item} />
+        ),
   };
 
   return (

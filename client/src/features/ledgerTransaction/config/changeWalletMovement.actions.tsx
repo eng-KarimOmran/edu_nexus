@@ -4,15 +4,11 @@ import {
   RiCheckLine,
   RiCloseLine,
   RiDeleteBinLine,
-  RiExternalLinkLine,
   type RemixiconComponentType,
 } from "@remixicon/react";
 
-import { useNavigate } from "react-router-dom";
 
 import { useDialogState } from "@/store/DialogState";
-
-import { ROUTE_BUILDERS } from "@/routes/routes.builders";
 
 import type { WalletMovement } from "../ledgerTransaction.type";
 
@@ -21,7 +17,6 @@ import ChangeWalletMovementStatusForm from "../components/ledgerTransactionForm/
 import DeleteLedgerTransactionForm from "../components/ledgerTransactionForm/DeleteLedgerTransactionForm";
 
 type ActionType =
-  | "details"
   | "APPROVED"
   | "REJECTED"
   | "delete";
@@ -39,18 +34,11 @@ export default function ActionsLedgerTransaction({
   academyId?: string;
   item: WalletMovement;
 }) {
-  const navigate = useNavigate();
-
   const { setConfigDialog } = useDialogState();
 
   if (!academyId) return null;
 
   const actions: Action[] = [
-    {
-      title: "التفاصيل",
-      icon: RiExternalLinkLine,
-      type: "details",
-    },
     {
       title: "قبول",
       icon: RiCheckLine,
@@ -87,10 +75,6 @@ export default function ActionsLedgerTransaction({
 
   const handleAction = (type: ActionType) => {
     switch (type) {
-      case "details":
-        navigate(ROUTE_BUILDERS.transactionDetails(academyId, item.id));
-        break;
-
       case "APPROVED":
         openStatusDialog(
           WalletMovementStatus.APPROVED,

@@ -44,6 +44,7 @@ import type { Subscription } from "@/features/subscription/subscription.type";
 import { columns } from "@/features/subscription/config/subscription.columns";
 import AddSubscriptionForm from "@/features/subscription/components/subscriptionForm/AddSubscriptionForm";
 import { sendClientTrackingInfo } from "../config/client.utility";
+import SubscriptionActions from "@/features/subscription/config/subscription.actions";
 
 export default function ClientDetailsPage() {
   const { academyId, clientId } = useParams();
@@ -116,23 +117,7 @@ export default function ClientDetailsPage() {
   };
 
   const subscriptionsTable: DataTableProps<Subscription> = {
-    headers: [
-      {
-        key: "academyId",
-        header: "تفاصيل الأشتركات",
-        display: (data) => (
-          <Button variant={"link"} asChild>
-            <Link
-              to={ROUTE_BUILDERS.subscriptionDetails(data.academyId, data.id)}
-            >
-              <RiLink />
-              تفاصيل الأشتركات
-            </Link>
-          </Button>
-        ),
-      },
-      ...columns,
-    ],
+    headers: columns,
     data: subscriptions,
     ButtonAddTable: {
       configDialog: {
@@ -146,6 +131,9 @@ export default function ClientDetailsPage() {
         ),
       },
     },
+    actions: (item) => (
+      <SubscriptionActions academyId={item.academyId} item={item} />
+    ),
   };
 
   const displayConfig: DisplayDetailsProps = {

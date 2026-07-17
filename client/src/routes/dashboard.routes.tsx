@@ -29,7 +29,6 @@ import SubscriptionPage from "@/features/subscription/pages/SubscriptionPage";
 import SubscriptionDetailsPage from "@/features/subscription/pages/SubscriptionDetailsPage";
 
 import LedgerTransactionPage from "@/features/ledgerTransaction/pages/LedgerTransactionPage";
-import LedgerTransactionDetailsPage from "@/features/ledgerTransaction/pages/LedgerTransactionDetailsPage";
 
 import StatisticsPage from "@/features/statistics/pages/StatisticsPage";
 
@@ -288,12 +287,6 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     path: PATHS.subscriptionDetails,
     element: <SubscriptionDetailsPage />,
     roles: [ROLES.OWNER, ROLES.SECRETARY, ROLES.MANAGER],
-  },
-
-  {
-    path: PATHS.transactionDetails,
-    element: <LedgerTransactionDetailsPage />,
-    roles: [ROLES.OWNER],
   },
 
   {

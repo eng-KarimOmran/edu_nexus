@@ -81,6 +81,11 @@ export default function TableUi<T>({
           ) : data && data.length > 0 ? (
             data.map((item, i) => (
               <TableRow key={`item-${i}`}>
+                {actions && (
+                  <TableCell>
+                    <ActionTable>{actions(item)}</ActionTable>
+                  </TableCell>
+                )}
                 {headers.map((header, colIndex) => (
                   <TableCell key={colIndex} className="font-medium">
                     {header.display
@@ -88,11 +93,6 @@ export default function TableUi<T>({
                       : (item[header.key] as ReactNode)}
                   </TableCell>
                 ))}
-                {actions && (
-                  <TableCell>
-                    <ActionTable>{actions(item)}</ActionTable>
-                  </TableCell>
-                )}
               </TableRow>
             ))
           ) : (

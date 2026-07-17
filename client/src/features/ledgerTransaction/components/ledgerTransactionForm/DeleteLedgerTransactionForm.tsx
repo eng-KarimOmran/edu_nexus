@@ -8,7 +8,8 @@ import { matchSchema } from "@/lib/matchSchema";
 import { useDialogState } from "@/store/DialogState";
 
 import { deleteLedgerTransaction } from "../../api/ledgerTransaction.service";
-import { queryKey } from "../../ledgerTransaction.constants";
+import { queryKey as queryKeyTransaction } from "../../ledgerTransaction.constants";
+import {  queryKey as queryKeySubscription } from "../../../subscription/subscription.constants";
 import type { WalletMovement } from "../../ledgerTransaction.type";
 
 export default function DeleteLedgerTransactionForm({
@@ -46,9 +47,8 @@ export default function DeleteLedgerTransactionForm({
       }),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey,
-      });
+      queryClient.invalidateQueries({queryKey:queryKeyTransaction});
+      queryClient.invalidateQueries({queryKey:queryKeySubscription});
 
       toast.success("تم حذف الحركة المالية بنجاح");
 

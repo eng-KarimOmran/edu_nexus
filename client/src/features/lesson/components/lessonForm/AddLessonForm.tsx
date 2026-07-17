@@ -198,6 +198,7 @@ export default function AddLessonForm({
       queryClient.invalidateQueries({ queryKey: queryKeyLesson });
       queryClient.invalidateQueries({ queryKey: queryKeyClient });
       queryClient.invalidateQueries({ queryKey: queryKeySubscription });
+      
       toast.success("تم إنشاء الحصة بنجاح");
       setConfigDialog(null);
     },

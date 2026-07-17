@@ -9,7 +9,9 @@ import { useDialogState } from "@/store/DialogState";
 
 import { deleteLesson } from "../../api/lesson.service";
 
-import { queryKey } from "../../lesson.constants";
+import { queryKey as queryKeyLesson } from "../../lesson.constants";
+import { queryKey as queryKeyClient } from "../../../client/client.constants";
+import { queryKey as queryKeySubscription } from "../../../subscription/subscription.constants";
 
 import type { Lesson } from "../../lesson.type";
 
@@ -48,9 +50,9 @@ export default function DeleteLessonForm({
       }),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey,
-      });
+      queryClient.invalidateQueries({ queryKey: queryKeyLesson });
+      queryClient.invalidateQueries({ queryKey: queryKeyClient });
+      queryClient.invalidateQueries({ queryKey: queryKeySubscription });
 
       toast.success("تم حذف الحصة بنجاح");
 

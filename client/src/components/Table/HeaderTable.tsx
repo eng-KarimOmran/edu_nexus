@@ -19,10 +19,10 @@ export default function HeaderTable<T>({
   return (
     <TableHeader>
       <TableRow>
+        {hasActions && <TableHead>الإجراءات</TableHead>}
         {headers.map((header, i) => (
           <TableHead key={header.key.toString() + i}>{header.header}</TableHead>
         ))}
-        {hasActions && <TableHead>الإجراءات</TableHead>}
       </TableRow>
     </TableHeader>
   );

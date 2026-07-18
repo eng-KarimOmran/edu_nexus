@@ -13,7 +13,7 @@ export const usePayrolls = ({ jobProfileId, query }: { jobProfileId?: string, qu
                 query: { ...query, ...params.query },
             });
         },
-        queryKey: queryKey,
+        queryKey: [...queryKey, jobProfileId, query],
         enabled: !!jobProfileId
     });
 };

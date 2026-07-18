@@ -43,7 +43,7 @@ export default function AddLessonForm({
   const { setConfigDialog } = useDialogState();
 
   const [transmissionLesson, setTransmissionLesson] = useState<Transmission>(
-    transmission && transmission !== "BOTH" ? transmission : "AUTOMATIC",
+    !transmission || transmission === "BOTH" ? "AUTOMATIC" : transmission,
   );
 
   const nextDay = dayjs()
@@ -198,7 +198,7 @@ export default function AddLessonForm({
       queryClient.invalidateQueries({ queryKey: queryKeyLesson });
       queryClient.invalidateQueries({ queryKey: queryKeyClient });
       queryClient.invalidateQueries({ queryKey: queryKeySubscription });
-      
+
       toast.success("تم إنشاء الحصة بنجاح");
       setConfigDialog(null);
     },

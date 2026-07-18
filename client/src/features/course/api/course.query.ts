@@ -24,7 +24,7 @@ export const useCourses = ({ academyId, query }: { academyId?: string, query?: G
             });
         },
 
-        queryKey: [...queryKey, academyId],
+        queryKey: [...queryKey, academyId, query],
 
         keepPrevious: true,
 

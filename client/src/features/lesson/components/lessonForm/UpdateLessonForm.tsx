@@ -23,7 +23,7 @@ import { useJobProfiles } from "@/features/jobProfile/api/jobProfile.query";
 
 import { transmissionOptions } from "@/lib/enumOptions";
 
-import { JobProfileType, type Transmission } from "@/types/enums";
+import { type Transmission } from "@/types/enums";
 
 import { useState } from "react";
 
@@ -57,7 +57,6 @@ export default function UpdateLessonForm({
     page: 1,
     limit: 100,
     isActive: true,
-    jobProfileType: JobProfileType.CAPTAIN,
     supportType: transmission,
   });
 

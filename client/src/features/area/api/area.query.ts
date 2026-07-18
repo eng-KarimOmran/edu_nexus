@@ -19,7 +19,7 @@ export const useAreas = (query?: GetAllAreasDto["query"]) => {
             query: { ...query, ...params.query },
         }),
 
-        queryKey: [...queryKey, query?.supportType],
+        queryKey: [...queryKey, query],
 
         keepPrevious: true,
 

@@ -13,15 +13,13 @@ export const useJobProfiles = (query?: GetAllJobProfilesDto["query"]) => {
                 query: { ...query, ...params.query },
             })
         },
-        queryKey: [...queryKey, query?.supportType],
+        queryKey: [...queryKey, query],
         keepPrevious: true,
         filters: ["isActive", "jobProfileType", "supportType"],
     });
 };
 
-export const useJobProfileDetails = (
-    jobProfileId?: string
-) => {
+export const useJobProfileDetails = (jobProfileId?: string) => {
     return useQuery({
         queryKey: [...queryKey, jobProfileId],
         queryFn: () => {

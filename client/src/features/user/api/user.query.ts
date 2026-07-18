@@ -12,7 +12,7 @@ export const useUsers = (query?: GetAllUsersDto["query"]) => {
                 query: { ...query, ...params.query }
             })
         },
-        queryKey,
+        queryKey: [...queryKey, query],
         keepPrevious: true,
         filters: ["isActive"],
     });

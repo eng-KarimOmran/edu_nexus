@@ -34,6 +34,8 @@ export const useClients = (academyId?: string) => {
         keepPrevious: true,
 
         filters: ["source"],
+
+        enabled: !!academyId
     });
 };
 

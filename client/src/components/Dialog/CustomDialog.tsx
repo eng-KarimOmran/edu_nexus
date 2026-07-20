@@ -8,8 +8,9 @@ import {
 } from "../ui/dialog";
 
 export default function CustomDialog() {
-  const { configDialog, setConfigDialog } = useDialogState();
-
+  const configDialog = useDialogState((state) => state.configDialog);
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
+  
   return (
     <Dialog
       open={!!configDialog}

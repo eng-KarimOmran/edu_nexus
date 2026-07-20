@@ -48,7 +48,7 @@ export default function JobProfileDetailsPage() {
 
   const navigate = useNavigate();
 
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const { data, error, isLoading } = useJobProfileDetails(jobProfileId);
 

@@ -31,7 +31,7 @@ export default function AddLedgerTransactionForm({
   academyId: string;
   subscriptionId?: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethod>("ELECTRONIC");
 

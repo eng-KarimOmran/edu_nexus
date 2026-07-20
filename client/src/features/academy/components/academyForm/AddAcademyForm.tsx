@@ -13,7 +13,7 @@ import { useUserProfileState } from "@/store/UserDetailsState";
 import { refresh } from "@/features/auth/api/auth.service";
 
 export default function AddAcademyForm() {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const { setUserProfile } = useUserProfileState();
 
   const { data, isLoading, error } = useUsers({

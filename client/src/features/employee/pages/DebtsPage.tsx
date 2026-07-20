@@ -22,7 +22,7 @@ export default function DebtsPage() {
     select: (res) => res.data.data,
   });
 
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   if (isLoading) {
     return <LoadingCards count={3} />;

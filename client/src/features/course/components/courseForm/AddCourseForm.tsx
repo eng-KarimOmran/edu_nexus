@@ -17,7 +17,7 @@ import { createCourse } from "../../api/course.service";
 import { CreateCourseSchema } from "../../course.schema";
 
 export default function AddCourseForm() {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const academyId = useActiveAcademyState.getState().activeAcademy?.id;
 

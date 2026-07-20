@@ -33,7 +33,7 @@ type Props = {
 };
 
 export default function AddLessonForm({ body, params }: Props) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const { academyId } = params;
 
   const [transmissionLesson, setTransmissionLesson] = useState<Transmission>(
@@ -173,8 +173,9 @@ export default function AddLessonForm({ body, params }: Props) {
     defaultValues: {
       transmission: transmissionLesson,
       subscriptionId: body?.subscriptionId ?? "",
-      startTime: nextDay,
+      startTime: body?.startTime ?? nextDay,
       areaId: body?.areaId ?? "",
+      carId: body?.carId ?? "",
       expectedPaymentAmount: body?.expectedPaymentAmount ?? 0,
     },
 

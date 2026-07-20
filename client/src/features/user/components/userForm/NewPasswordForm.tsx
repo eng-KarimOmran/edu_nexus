@@ -8,7 +8,7 @@ import type { User } from "../../user.type";
 import { setNewPassword } from "../../api/user.service";
 
 export default function NewPasswordForm({userId}:{userId: string}) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: NewPasswordDto["params"] = {
     userId,

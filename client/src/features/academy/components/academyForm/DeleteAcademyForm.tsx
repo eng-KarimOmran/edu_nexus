@@ -10,7 +10,7 @@ import { deleteAcademy } from "../../api/academy.service";
 import { queryKey } from "../../academy.constants";
 
 export default function DeleteAcademyForm({ item }: { item: Academy }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const params: DeleteAcademyDto["params"] = { academyId: item.id };
 
   const config: FormProps<{ name: string }, Academy> = {

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 export default function LogoutForm() {
   const { setUserProfile } = useUserProfileState();
   const navigate = useNavigate();
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<LogoutDto["query"], null> = {
     inputs: [

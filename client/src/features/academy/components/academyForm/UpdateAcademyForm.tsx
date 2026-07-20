@@ -10,7 +10,7 @@ import { AcademySchema } from "../../academy.schema";
 import { updateAcademy } from "../../api/academy.service";
 
 export default function UpdateAcademyForm({ item }: { item: Academy }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const params: UpdateAcademyDto["params"] = { academyId: item.id };
 
   const config: FormProps<UpdateAcademyDto["body"], Academy> = {

@@ -14,7 +14,7 @@ export default function AddPaymentLinkForm({
 }: {
   academyId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: AddPaymentLinkDto["params"] = {
     academyId,

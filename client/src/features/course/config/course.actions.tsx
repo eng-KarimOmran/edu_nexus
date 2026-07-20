@@ -35,7 +35,7 @@ export default function ActionsCourse({
 }) {
   const navigate = useNavigate();
 
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   if (!academyId) return null;
 

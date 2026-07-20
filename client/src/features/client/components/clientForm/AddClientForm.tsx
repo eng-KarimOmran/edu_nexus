@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE_BUILDERS } from "@/routes/routes.builders";
 
 export default function AddClientForm() {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const { data, isLoading } = useAcademy();
   const navigate = useNavigate();
 

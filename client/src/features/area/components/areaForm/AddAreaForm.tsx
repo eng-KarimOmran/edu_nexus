@@ -17,7 +17,7 @@ import type { Area } from "../../area.type";
 import type { CreateAreaDto } from "../../area.dto";
 
 export default function AddAreaForm() {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<CreateAreaDto["body"], Area> = {
     inputs: [

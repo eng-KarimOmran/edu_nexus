@@ -20,7 +20,7 @@ export default function AddOwnerForm({
   academyId: string;
   ownersId: string[];
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["users", "active"],

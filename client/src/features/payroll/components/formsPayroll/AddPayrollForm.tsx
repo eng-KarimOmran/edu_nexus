@@ -13,7 +13,7 @@ import { queryKey as queryKeyPayroll } from "../../payroll.constants";
 import { queryKey as queryKeyJobProfile } from "../../../jobProfile/jobProfile.constants";
 
 export default function AddPayrollForm(body: CreatePayrollDto["body"]) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<CreatePayrollDto["body"], Payroll> = {
     inputs: [

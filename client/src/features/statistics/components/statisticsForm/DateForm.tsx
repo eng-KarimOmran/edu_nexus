@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function DateForm({ setDate, date }: Props) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<DateFormProps, null> = {
     inputs: [

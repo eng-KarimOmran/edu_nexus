@@ -15,7 +15,7 @@ import { jobProfileTypeOptions, supportTypeOptions } from "@/lib/enumOptions";
 import { createJobProfileSchema } from "../../jobProfile.schema";
 
 export default function AddJobProfileForm({ userId }: { userId?: string }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<CreateJobProfileDto["body"], JobProfile> = {
     inputs: [

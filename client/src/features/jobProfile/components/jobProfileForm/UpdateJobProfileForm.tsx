@@ -13,7 +13,7 @@ import { jobProfileTypeOptions, supportTypeOptions } from "@/lib/enumOptions";
 import { updateJobProfileSchema } from "../../jobProfile.schema";
 
 export default function UpdateJobProfileForm({ item }: { item: JobProfile }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: UpdateJobProfileDto["params"] = {
     jobProfileId: item.id,

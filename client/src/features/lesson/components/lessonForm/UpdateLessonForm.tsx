@@ -34,7 +34,7 @@ export default function UpdateLessonForm({
   academyId: string;
   item: Lesson;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const [transmission, setTransmission] = useState<Transmission>(
     item.transmission,

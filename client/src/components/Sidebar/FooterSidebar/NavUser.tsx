@@ -37,7 +37,7 @@ import { PATHS } from "@/routes/paths";
 export default function NavUser() {
   const { isMobile } = useSidebar();
   const { userProfile } = useUserProfileState();
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const handelLogout = () => {
     setConfigDialog({

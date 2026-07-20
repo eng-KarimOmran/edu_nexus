@@ -10,7 +10,7 @@ import { addSocialMedia } from "../../api/academy.service";
 import { queryKey } from "../../academy.constants";
 
 export default function AddSocialMediaForm({ academyId }: { academyId: string }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const params: AddSocialMediaDto["params"] = { academyId };
 
   const config: FormProps<AddSocialMediaDto["body"], Academy> = {

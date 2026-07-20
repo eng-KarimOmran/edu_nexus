@@ -41,7 +41,7 @@ import { ROUTE_BUILDERS } from "@/routes/routes.builders";
 
 export default function UserDetailsPage() {
   const { userId } = useParams();
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const { data, error, isLoading } = useUserDetails(userId);
 
   useEffect(() => {

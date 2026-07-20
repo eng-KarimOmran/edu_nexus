@@ -17,7 +17,7 @@ import { queryKey as queryKeyPayroll } from "../../payroll.constants";
 import { queryKey as queryKeyJobProfile } from "../../../jobProfile/jobProfile.constants";
 
 export default function DeletePayrollForm({ id }: { id: string }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeletePayrollDto["params"] = {
     payrollId: id,

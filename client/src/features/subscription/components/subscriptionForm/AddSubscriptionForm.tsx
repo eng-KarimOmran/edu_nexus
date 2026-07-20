@@ -30,7 +30,7 @@ type Props = {
 };
 
 export default function AddSubscriptionForm({ academyId, clientId }: Props) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const navigate = useNavigate();
 
   const { data: courses, isLoading: isLoadingCourses } = useCourses({

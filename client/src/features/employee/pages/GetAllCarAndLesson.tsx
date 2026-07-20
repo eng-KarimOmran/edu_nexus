@@ -102,7 +102,7 @@ export default function GetAllCarAndLesson() {
                     {data.map((car) => {
                       const lesson = carMap.get(`${car.id}-${dayKey}-${hour}`);
                       return (
-                        <TableCell key={`${dayKey}-${car.id}-${hour}`}>
+                        <TableCell className="border" key={`${dayKey}-${car.id}-${hour}`}>
                           <CardCarAndLesson
                             car={car}
                             day={dayKey}

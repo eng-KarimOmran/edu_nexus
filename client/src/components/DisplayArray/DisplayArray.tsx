@@ -28,7 +28,7 @@ export default function DisplayArray<T>({
   descKey?: keyof T;
   forms: Forms<T>;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const isMobile = useIsMobile();
 
   const handleAction = (type: ActionType, item?: T) => {

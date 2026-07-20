@@ -27,10 +27,13 @@ import { ROUTE_BUILDERS } from "@/routes/routes.builders";
 
 import { Separator } from "@/components/ui/separator";
 import dayjs from "dayjs";
-import { toast } from "sonner";
 import type { Car } from "@/features/car/car.type";
+import { formatArabicDayAndDate } from "@/lib/formatDate";
+import { useDialogState } from "@/store/DialogState";
+import SearchClientSubscriptionForm from "./forms/SearchClientSubscriptionForm";
+import React from "react";
 
-export default function CardCarAndLesson({
+const CardCarAndLesson = ({
   hour,
   lesson,
   day,
@@ -40,43 +43,59 @@ export default function CardCarAndLesson({
   lesson?: BaseLesson;
   day: string;
   car: Car;
-}) {
+}) => {
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const handleClick = (hour: number) => {
     const slotStart = dayjs(day)
       .hour(hour)
       .minute(0)
       .second(0)
       .millisecond(0)
-      .toISOString();
+      .toDate();
 
-    console.log(car.id, slotStart);
-    toast.warning("جاري العمل عل هذه الميزه");
+    setConfigDialog({
+      title: "",
+      description: "",
+      children: (
+        <SearchClientSubscriptionForm
+          carId={car.id}
+          gearType={car.gearType}
+          startTime={slotStart}
+        />
+      ),
+    });
   };
 
   return (
     <Card className="min-w-xs">
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <RiCarLine className="size-5 text-primary" />
-            <span className="font-medium">
-              {car.modelName} - {car.plateNumber}
-            </span>
+        <CardTitle className="flex flex-col gap-3">
+          <div className="flex items-center rounded-md bg-primary/10 px-2 py-1 w-full text-sm font-semibold text-primary justify-between">
+            <div className="flex gap-1">
+              <RiTimeLine className="size-4" />
+              <span>الساعة</span>
+            </div>
+            <span>{formatHour(hour)}</span>
           </div>
+          {!lesson && (
+            <>
+              <div className="flex items-center gap-2">
+                <RiCarLine className="size-5 text-primary" />
+                <span className="font-medium">
+                  {car.modelName} - {car.plateNumber}
+                </span>
+              </div>
 
-          <div className="flex items-center gap-1 rounded-md bg-primary/10 px-2 py-1">
-            <RiTimeLine className="size-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">
-              {formatHour(hour)}
-            </span>
-          </div>
+              <div className="text-sm text-muted-foreground">
+                {formatArabicDayAndDate(day)}
+              </div>
+            </>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent>
         {lesson ? (
           <div className="space-y-5 text-sm">
-            <Separator />
-
             {/* بيانات العميل */}
             <div className="space-y-3">
               <h3 className="font-semibold flex items-center gap-2">
@@ -184,10 +203,12 @@ export default function CardCarAndLesson({
       </CardFooter>
     </Card>
   );
-}
+};
 
 function formatHour(hour: number) {
   const period = hour >= 12 ? "م" : "ص";
   const formattedHour = hour % 12 || 12;
   return `${formattedHour} ${period}`;
 }
+
+export default React.memo(CardCarAndLesson);

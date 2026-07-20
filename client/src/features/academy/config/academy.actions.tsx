@@ -22,7 +22,7 @@ interface Action {
 }
 
 export default function ActionsAcademy({ item }: { item: Academy }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const navigate = useNavigate();
 
   const actions: Action[] = [

@@ -32,7 +32,7 @@ export default function ChangeWalletMovementStatusForm({
   ledgerTransactionId,
   status,
 }: Props) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<
     ChangeLedgerTransactionStatusDto["body"],

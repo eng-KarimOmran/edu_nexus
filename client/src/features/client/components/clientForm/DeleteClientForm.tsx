@@ -22,7 +22,7 @@ export default function DeleteClientForm({
   academyId: string;
   item: Client;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeleteClientDto["params"] = {
     academyId,

@@ -19,7 +19,7 @@ export default function DeleteSubscriptionForm({
   academyId: string;
   item: Subscription;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<{ text: string }, Subscription> = {
     inputs: [

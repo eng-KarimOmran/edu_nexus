@@ -21,7 +21,7 @@ export default function DeleteCourseFeatureForm({
   featureId: string;
   feature: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<{ feature: string }, unknown> = {
     inputs: [

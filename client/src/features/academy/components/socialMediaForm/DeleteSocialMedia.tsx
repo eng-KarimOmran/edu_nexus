@@ -16,7 +16,7 @@ export default function DeleteSocialMediaForm({
   academyId: string;
   socialMediaId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const params: DeleteSocialMediaDto["params"] = { academyId, socialMediaId };
 
   const config: FormProps<{ text: string }, Academy> = {

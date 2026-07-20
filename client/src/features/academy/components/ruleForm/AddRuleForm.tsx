@@ -10,7 +10,7 @@ import type { AddRuleDto } from "../../academy.dto";
 import type { Academy } from "../../academy.type";
 
 export default function AddRuleForm({ academyId }: { academyId: string }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: AddRuleDto["params"] = {
     academyId,

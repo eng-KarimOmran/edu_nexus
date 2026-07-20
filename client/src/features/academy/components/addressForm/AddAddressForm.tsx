@@ -10,7 +10,7 @@ import type { AddAddressDto } from "../../academy.dto";
 import type { Academy } from "../../academy.type";
 
 export default function AddAddressForm({ academyId }: { academyId: string }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: AddAddressDto["params"] = {
     academyId,

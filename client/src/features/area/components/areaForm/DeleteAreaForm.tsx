@@ -20,7 +20,7 @@ export default function DeleteAreaForm({
 }: {
   item: Area;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeleteAreaDto["params"] = {
     areaId: item.id,

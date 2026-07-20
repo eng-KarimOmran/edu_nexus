@@ -21,7 +21,7 @@ export default function DeleteCourseForm({
   academyId: string;
   item: Course;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<{ name: string }, Course> = {
     inputs: [

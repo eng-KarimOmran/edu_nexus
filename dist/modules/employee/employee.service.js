@@ -39,10 +39,10 @@ const EmployeeService = {
         let client = null;
         const isPhone = /^01[0125]\d{8}$/.test(search);
         if (isPhone) {
-            client = await prisma_1.prisma.client.findFirst({ where: { phone: search } });
+            client = await prisma_1.prisma.client.findFirst({ where: { phone: search }, include: { subscriptions: { select: { id: true, courseName: true, createdAt: true } } } });
         }
         else {
-            client = await prisma_1.prisma.client.findUnique({ where: { id: search } });
+            client = await prisma_1.prisma.client.findUnique({ where: { id: search }, include: { subscriptions: { select: { id: true, courseName: true, createdAt: true } } } });
         }
         if (!client)
             throw ApiError_1.default.NotFound("Client");

@@ -17,7 +17,7 @@ export default function DeleteOwnerForm({
   academyId: string;
   ownerId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const params: DeleteOwnerDto["params"] = { academyId, userId: ownerId };
 
   const config: FormProps<{ phone: string }, Academy> = {

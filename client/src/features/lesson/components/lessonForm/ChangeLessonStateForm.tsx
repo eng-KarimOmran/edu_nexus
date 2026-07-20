@@ -21,7 +21,7 @@ import { ChangeLessonStateSchema } from "../../lesson.schema";
 import { lessonStatusOptions } from "@/lib/enumOptions";
 
 export default function ChangeLessonStateForm({ item }: { item: Lesson }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<ChangeLessonStateDto["body"], Lesson> = {
     defaultValues: {

@@ -10,7 +10,7 @@ import { createUser } from "../../api/user.service";
 import { CreateUserSchema } from "../../user.schema";
 
 export default function AddUserForm() {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<CreateUserDto["body"], User> = {
     inputs: [

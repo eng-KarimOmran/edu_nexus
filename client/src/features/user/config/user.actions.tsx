@@ -32,7 +32,7 @@ interface Action {
 }
 
 export default function ActionsUser({ item }: { item: User }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const navigate = useNavigate();
 
   const actions: Action[] = [

@@ -15,7 +15,7 @@ export default function ButtonAdd({
   className,
   disabled,
 }: ButtonAddProps) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   return (
     <>

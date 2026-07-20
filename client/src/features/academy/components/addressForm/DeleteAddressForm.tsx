@@ -16,7 +16,7 @@ export default function DeleteAddressForm({
   academyId: string;
   addressId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeleteAddressDto["params"] = {
     academyId,

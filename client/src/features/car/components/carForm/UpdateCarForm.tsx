@@ -16,7 +16,7 @@ import { updateCar } from "../../api/car.service";
 import { UpdateCarSchema } from "../../car.schema";
 
 export default function UpdateCarForm({ item }: { item: Car }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: UpdateDto["params"] = {
     carId: item.id,

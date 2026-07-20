@@ -10,7 +10,7 @@ import type { AddPhoneDto } from "../../academy.dto";
 import type { Academy } from "../../academy.type";
 
 export default function AddPhoneForm({ academyId }: { academyId: string }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: AddPhoneDto["params"] = {
     academyId,

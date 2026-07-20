@@ -17,7 +17,7 @@ import type { Area } from "../../area.type";
 import type { UpdateAreaDto } from "../../area.dto";
 
 export default function UpdateAreaForm({ item }: { item: Area }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: UpdateAreaDto["params"] = {
     areaId: item.id,

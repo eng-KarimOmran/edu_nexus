@@ -10,7 +10,7 @@ import { matchSchema } from "@/lib/matchSchema";
 import { deleteUser } from "../../api/user.service";
 
 export default function DeleteUserForm({ item }: { item: User }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeleteUserDto["params"] = { userId: item.id };
 

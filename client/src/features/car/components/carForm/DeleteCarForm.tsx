@@ -16,7 +16,7 @@ import { deleteCar } from "../../api/car.service";
 import type { DeleteDto } from "../../car.dto";
 
 export default function DeleteCarForm({ item }: { item: Car }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeleteDto["params"] = { carId: item.id };
 

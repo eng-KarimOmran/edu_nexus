@@ -26,7 +26,7 @@ interface Action {
 }
 
 export default function ActionsJobProfile({ item }: { item: JobProfile }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const navigate = useNavigate();
 
   const actions: Action[] = [

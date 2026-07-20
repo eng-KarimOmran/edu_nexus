@@ -11,7 +11,7 @@ import { useUserProfileState } from "@/store/UserDetailsState";
 
 export default function ChangePasswordForm() {
   const { setUserProfile } = useUserProfileState();
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<ChangePasswordDto["body"], boolean> = {
     inputs: [

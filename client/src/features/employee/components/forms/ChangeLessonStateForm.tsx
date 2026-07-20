@@ -16,7 +16,7 @@ import type { Lesson as LessonDetails } from "@/features/lesson/lesson.type";
 import type { Lesson } from "../../employee.type";
 
 export default function ChangeLessonStateForm({ item }: { item: Lesson }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<ChangeLessonStateDto["body"], LessonDetails> = {
     defaultValues: {

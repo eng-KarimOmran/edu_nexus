@@ -21,7 +21,7 @@ export default function DeleteJobProfileForm({
 }: {
   item: JobProfile;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeleteJobProfileDto["params"] = {
     jobProfileId: item.id,

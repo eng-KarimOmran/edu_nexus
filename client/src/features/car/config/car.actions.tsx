@@ -29,7 +29,7 @@ interface Action {
 export default function ActionsCar({ item }: { item: Car }) {
   const navigate = useNavigate();
 
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const actions: Action[] = [
     {

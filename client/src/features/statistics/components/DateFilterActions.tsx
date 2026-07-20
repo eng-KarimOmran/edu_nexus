@@ -14,7 +14,7 @@ export default function DateFilterActions({
   date,
   initialDateFilter,
 }: DateFilterActionsProps) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const handleClearFilter = () => {
     setDate(initialDateFilter);

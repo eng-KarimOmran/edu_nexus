@@ -18,7 +18,7 @@ export default function AddCourseFeatureForm({
   academyId: string;
   courseId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<AddCourseFeatureDto["body"], CourseFeature> = {
     inputs: [

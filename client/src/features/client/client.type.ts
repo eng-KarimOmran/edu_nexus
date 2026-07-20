@@ -4,6 +4,8 @@ import type { Subscription } from "../subscription/subscription.type";
 import type { Wallet } from "@/types/wallet";
 import type { CreatedBy } from "@/types/createdBy";
 
+export type ClientSubscriptions = Pick<Subscription, "id" | "courseName" | "createdAt">;
+
 export interface Client {
     id: string;
     name: string;
@@ -11,7 +13,10 @@ export interface Client {
     source: ClientSource
     createdAt: string;
     academyId: string;
+    subscriptions: ClientSubscriptions[]
 }
+
+
 
 interface WalletClient extends Wallet {
     clientId: string;

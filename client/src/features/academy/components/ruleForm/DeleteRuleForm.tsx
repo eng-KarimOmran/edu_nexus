@@ -16,7 +16,7 @@ export default function DeleteRuleForm({
   academyId: string;
   ruleId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeleteRuleDto["params"] = {
     academyId,

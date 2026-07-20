@@ -16,7 +16,7 @@ export default function DeletePhoneForm({
   academyId: string;
   phoneId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
   const params: DeletePhoneDto["params"] = { academyId, phoneId };
 
   const config: FormProps<{ text: string }, Academy> = {

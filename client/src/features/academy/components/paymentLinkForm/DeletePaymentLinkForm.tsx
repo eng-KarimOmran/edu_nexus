@@ -16,7 +16,7 @@ export default function DeletePaymentLinkForm({
   academyId: string;
   paymentLinkId: string;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: DeletePaymentLinkDto["params"] = {
     academyId,

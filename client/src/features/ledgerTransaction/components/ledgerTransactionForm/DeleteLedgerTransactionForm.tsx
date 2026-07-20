@@ -19,7 +19,7 @@ export default function DeleteLedgerTransactionForm({
   academyId: string;
   item: WalletMovement;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<{ text: string }, WalletMovement> = {
     inputs: [

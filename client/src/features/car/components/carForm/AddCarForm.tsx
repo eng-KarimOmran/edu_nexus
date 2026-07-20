@@ -17,7 +17,7 @@ import { CreateCarSchema } from "../../car.schema";
 import type { CreateDto } from "../../car.dto";
 
 export default function AddCarForm() {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<CreateDto["body"], Car> = {
     inputs: [

@@ -22,7 +22,7 @@ export default function UpdateClientForm({
   academyId: string;
   item: Client;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: UpdateClientDto["params"] = {
     academyId,

@@ -34,7 +34,7 @@ export default function ActionsLedgerTransaction({
   academyId?: string;
   item: WalletMovement;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   if (!academyId) return null;
 

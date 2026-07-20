@@ -10,7 +10,7 @@ import { UpdateUserSchema } from "../../user.schema";
 import { updateUser } from "../../api/user.service";
 
 export default function UpdateUserForm({ item }: { item: User }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const params: UpdateUserDto["params"] = { userId: item.id };
 

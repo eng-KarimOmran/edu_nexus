@@ -38,7 +38,7 @@ import { LoadingList } from "@/components/Loading/Loading";
 export default function MyLessonsPage({ date }: { date: DateFilter }) {
   const { startTime, endTime } = getDateRange(date);
   const { userProfile } = useUserProfileState();
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const query: GetAllLessonsDto["query"] = {
     lessonStatus: "SCHEDULED",

@@ -25,7 +25,7 @@ export default function TransferFundsForm({
   receiverWalletId: string;
   amount?: number;
 }) {
-  const { setConfigDialog } = useDialogState();
+  const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
   const config: FormProps<TransferFundsDto["body"], WalletMovement> = {
     inputs: [

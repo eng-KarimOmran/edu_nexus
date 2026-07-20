@@ -192,7 +192,8 @@ exports.ClientScalarFieldEnum = {
     phone: 'phone',
     source: 'source',
     academyId: 'academyId',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    createdById: 'createdById'
 };
 exports.CourseScalarFieldEnum = {
     id: 'id',
@@ -291,6 +292,7 @@ exports.LessonScalarFieldEnum = {
     areaId: 'areaId',
     walletMovementId: 'walletMovementId',
     payrollId: 'payrollId',
+    createdById: 'createdById',
     createdAt: 'createdAt'
 };
 exports.WalletMovementScalarFieldEnum = {
@@ -381,7 +383,8 @@ exports.ClientOrderByRelevanceFieldEnum = {
     id: 'id',
     name: 'name',
     phone: 'phone',
-    academyId: 'academyId'
+    academyId: 'academyId',
+    createdById: 'createdById'
 };
 exports.CourseOrderByRelevanceFieldEnum = {
     id: 'id',
@@ -435,7 +438,8 @@ exports.LessonOrderByRelevanceFieldEnum = {
     jobProfileId: 'jobProfileId',
     areaId: 'areaId',
     walletMovementId: 'walletMovementId',
-    payrollId: 'payrollId'
+    payrollId: 'payrollId',
+    createdById: 'createdById'
 };
 exports.WalletMovementOrderByRelevanceFieldEnum = {
     id: 'id',

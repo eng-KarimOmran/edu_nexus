@@ -15,7 +15,7 @@ import { TransactionClient } from "@/prisma/generated/internal/prismaNamespace";
 
 export interface ILessonService {
     createLesson(
-        data: CreateLessonDto & { userId: string }
+        data: CreateLessonDto & { userId?: string }
     ): Promise<Lesson>;
 
     updateLesson(

@@ -25,7 +25,7 @@ type ClientDetails = {
 }
 
 export interface IClientService {
-    createClient(data: CreateClientDto & { tx?: TransactionClient, userId: string }): Promise<Client>;
+    createClient(data: CreateClientDto & { tx?: TransactionClient, userId?: string }): Promise<Client>;
 
     updateClient(data: UpdateClientDto): Promise<Client>;
 

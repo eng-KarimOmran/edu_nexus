@@ -8,7 +8,8 @@ const client_service_1 = __importDefault(require("./client.service"));
 const ClientController = {
     create: async (req, res) => {
         const dataSafe = req.dataSafe;
-        const client = await client_service_1.default.createClient(dataSafe);
+        const userId = req.userLogin.id;
+        const client = await client_service_1.default.createClient({ userId, body: dataSafe.body, params: dataSafe.params });
         return (0, successResponse_1.default)({
             res,
             statusCode: 201,

@@ -8,7 +8,8 @@ const successResponse_1 = __importDefault(require("../../shared/utils/successRes
 const LessonController = {
     createLesson: async (req, res) => {
         const dataSafe = req.dataSafe;
-        const lesson = await lesson_service_1.default.createLesson(dataSafe);
+        const userId = req.userLogin.id;
+        const lesson = await lesson_service_1.default.createLesson({ ...dataSafe, userId });
         return (0, successResponse_1.default)({
             res,
             statusCode: 201,

@@ -20,7 +20,7 @@ const SubscriptionService = {
                 tx.area.findFirst({ where: { id: body.areaId } }),
                 tx.course.findFirst({ where: { id: body.courseId, academyId } }),
                 tx.wallet.findFirst({ where: { academyId, walletType: "ACADEMY" } }),
-                ...(userId ? [tx.jobProfile.findFirst({ where: { userId, jobProfileType: "SECRETARY" } })] : [])
+                ...(userId ? [tx.jobProfile.findFirst({ where: { userId } })] : [])
             ]);
             if (!client)
                 throw ApiError_1.default.NotFound("Client");
@@ -101,6 +101,18 @@ const SubscriptionService = {
                 walletMovements: {
                     include: { paymentProofImage: true }
                 },
+                createdBy: {
+                    select: {
+                        id: true,
+                        user: {
+                            select: {
+                                id: true,
+                                name: true,
+                                phone: true
+                            }
+                        }
+                    }
+                }
             }
         });
         if (!subscription)

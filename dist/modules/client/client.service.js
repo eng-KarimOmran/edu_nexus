@@ -9,7 +9,7 @@ const Pagination_1 = require("../../shared/utils/Pagination");
 const client_utils_1 = require("./client.utils");
 const subscription_service_1 = __importDefault(require("../subscription/subscription.service"));
 const ClientService = {
-    async createClient({ params, body, tx }) {
+    async createClient({ params, body, tx, userId }) {
         const { academyId } = params;
         const { phone } = body;
         const run = async (tx) => {
@@ -17,9 +17,11 @@ const ClientService = {
             if (phoneExists) {
                 throw ApiError_1.default.Conflict("PHONE_ALREADY_EXISTS");
             }
+            const jobProfile = await tx.jobProfile.findUnique({ where: { userId } });
             const data = {
                 academy: { connect: { id: academyId } },
                 wallet: { create: { academyId, walletType: "CLIENT" } },
+                ...(jobProfile && { createdBy: { connect: { id: jobProfile.id } } }),
                 ...body
             };
             return await tx.client.create({ data });
@@ -94,7 +96,11 @@ const ClientService = {
         if (clientId) {
             const client = await prisma_1.prisma.client.findUnique({
                 where: { id: clientId, academyId },
-                include: { subscriptions: true, academy: true, wallet: true }
+                include: {
+                    subscriptions: true, academy: true, wallet: true, createdBy: {
+                        select: { id: true, user: { select: { id: true, name: true, phone: true } } }
+                    }
+                }
             });
             if (client) {
                 currentClient = client;
@@ -103,7 +109,11 @@ const ClientService = {
         if (phone && !currentClient) {
             const client = await prisma_1.prisma.client.findFirst({
                 where: { academyId, phone },
-                include: { subscriptions: true, academy: true, wallet: true }
+                include: {
+                    subscriptions: true, academy: true, wallet: true, createdBy: {
+                        select: { id: true, user: { select: { id: true, name: true, phone: true } } }
+                    }
+                }
             });
             if (client) {
                 currentClient = client;

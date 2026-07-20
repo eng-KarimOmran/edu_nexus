@@ -10,7 +10,7 @@ const Pagination_1 = require("../../shared/utils/Pagination");
 const ApiError_1 = __importDefault(require("../../shared/utils/ApiError"));
 const walletMovement_service_1 = __importDefault(require("../walletMovement/walletMovement.service"));
 const LessonService = {
-    async createLesson({ params, body }) {
+    async createLesson({ params, body, userId }) {
         const { academyId } = params;
         const { areaId, startTime, carId, subscriptionId, expectedPaymentAmount, transmission, jobProfileId } = body;
         const lesson = await prisma_1.prisma.$transaction(async (tx) => {
@@ -26,6 +26,7 @@ const LessonService = {
                 startTime: timeLesson.startTime,
                 endTime: timeLesson.endTime,
             });
+            const createdBy = await tx.jobProfile.findUnique({ where: { userId } });
             const data = {
                 expectedPaymentAmount,
                 transmission,
@@ -41,6 +42,7 @@ const LessonService = {
                 subscription: { connect: { id: subscriptionId } },
                 academy: { connect: { id: academyId } },
                 client: { connect: { id: subscription.clientId } },
+                ...(createdBy && { createdBy: { connect: { id: createdBy.id } } })
             };
             const lesson = await tx.lesson.create({ data });
             await subscription_service_1.default.recalculateSubscriptionStatus({ subscriptionId, tx });
@@ -95,6 +97,9 @@ const LessonService = {
                             }
                         }
                     }
+                },
+                createdBy: {
+                    select: { id: true, user: { select: { id: true, name: true, phone: true } } }
                 }
             }
         });

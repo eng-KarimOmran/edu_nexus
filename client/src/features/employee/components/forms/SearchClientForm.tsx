@@ -14,7 +14,7 @@ export default function SearchClientForm() {
     inputs: [
       {
         name: "search",
-        type: "text",
+        type: "tel",
         label: "بحث",
         placeholder: "ابحث عن العميل بالمعرف او رقم الهاتف...",
       },

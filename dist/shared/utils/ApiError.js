@@ -72,6 +72,7 @@ exports.CONFLICT_MESSAGES = {
     SENDER_EQ_RECEIVER: "لا يمكن أن يكون المرسل هو المستلم",
     LESSON_COUNT_EXCEEDS_ACTUAL: "لا يمكن أن يكون عدد الحصص أكبر من العدد الفعلي الذي حققه الموظف",
     SUBSCRIPTION_COUNT_EXCEEDS_ACTUAL: "لا يمكن أن يكون عدد الاشتراكات أكبر من العدد الفعلي الذي حققه الموظف",
+    TRANSITIONING: `يجب ترك فترة انتقال مدتها ساعة واحدة بين المنطقتين.`
 };
 const ApiError = {
     NotFound(model) {

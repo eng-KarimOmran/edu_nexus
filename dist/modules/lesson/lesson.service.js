@@ -18,6 +18,14 @@ const LessonService = {
             (0, lesson_utils_1.getBookingError)(subscription.subscriptionStatus);
             const timeLesson = (0, lesson_utils_1.calculateLessonTime)(startTime, subscription.sessionDurationMinutes);
             await (0, lesson_utils_1.validateTimeSlotConflict)({ jobProfileId, carId, startTime: timeLesson.startTime, endTime: timeLesson.endTime, clientId: subscription.clientId, tx });
+            await (0, lesson_utils_1.validateAreaTransition)({
+                tx,
+                areaId,
+                carId,
+                jobProfileId,
+                startTime: timeLesson.startTime,
+                endTime: timeLesson.endTime,
+            });
             const data = {
                 expectedPaymentAmount,
                 transmission,
@@ -147,6 +155,14 @@ const LessonService = {
             const { subscription, car, jobProfile } = await (0, lesson_utils_1.getValidatedLessonDependencies)({ ...finalData, tx });
             const timeLesson = (0, lesson_utils_1.calculateLessonTime)(startTime ?? lessonEx.startTime, lessonEx.sessionDurationMinutes);
             await (0, lesson_utils_1.validateTimeSlotConflict)({ id: lessonEx.id, jobProfileId: finalData.jobProfileId, carId: finalData.carId, startTime: timeLesson.startTime, endTime: timeLesson.endTime, clientId: subscription.clientId, tx });
+            await (0, lesson_utils_1.validateAreaTransition)({
+                tx,
+                areaId: finalData.areaId,
+                carId: finalData.carId,
+                jobProfileId: finalData.jobProfileId,
+                startTime: timeLesson.startTime,
+                endTime: timeLesson.endTime,
+            });
             const data = {
                 expectedPaymentAmount,
                 transmission,

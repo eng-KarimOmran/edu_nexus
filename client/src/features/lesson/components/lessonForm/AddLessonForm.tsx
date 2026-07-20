@@ -19,31 +19,27 @@ import { useJobProfiles } from "@/features/jobProfile/api/jobProfile.query";
 
 import { transmissionOptions } from "@/lib/enumOptions";
 import { useState } from "react";
-import { SupportType, type Transmission } from "@/types/enums";
 
 import { queryKey as queryKeyLesson } from "../../lesson.constants";
 import { queryKey as queryKeyClient } from "../../../client/client.constants";
 import { queryKey as queryKeySubscription } from "../../../subscription/subscription.constants";
 
 import dayjs from "dayjs";
+import type { Transmission } from "@/types/enums";
 
 type Props = {
-  academyId: string;
-  subscriptionId?: string;
-  areaId?: string;
-  transmission?: SupportType;
+  body?: Partial<CreateLessonDto["body"]>;
+  params: CreateLessonDto["params"];
 };
 
-export default function AddLessonForm({
-  academyId,
-  subscriptionId,
-  areaId,
-  transmission,
-}: Props) {
+export default function AddLessonForm({ body, params }: Props) {
   const { setConfigDialog } = useDialogState();
+  const { academyId } = params;
 
   const [transmissionLesson, setTransmissionLesson] = useState<Transmission>(
-    !transmission || transmission === "BOTH" ? "AUTOMATIC" : transmission,
+    !body?.transmission || body.transmission === "BOTH"
+      ? "AUTOMATIC"
+      : body.transmission,
   );
 
   const nextDay = dayjs()
@@ -159,8 +155,8 @@ export default function AddLessonForm({
         type: "text",
         label: "معرف الاشتراك",
         placeholder: "أدخل معرف الاشتراك",
-        readOnly: !!subscriptionId,
-        disabled: !!subscriptionId,
+        readOnly: !!body?.subscriptionId,
+        disabled: !!body?.subscriptionId,
         col: "half",
       },
 
@@ -176,10 +172,10 @@ export default function AddLessonForm({
 
     defaultValues: {
       transmission: transmissionLesson,
-      subscriptionId,
+      subscriptionId: body?.subscriptionId ?? "",
       startTime: nextDay,
-      areaId,
-      expectedPaymentAmount: 0,
+      areaId: body?.areaId ?? "",
+      expectedPaymentAmount: body?.expectedPaymentAmount ?? 0,
     },
 
     submitButton: {

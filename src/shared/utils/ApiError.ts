@@ -80,6 +80,8 @@ export const CONFLICT_MESSAGES = {
     "لا يمكن أن يكون عدد الحصص أكبر من العدد الفعلي الذي حققه الموظف",
   SUBSCRIPTION_COUNT_EXCEEDS_ACTUAL:
     "لا يمكن أن يكون عدد الاشتراكات أكبر من العدد الفعلي الذي حققه الموظف",
+  TRANSITIONING: `يجب ترك فترة انتقال مدتها ساعة واحدة بين المنطقتين.`
+
 } as const;
 
 type NotFoundModel = keyof typeof NOT_FOUND_MESSAGES;

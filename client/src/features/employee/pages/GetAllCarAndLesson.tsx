@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { getAllCarAndLesson } from "../api/employee.service";
@@ -5,19 +6,42 @@ import EmptyState from "@/components/EmptyState/EmptyState";
 import { LoadingList } from "@/components/Loading/Loading";
 import displayError from "@/lib/displayError";
 import { formatArabicDayAndDate } from "@/lib/formatDate";
-import type { CarWithLessons } from "../employee.type";
+
+import type { BaseLesson } from "../employee.type";
 import { queryKey } from "@/features/lesson/lesson.constants";
 
 import {
   RiMapPinLine,
-  RiPhoneLine,
   RiUserStarLine,
   RiUser3Line,
+  RiWhatsappLine,
+  RiAddLine,
 } from "@remixicon/react";
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+import { Link } from "react-router-dom";
+import { ROUTE_BUILDERS } from "@/routes/routes.builders";
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+
+const HOURS = Array.from({ length: 15 }, (_, i) => 9 + i);
+
 export default function GetAllCarAndLesson() {
-  const startTime = dayjs().startOf("day").toDate();
-  const endTime = dayjs().add(7, "day").endOf("day").toDate();
+  const { startTime, endTime } = useMemo(
+    () => ({
+      startTime: dayjs().startOf("day").toDate(),
+      endTime: dayjs().add(7, "day").endOf("day").toDate(),
+    }),
+    [],
+  );
 
   const {
     data = [],
@@ -30,6 +54,35 @@ export default function GetAllCarAndLesson() {
     select: (res) => res.data.data,
   });
 
+  const days = useMemo(
+    () => Array.from({ length: 7 }, (_, i) => dayjs().add(i, "day")),
+    [],
+  );
+
+  const lessonMap = useMemo(() => {
+    const map = new Map<string, BaseLesson>();
+    data.forEach((car) => {
+      car.lessons.forEach((lesson) => {
+        const day = dayjs(lesson.startTime).format("YYYY-MM-DD");
+        const hour = dayjs(lesson.startTime).hour();
+        map.set(`${car.id}-${day}-${hour}`, lesson);
+      });
+    });
+    return map;
+  }, [data]);
+
+  const handleSlotClick = (carId: string, day: Date, hour: number) => {
+    const startTime = dayjs(day)
+      .hour(hour)
+      .minute(0)
+      .second(0)
+      .millisecond(0)
+      .toISOString();
+
+    console.log(carId, startTime);
+    toast.warning("جاري العمل عل هذه الميزه");
+  };
+
   if (isLoading) {
     return <LoadingList count={7} />;
   }
@@ -39,166 +92,166 @@ export default function GetAllCarAndLesson() {
       error,
       mes: "حدث خطأ أثناء جلب الجدول",
     });
+    return null;
   }
 
   if (!data.length) {
-    return <EmptyState message="لا توجد سيارات" />;
+    return <EmptyState message="لا يوجد بيانات لعرضها" />;
   }
 
-  const hours = Array.from({ length: 15 }, (_, i) => 9 + i);
-
-  const days = Array.from({ length: 7 }, (_, i) => dayjs().add(i, "day"));
-
-  const findLesson = (car: CarWithLessons, day: dayjs.Dayjs, hour: number) => {
-    return car.lessons.find((lesson) => {
-      const start = dayjs(lesson.startTime);
-      const end = dayjs(lesson.endTime);
-
-      const current = day.hour(hour).minute(0).second(0);
-
-      return (
-        current.isSame(day, "day") &&
-        current.valueOf() >= start.valueOf() &&
-        current.valueOf() < end.valueOf()
-      );
-    });
-  };
-
   return (
-    <section className="space-y-10">
+    <section className="space-y-6">
       {days.map((day) => {
-        const carHourMap = data.map((car) =>
-          hours.map((hour) => findLesson(car, day, hour)),
-        );
-
-        const skipRemaining = new Array(data.length).fill(0);
+        const dayKey = day.format("YYYY-MM-DD");
+        const isToday = day.isSame(dayjs(), "day");
 
         return (
-          <div key={day.format("YYYY-MM-DD")}>
-            <h2 className="mb-4 text-xl font-bold">
-              {formatArabicDayAndDate(day.toDate())}
-            </h2>
+          <div
+            key={dayKey}
+            className="rounded-xl border bg-card overflow-hidden"
+          >
+            <div
+              className={cn(
+                "flex items-center justify-between px-4 py-2.5 border-b",
+                isToday ? "bg-primary/5" : "bg-muted",
+              )}
+            >
+              <h2 className="text-sm font-semibold">
+                {formatArabicDayAndDate(day.toDate())}
+              </h2>
+              {isToday && (
+                <span className="text-xs font-medium text-primary bg-primary/10 rounded-full px-2 py-0.5">
+                  اليوم
+                </span>
+              )}
+            </div>
 
-            <div className="overflow-auto rounded-lg border">
-              <table className="min-w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th className="border p-3">الساعة</th>
-
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead className="sticky right-0 z-20 w-16 bg-muted/60 backdrop-blur-sm text-center">
+                      الساعة
+                    </TableHead>
                     {data.map((car) => (
-                      <th key={car.id} className="border p-3">
-                        {`${car.modelName}-${car.plateNumber}`}
-                      </th>
+                      <TableHead
+                        key={car.id}
+                        className="min-w-47.5 bg-muted/60 backdrop-blur-sm sticky top-0 z-10"
+                      >
+                        {`${car.modelName} - ${car.plateNumber}`}
+                      </TableHead>
                     ))}
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {hours.map((hour, hourIndex) => (
-                    <tr key={hour}>
-                      <td className="border p-3 font-bold">
-                        {dayjs().hour(hour).minute(0).format("hh:mm A")}
-                      </td>
-
-                      {data.map((car, carIndex) => {
-                        if (skipRemaining[carIndex] > 0) {
-                          skipRemaining[carIndex]--;
-                          return null;
-                        }
-
-                        const lesson = carHourMap[carIndex][hourIndex];
-
-                        if (!lesson) {
-                          return (
-                            <td
-                              key={car.id}
-                              className="border p-3 align-top min-w-44"
-                            >
-                              <span className="text-green-600 font-medium">
-                                فارغة
-                              </span>
-                            </td>
-                          );
-                        }
-
-                        let span = 1;
-                        for (let i = hourIndex + 1; i < hours.length; i++) {
-                          if (carHourMap[carIndex][i] === lesson) {
-                            span++;
-                          } else {
-                            break;
-                          }
-                        }
-                        skipRemaining[carIndex] = span - 1;
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {HOURS.map((h) => (
+                    <TableRow key={h}>
+                      <TableCell className="sticky right-0 z-10 bg-background text-center text-xs font-medium text-muted-foreground border-e">
+                        {formatHour(h)}
+                      </TableCell>
+                      {data.map((car) => {
+                        const lesson = lessonMap.get(
+                          `${car.id}-${dayKey}-${h}`,
+                        );
 
                         return (
-                          <td
-                            key={car.id}
-                            rowSpan={span}
-                            className="min-w-72 border p-3 align-top"
-                          >
-                            <div className="space-y-2.5">
-                              {/* العميل */}
-                              <div className="rounded-md bg-muted/40 p-2">
-                                <div className="flex items-center gap-2 text-sm font-medium">
-                                  <RiUser3Line
-                                    size={16}
-                                    className="text-primary shrink-0"
-                                  />
-                                  <span className="text-muted-foreground">
-                                    العميل:
-                                  </span>
-                                  <span>{lesson.client.name}</span>
-                                </div>
-
-                                <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-                                  <RiPhoneLine size={14} className="shrink-0" />
-                                  <span>{lesson.client.phone}</span>
-                                </div>
-                              </div>
-
-                              {/* الكابتن */}
-                              <div className="rounded-md bg-muted/40 p-2">
-                                <div className="flex items-center gap-2 text-sm font-medium">
-                                  <RiUserStarLine
-                                    size={16}
-                                    className="text-primary shrink-0"
-                                  />
-                                  <span className="text-muted-foreground">
-                                    الكابتن:
-                                  </span>
-                                  <span>{lesson.jobProfile.user.name}</span>
-                                </div>
-
-                                <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-                                  <RiPhoneLine size={14} className="shrink-0" />
-                                  <span>{lesson.jobProfile.user.phone}</span>
-                                </div>
-                              </div>
-
-                              {/* المنطقة */}
-                              <div className="flex items-center gap-2 rounded-md bg-muted/40 p-2 text-sm font-medium">
-                                <RiMapPinLine
-                                  size={16}
-                                  className="text-primary shrink-0"
-                                />
-                                <span className="text-muted-foreground">
-                                  المنطقة:
-                                </span>
-                                <span>{lesson.area.name}</span>
-                              </div>
-                            </div>
-                          </td>
+                          <TableCell key={car.id} className="align-top p-1.5">
+                            {lesson ? (
+                              <LessonSlot lesson={lesson} />
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleSlotClick(car.id, day.toDate(), h)
+                                }
+                                aria-label={`إضافة حصة - ${car.modelName} ${car.plateNumber} - ${formatArabicDayAndDate(day.toDate())} - ${formatHour(h)}`}
+                                className="flex w-full min-h-26 flex-col items-center justify-center gap-1 rounded-md border border-dashed text-muted-foreground transition-colors hover:border-primary hover:bg-primary/5 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                              >
+                                <RiAddLine className="size-4" />
+                                <span className="text-xs">إضافة حصة</span>
+                              </button>
+                            )}
+                          </TableCell>
                         );
                       })}
-                    </tr>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           </div>
         );
       })}
     </section>
   );
+}
+
+function LessonSlot({ lesson }: { lesson: BaseLesson }) {
+  return (
+    <div className="flex h-full flex-col gap-1.5 rounded-md border border-e-4 border-e-primary bg-card p-2 text-md">
+      <div className="flex items-center justify-between gap-1">
+        <Link
+          to={ROUTE_BUILDERS.clientDetails(lesson.academyId, lesson.client.id)}
+          className="flex min-w-0 items-center gap-1 font-medium hover:underline"
+        >
+          <RiUser3Line className="size-3.5 shrink-0 text-muted-foreground" />
+          <span className="truncate">{lesson.client.name}</span>
+        </Link>
+
+        <a
+          href={`https://wa.me/2${lesson.client.phone}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="مراسلة العميل عبر واتساب"
+          className="shrink-0 text-green-600 hover:text-green-700"
+        >
+          <RiWhatsappLine className="size-4" />
+        </a>
+      </div>
+
+      <Link
+        to={ROUTE_BUILDERS.subscriptionDetails(
+          lesson.academyId,
+          lesson.subscriptionId,
+        )}
+        className="flex min-w-0 items-center gap-1 font-medium hover:underline"
+      >
+        <RiUser3Line className="size-3.5 shrink-0 text-muted-foreground" />
+        <span className="truncate">تفاصيل الأشتراك</span>
+      </Link>
+
+      <a
+        href={`tel:${lesson.client.phone}`}
+        dir="ltr"
+        className="text-end text-muted-foreground hover:underline"
+      >
+        {lesson.client.phone}
+      </a>
+
+      <div className="flex items-center gap-1 border-t pt-1.5 text-muted-foreground">
+        <RiUserStarLine className="size-3.5 shrink-0" />
+        <span className="truncate">{lesson.jobProfile.user.name}</span>
+      </div>
+
+      <a
+        href={`tel:${lesson.jobProfile.user.phone}`}
+        dir="ltr"
+        className="text-end text-muted-foreground hover:underline"
+      >
+        {lesson.jobProfile.user.phone}
+      </a>
+
+      <div className="flex items-center gap-1 text-muted-foreground">
+        <RiMapPinLine className="size-3.5 shrink-0" />
+        <span className="truncate">{lesson.area.name}</span>
+      </div>
+    </div>
+  );
+}
+
+function formatHour(hour: number) {
+  const period = hour >= 12 ? "م" : "ص";
+  const formattedHour = hour % 12 || 12;
+
+  return `${formattedHour} ${period}`;
 }

@@ -40,9 +40,9 @@ export default function LessonPage() {
       configDialog: {
         title: "إضافة حصة",
         description: "قم بإدخال بيانات الحصة.",
-        children: academyId ? <AddLessonForm academyId={academyId} /> : null,
+        children: academyId ? <AddLessonForm params={{ academyId }} /> : null,
       },
-      textBtn:"اضف حصة"
+      textBtn: "اضف حصة",
     },
   };
 

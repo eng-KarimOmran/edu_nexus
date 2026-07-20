@@ -9,6 +9,7 @@ export type JobProfileType = (typeof JobProfileType)[keyof typeof JobProfileType
 export const Transmission = {
   MANUAL: "MANUAL",
   AUTOMATIC: "AUTOMATIC",
+  BOTH: "BOTH",
 } as const;
 
 export type Transmission = (typeof Transmission)[keyof typeof Transmission];

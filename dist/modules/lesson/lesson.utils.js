@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.orderBy = exports.getLessonStats = exports.getValidatedLessonDependencies = exports.validateTimeSlotConflict = exports.getBookingError = exports.buildLessonWhere = exports.calculateLessonTime = void 0;
+exports.orderBy = exports.validateAreaTransition = exports.getLessonStats = exports.getValidatedLessonDependencies = exports.validateTimeSlotConflict = exports.getBookingError = exports.buildLessonWhere = exports.calculateLessonTime = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const ApiError_1 = __importDefault(require("../../shared/utils/ApiError"));
 const calculateLessonTime = (startTime, durationMinutes) => {
@@ -121,4 +121,42 @@ const getLessonStats = (lessons) => {
     return result;
 };
 exports.getLessonStats = getLessonStats;
+const validateAreaTransition = async ({ tx, areaId, carId, jobProfileId, startTime, endTime, }) => {
+    const ONE_HOUR = 60 * 60 * 1000;
+    const checkTransition = async (where, resourceName) => {
+        const previousLesson = await tx.lesson.findFirst({
+            where: {
+                ...where,
+                lessonStatus: { not: "CANCELED" },
+                endTime: { lte: startTime },
+            },
+            orderBy: {
+                endTime: "desc",
+            },
+        });
+        if (previousLesson &&
+            previousLesson.areaId !== areaId &&
+            startTime.getTime() - previousLesson.endTime.getTime() < ONE_HOUR) {
+            throw ApiError_1.default.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`);
+        }
+        const nextLesson = await tx.lesson.findFirst({
+            where: {
+                ...where,
+                lessonStatus: { not: "CANCELED" },
+                startTime: { gte: endTime },
+            },
+            orderBy: {
+                startTime: "asc",
+            },
+        });
+        if (nextLesson &&
+            nextLesson.areaId !== areaId &&
+            nextLesson.startTime.getTime() - endTime.getTime() < ONE_HOUR) {
+            throw ApiError_1.default.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`);
+        }
+    };
+    await checkTransition({ carId }, "عربية");
+    await checkTransition({ jobProfileId }, "كابتن");
+};
+exports.validateAreaTransition = validateAreaTransition;
 exports.orderBy = { startTime: "asc" };

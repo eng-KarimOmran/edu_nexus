@@ -79,13 +79,13 @@ export default function SubscriptionDetailsPage() {
     header: {
       title: data.courseName,
       actions: (
-          <Button asChild className="text-pink-500" variant={"link"}>
-            <Link
-              to={ROUTE_BUILDERS.clientDetails(data.academyId, data.clientId)}
-            >
-              ملف العميل
-            </Link>
-          </Button>
+        <Button asChild className="text-pink-500" variant={"link"}>
+          <Link
+            to={ROUTE_BUILDERS.clientDetails(data.academyId, data.clientId)}
+          >
+            ملف العميل
+          </Link>
+        </Button>
       ),
     },
 
@@ -183,9 +183,14 @@ export default function SubscriptionDetailsPage() {
         description: "قم بإدخال بيانات الحصة.",
         children: (
           <AddLessonForm
-            areaId={data.areaId}
-            academyId={data.academyId}
-            subscriptionId={data.id}
+            body={{
+              expectedPaymentAmount: data.paymentSummary.remainingAmount,
+              areaId: data.areaId,
+              subscriptionId: data.id,
+            }}
+            params={{
+              academyId: data.academyId,
+            }}
           />
         ),
       },
@@ -214,9 +219,9 @@ export default function SubscriptionDetailsPage() {
       disabled: data.paymentSummary.isFullyPaid,
       textBtn: "اضاف مدفوعات",
     },
-        actions: (item) => (
-          <ActionsLedgerTransaction academyId={academyId} item={item} />
-        ),
+    actions: (item) => (
+      <ActionsLedgerTransaction academyId={academyId} item={item} />
+    ),
   };
 
   return (

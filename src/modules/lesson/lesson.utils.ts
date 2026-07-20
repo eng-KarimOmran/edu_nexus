@@ -6,6 +6,15 @@ import ApiError from "../../shared/utils/ApiError";
 import { Lesson } from "@/prisma/generated/client";
 import { TransactionClient } from "@/prisma/generated/internal/prismaNamespace";
 
+type ValidateAreaTransitionInput = {
+  tx: TransactionClient;
+  areaId: string;
+  carId: string;
+  jobProfileId: string;
+  startTime: Date;
+  endTime: Date;
+};
+
 export const calculateLessonTime = (
   startTime: Date | string,
   durationMinutes: number,
@@ -170,6 +179,63 @@ export const getLessonStats = (lessons: Lesson[]) => {
   }
 
   return result;
+};
+
+export const validateAreaTransition = async ({
+  tx,
+  areaId,
+  carId,
+  jobProfileId,
+  startTime,
+  endTime,
+}: ValidateAreaTransitionInput) => {
+  const ONE_HOUR = 60 * 60 * 1000;
+
+  const checkTransition = async (
+    where: LessonWhereInput,
+    resourceName: string
+  ) => {
+    const previousLesson = await tx.lesson.findFirst({
+      where: {
+        ...where,
+        lessonStatus: { not: "CANCELED" },
+        endTime: { lte: startTime },
+      },
+      orderBy: {
+        endTime: "desc",
+      },
+    });
+
+    if (
+      previousLesson &&
+      previousLesson.areaId !== areaId &&
+      startTime.getTime() - previousLesson.endTime.getTime() < ONE_HOUR
+    ) {
+      throw ApiError.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`)
+    }
+
+    const nextLesson = await tx.lesson.findFirst({
+      where: {
+        ...where,
+        lessonStatus: { not: "CANCELED" },
+        startTime: { gte: endTime },
+      },
+      orderBy: {
+        startTime: "asc",
+      },
+    });
+
+    if (
+      nextLesson &&
+      nextLesson.areaId !== areaId &&
+      nextLesson.startTime.getTime() - endTime.getTime() < ONE_HOUR
+    ) {
+      throw ApiError.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`)
+    }
+  };
+
+  await checkTransition({ carId }, "عربية");
+  await checkTransition({ jobProfileId }, "كابتن");
 };
 
 export const orderBy: LessonOrderByWithRelationInput = { startTime: "asc" }

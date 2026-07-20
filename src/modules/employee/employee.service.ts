@@ -78,10 +78,10 @@ const EmployeeService: IEmployeeService = {
                         }),
                     },
                     select: {
-                        id: true, startTime: true, endTime: true,
+                        id: true, startTime: true, endTime: true, academyId: true, subscriptionId: true,
                         client: { select: { id: true, name: true, phone: true } },
                         jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } },
-                        area: { select: { id: true, name: true } }
+                        area: { select: { id: true, name: true } },
                     }
                 }
             }

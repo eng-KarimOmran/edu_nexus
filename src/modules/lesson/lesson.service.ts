@@ -2,7 +2,7 @@ import { LessonCreateInput, LessonUpdateInput } from "@/prisma/generated/models"
 import { prisma } from "../../lib/prisma";
 import SubscriptionService from "../subscription/subscription.service";
 import { ILessonService } from "./lesson.type";
-import { buildLessonWhere, calculateLessonTime, getBookingError, getValidatedLessonDependencies, validateTimeSlotConflict, orderBy } from "./lesson.utils";
+import { buildLessonWhere, calculateLessonTime, getBookingError, getValidatedLessonDependencies, validateTimeSlotConflict, orderBy, validateAreaTransition } from "./lesson.utils";
 import { buildPagination, buildPaginationMeta } from "../../shared/utils/Pagination"
 import ApiError from "../../shared/utils/ApiError";
 import { ProcessPaymentTransactionDto } from "../walletMovement/walletMovement.dto";
@@ -22,6 +22,15 @@ const LessonService: ILessonService = {
       const timeLesson = calculateLessonTime(startTime, subscription.sessionDurationMinutes)
 
       await validateTimeSlotConflict({ jobProfileId, carId, startTime: timeLesson.startTime, endTime: timeLesson.endTime, clientId: subscription.clientId, tx });
+
+      await validateAreaTransition({
+        tx,
+        areaId,
+        carId,
+        jobProfileId,
+        startTime: timeLesson.startTime,
+        endTime: timeLesson.endTime,
+      });
 
       const data: LessonCreateInput = {
         expectedPaymentAmount,
@@ -180,6 +189,15 @@ const LessonService: ILessonService = {
 
       await validateTimeSlotConflict({ id: lessonEx.id, jobProfileId: finalData.jobProfileId, carId: finalData.carId, startTime: timeLesson.startTime, endTime: timeLesson.endTime, clientId: subscription.clientId, tx });
 
+      await validateAreaTransition({
+        tx,
+        areaId: finalData.areaId,
+        carId: finalData.carId,
+        jobProfileId: finalData.jobProfileId,
+        startTime: timeLesson.startTime,
+        endTime: timeLesson.endTime,
+      });
+
       const data: LessonUpdateInput = {
         expectedPaymentAmount,
         transmission,
@@ -211,7 +229,7 @@ const LessonService: ILessonService = {
       await SubscriptionService.recalculateSubscriptionStatus({ subscriptionId: lessonEx.subscriptionId, tx })
       return true
     }
-    
+
     return tx ? await run(tx) : await prisma.$transaction(run);
   },
 };

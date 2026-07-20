@@ -60,27 +60,31 @@ export interface Lesson {
     };
 }
 
+export interface BaseLesson {
+    id: string
+    startTime: string,
+    endTime: string
+    subscriptionId: string
+    academyId: string
+    client: {
+        id: string,
+        name: string,
+        phone: string
+    }
+    jobProfile: {
+        id: string,
+        user: {
+            id: string,
+            name: string,
+            phone: string
+        }
+    },
+    area: {
+        id: string,
+        name: string,
+    }
+}
+
 export interface CarWithLessons extends Car {
-    lessons: {
-        id: string
-        startTime: string,
-        endTime: string
-        client: {
-            id: true,
-            name: true,
-            phone: true
-        }
-        jobProfile: {
-            id: true,
-            user: {
-                id: true,
-                name: true,
-                phone: true
-            }
-        },
-        area: {
-            id: true,
-            name: true,
-        }
-    }[]
+    lessons: BaseLesson[]
 }

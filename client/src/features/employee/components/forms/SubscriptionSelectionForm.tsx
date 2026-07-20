@@ -44,7 +44,10 @@ export default function SubscriptionSelectionForm({
         type: "select",
         label: "اختار الاشتراك",
         options: clientSubscriptionsOptions,
-        placeholder: clientSubscriptionsOptions[0].label,
+        placeholder:
+          clientSubscriptionsOptions.length === 1
+            ? clientSubscriptionsOptions[0].label
+            : "اختار الأشتراك",
         onChange(value) {
           setSubscriptionId(value as string);
         },
@@ -54,7 +57,7 @@ export default function SubscriptionSelectionForm({
 
     submitButton: {
       text: isLoading ? "جاري التحميل..." : "التالي",
-      disabled: isLoading,
+      disabled: isLoading || !subscriptionId,
     },
 
     onSuccess: (data) => {

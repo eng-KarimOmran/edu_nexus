@@ -2,6 +2,7 @@ import type { ClientSource } from "@/types/enums";
 import type { Academy } from "../academy/academy.type";
 import type { Subscription } from "../subscription/subscription.type";
 import type { Wallet } from "@/types/wallet";
+import type { CreatedBy } from "@/types/createdBy";
 
 export interface Client {
     id: string;
@@ -20,6 +21,7 @@ export interface CurrentClient extends Client {
     subscriptions: Subscription[];
     academy: Academy
     wallet: WalletClient
+    createdBy?: CreatedBy
 }
 
 export interface OtherFile extends Client {

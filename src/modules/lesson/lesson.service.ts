@@ -10,7 +10,7 @@ import WalletMovementService from "../walletMovement/walletMovement.service";
 import { TransactionClient } from "@/prisma/generated/internal/prismaNamespace";
 
 const LessonService: ILessonService = {
-  async createLesson({ params, body }) {
+  async createLesson({ params, body, userId }) {
     const { academyId } = params;
     const { areaId, startTime, carId, subscriptionId, expectedPaymentAmount, transmission, jobProfileId } = body;
 
@@ -32,6 +32,8 @@ const LessonService: ILessonService = {
         endTime: timeLesson.endTime,
       });
 
+      const createdBy = await tx.jobProfile.findUnique({ where: { userId } })
+
       const data: LessonCreateInput = {
         expectedPaymentAmount,
         transmission,
@@ -47,6 +49,7 @@ const LessonService: ILessonService = {
         subscription: { connect: { id: subscriptionId } },
         academy: { connect: { id: academyId } },
         client: { connect: { id: subscription.clientId } },
+        ...(createdBy && { createdBy: { connect: { id: createdBy.id } } })
       };
 
       const lesson = await tx.lesson.create({ data });
@@ -113,6 +116,9 @@ const LessonService: ILessonService = {
               }
             }
           }
+        },
+        createdBy: {
+          select: { id: true, user: { select: { id: true, name: true, phone: true } } }
         }
       }
     });

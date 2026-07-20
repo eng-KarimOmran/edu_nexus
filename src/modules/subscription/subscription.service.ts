@@ -20,7 +20,7 @@ const SubscriptionService: ISubscriptionService = {
         tx.area.findFirst({ where: { id: body.areaId } }),
         tx.course.findFirst({ where: { id: body.courseId, academyId } }),
         tx.wallet.findFirst({ where: { academyId, walletType: "ACADEMY" } }),
-        ...(userId ? [tx.jobProfile.findFirst({ where: { userId, jobProfileType: "SECRETARY" } })] : [])
+        ...(userId ? [tx.jobProfile.findFirst({ where: { userId } })] : [])
       ])
 
 
@@ -111,6 +111,18 @@ const SubscriptionService: ISubscriptionService = {
         walletMovements: {
           include: { paymentProofImage: true }
         },
+        createdBy: {
+          select: {
+            id: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                phone: true
+              }
+            }
+          }
+        }
       }
     })
 

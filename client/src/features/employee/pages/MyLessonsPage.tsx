@@ -22,6 +22,7 @@ import {
   RiMapPinLine,
   RiMoneyDollarCircleLine,
   RiPhoneLine,
+  RiRouteLine,
   RiUserLine,
 } from "@remixicon/react";
 import {
@@ -119,6 +120,10 @@ export default function MyLessonsPage({ date }: { date: DateFilter }) {
                 {l.expectedPaymentAmount > 0
                   ? `${l.expectedPaymentAmount}ج.م`
                   : "لا يوجد"}
+              </li>
+              <li className="flex items-center gap-2">
+                <RiRouteLine />
+                <span>البرنامج:</span> {l.subscription.courseName}
               </li>
               <li className="flex items-center gap-2">
                 <RiMapPinLine />

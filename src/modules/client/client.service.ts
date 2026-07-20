@@ -8,7 +8,7 @@ import { TransactionClient } from "@/prisma/generated/internal/prismaNamespace";
 import SubscriptionService from "../subscription/subscription.service";
 
 const ClientService: IClientService = {
-  async createClient({ params, body, tx }) {
+  async createClient({ params, body, tx, userId }) {
     const { academyId } = params;
     const { phone } = body;
 
@@ -17,10 +17,12 @@ const ClientService: IClientService = {
       if (phoneExists) {
         throw ApiError.Conflict("PHONE_ALREADY_EXISTS");
       }
+      const jobProfile = await tx.jobProfile.findUnique({ where: { userId } })
 
       const data: ClientCreateInput = {
         academy: { connect: { id: academyId } },
         wallet: { create: { academyId, walletType: "CLIENT" } },
+        ...(jobProfile && { createdBy: { connect: { id: jobProfile.id } } }),
         ...body
       }
       return await tx.client.create({ data });
@@ -109,12 +111,22 @@ const ClientService: IClientService = {
       throw ApiError.ValidationError("يجب إرسال رقم الهاتف أو معرف العميل")
     }
 
-    let currentClient: ClientGetPayload<{ include: { subscriptions: true, wallet: true, academy: true } }> | null = null
+    let currentClient: ClientGetPayload<{
+      include: {
+        subscriptions: true, wallet: true, academy: true, createdBy: {
+          select: { id: true, user: { select: { id: true, name: true, phone: true } } }
+        }
+      }
+    }> | null = null
 
     if (clientId) {
       const client = await prisma.client.findUnique({
         where: { id: clientId, academyId },
-        include: { subscriptions: true, academy: true, wallet: true }
+        include: {
+          subscriptions: true, academy: true, wallet: true, createdBy: {
+            select: { id: true, user: { select: { id: true, name: true, phone: true } } }
+          }
+        }
       });
       if (client) {
         currentClient = client
@@ -124,7 +136,11 @@ const ClientService: IClientService = {
     if (phone && !currentClient) {
       const client = await prisma.client.findFirst({
         where: { academyId, phone },
-        include: { subscriptions: true, academy: true, wallet: true }
+        include: {
+          subscriptions: true, academy: true, wallet: true, createdBy: {
+            select: { id: true, user: { select: { id: true, name: true, phone: true } } }
+          }
+        }
       });
       if (client) {
         currentClient = client

@@ -16,6 +16,7 @@ import {
   RiTimeLine,
   RiUser3Line,
   RiSteering2Line,
+  RiUserSettingsFill,
 } from "@remixicon/react";
 
 import { BadgeDemo } from "@/components/CustomBadge/CustomBadge";
@@ -160,7 +161,17 @@ export default function LessonDetailsPage() {
           icon: RiFingerprint2Line,
           copyButton: true,
         },
-
+        {
+          key: "createdBy",
+          title: "تم بواسطة",
+          content: (
+            <div>
+              <div>{data.createdBy?.user.name ?? "غير معروف"}</div>
+              <div>{data.createdBy?.user.phone ?? "غير معروف"}</div>
+            </div>
+          ),
+          icon: RiUserSettingsFill,
+        },
         {
           key: "createdAt",
           title: "تاريخ الإنشاء",

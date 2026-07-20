@@ -14,6 +14,7 @@ import {
   RiPhoneFill,
   RiSchoolFill,
   RiUserLine,
+  RiUserSettingsFill,
   RiWallet3Line,
 } from "@remixicon/react";
 
@@ -191,6 +192,21 @@ export default function ClientDetailsPage() {
           title: "مديونية العميل",
           content: <span className="text-red-500">{Math.abs(balance)}</span>,
           icon: RiWallet3Line,
+        },
+        {
+          key: "createdBy",
+          title: "تم بواسطة",
+          content: (
+            <div>
+              <div>
+                {data.currentClient.createdBy?.user.name ?? "غير معروف"}
+              </div>
+              <div>
+                {data.currentClient.createdBy?.user.phone ?? "غير معروف"}
+              </div>
+            </div>
+          ),
+          icon: RiUserSettingsFill,
         },
         {
           key: "createdAt",

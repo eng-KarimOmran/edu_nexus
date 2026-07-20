@@ -6,8 +6,9 @@ import { IClientController } from "./client.type";
 const ClientController: IClientController = {
   create: async (req, res) => {
     const dataSafe = req.dataSafe as DTO.CreateClientDto;
+    const userId = req.userLogin!.id
 
-    const client = await ClientService.createClient(dataSafe);
+    const client = await ClientService.createClient({ userId, body: dataSafe.body, params: dataSafe.params });
 
     return sendSuccess({
       res,

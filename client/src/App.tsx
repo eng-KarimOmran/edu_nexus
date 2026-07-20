@@ -19,8 +19,8 @@ function App() {
               <AppRoutes />
             </AuthInitializer>
             <CustomDialog />
-            <Toaster richColors position="top-center" />
           </TooltipProvider>
+          <Toaster dir="rtl" richColors position={"top-center"} />
         </ThemeProvider>
         <ReactQueryDevtools
           position="left"

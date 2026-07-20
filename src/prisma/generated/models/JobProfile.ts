@@ -271,8 +271,10 @@ export type JobProfileWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   payrolls?: Prisma.PayrollListRelationFilter
-  subscriptions?: Prisma.SubscriptionListRelationFilter
   wallets?: Prisma.WalletListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  createdClients?: Prisma.ClientListRelationFilter
+  createdLessons?: Prisma.LessonListRelationFilter
 }
 
 export type JobProfileOrderByWithRelationInput = {
@@ -289,8 +291,10 @@ export type JobProfileOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   lessons?: Prisma.LessonOrderByRelationAggregateInput
   payrolls?: Prisma.PayrollOrderByRelationAggregateInput
-  subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
   wallets?: Prisma.WalletOrderByRelationAggregateInput
+  subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  createdClients?: Prisma.ClientOrderByRelationAggregateInput
+  createdLessons?: Prisma.LessonOrderByRelationAggregateInput
   _relevance?: Prisma.JobProfileOrderByRelevanceInput
 }
 
@@ -311,8 +315,10 @@ export type JobProfileWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   payrolls?: Prisma.PayrollListRelationFilter
-  subscriptions?: Prisma.SubscriptionListRelationFilter
   wallets?: Prisma.WalletListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  createdClients?: Prisma.ClientListRelationFilter
+  createdLessons?: Prisma.LessonListRelationFilter
 }, "id" | "userId">
 
 export type JobProfileOrderByWithAggregationInput = {
@@ -362,8 +368,10 @@ export type JobProfileCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutJobProfileInput
   lessons?: Prisma.LessonCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileUncheckedCreateInput = {
@@ -379,8 +387,10 @@ export type JobProfileUncheckedCreateInput = {
   bonusAmount?: number
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletUncheckedCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileUpdateInput = {
@@ -396,8 +406,10 @@ export type JobProfileUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutJobProfileNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileUncheckedUpdateInput = {
@@ -413,8 +425,10 @@ export type JobProfileUncheckedUpdateInput = {
   bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUncheckedUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileCreateManyInput = {
@@ -540,6 +554,22 @@ export type JobProfileUpdateOneWithoutWalletsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JobProfileUpdateToOneWithWhereWithoutWalletsInput, Prisma.JobProfileUpdateWithoutWalletsInput>, Prisma.JobProfileUncheckedUpdateWithoutWalletsInput>
 }
 
+export type JobProfileCreateNestedOneWithoutCreatedClientsInput = {
+  create?: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedClientsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedClientsInput>
+  connectOrCreate?: Prisma.JobProfileCreateOrConnectWithoutCreatedClientsInput
+  connect?: Prisma.JobProfileWhereUniqueInput
+}
+
+export type JobProfileUpdateOneWithoutCreatedClientsNestedInput = {
+  create?: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedClientsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedClientsInput>
+  connectOrCreate?: Prisma.JobProfileCreateOrConnectWithoutCreatedClientsInput
+  upsert?: Prisma.JobProfileUpsertWithoutCreatedClientsInput
+  disconnect?: Prisma.JobProfileWhereInput | boolean
+  delete?: Prisma.JobProfileWhereInput | boolean
+  connect?: Prisma.JobProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobProfileUpdateToOneWithWhereWithoutCreatedClientsInput, Prisma.JobProfileUpdateWithoutCreatedClientsInput>, Prisma.JobProfileUncheckedUpdateWithoutCreatedClientsInput>
+}
+
 export type JobProfileCreateNestedOneWithoutSubscriptionsInput = {
   create?: Prisma.XOR<Prisma.JobProfileCreateWithoutSubscriptionsInput, Prisma.JobProfileUncheckedCreateWithoutSubscriptionsInput>
   connectOrCreate?: Prisma.JobProfileCreateOrConnectWithoutSubscriptionsInput
@@ -596,10 +626,26 @@ export type JobProfileUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JobProfileUpdateToOneWithWhereWithoutUserInput, Prisma.JobProfileUpdateWithoutUserInput>, Prisma.JobProfileUncheckedUpdateWithoutUserInput>
 }
 
+export type JobProfileCreateNestedOneWithoutCreatedLessonsInput = {
+  create?: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedLessonsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedLessonsInput>
+  connectOrCreate?: Prisma.JobProfileCreateOrConnectWithoutCreatedLessonsInput
+  connect?: Prisma.JobProfileWhereUniqueInput
+}
+
 export type JobProfileCreateNestedOneWithoutLessonsInput = {
   create?: Prisma.XOR<Prisma.JobProfileCreateWithoutLessonsInput, Prisma.JobProfileUncheckedCreateWithoutLessonsInput>
   connectOrCreate?: Prisma.JobProfileCreateOrConnectWithoutLessonsInput
   connect?: Prisma.JobProfileWhereUniqueInput
+}
+
+export type JobProfileUpdateOneWithoutCreatedLessonsNestedInput = {
+  create?: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedLessonsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedLessonsInput>
+  connectOrCreate?: Prisma.JobProfileCreateOrConnectWithoutCreatedLessonsInput
+  upsert?: Prisma.JobProfileUpsertWithoutCreatedLessonsInput
+  disconnect?: Prisma.JobProfileWhereInput | boolean
+  delete?: Prisma.JobProfileWhereInput | boolean
+  connect?: Prisma.JobProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobProfileUpdateToOneWithWhereWithoutCreatedLessonsInput, Prisma.JobProfileUpdateWithoutCreatedLessonsInput>, Prisma.JobProfileUncheckedUpdateWithoutCreatedLessonsInput>
 }
 
 export type JobProfileUpdateOneRequiredWithoutLessonsNestedInput = {
@@ -640,6 +686,8 @@ export type JobProfileCreateWithoutWalletsInput = {
   lessons?: Prisma.LessonCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollCreateNestedManyWithoutJobProfileInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileUncheckedCreateWithoutWalletsInput = {
@@ -656,6 +704,8 @@ export type JobProfileUncheckedCreateWithoutWalletsInput = {
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutJobProfileInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileCreateOrConnectWithoutWalletsInput = {
@@ -688,6 +738,8 @@ export type JobProfileUpdateWithoutWalletsInput = {
   lessons?: Prisma.LessonUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUpdateManyWithoutJobProfileNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileUncheckedUpdateWithoutWalletsInput = {
@@ -704,6 +756,96 @@ export type JobProfileUncheckedUpdateWithoutWalletsInput = {
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutJobProfileNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type JobProfileCreateWithoutCreatedClientsInput = {
+  id?: string
+  isActive?: boolean
+  createdAt?: Date | string
+  supportType?: $Enums.SupportType | null
+  jobProfileType: $Enums.JobProfileType
+  baseSalary?: number
+  lessonPrice?: number
+  targetCount?: number
+  bonusAmount?: number
+  user: Prisma.UserCreateNestedOneWithoutJobProfileInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutJobProfileInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutJobProfileInput
+  wallets?: Prisma.WalletCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonCreateNestedManyWithoutCreatedByInput
+}
+
+export type JobProfileUncheckedCreateWithoutCreatedClientsInput = {
+  id?: string
+  isActive?: boolean
+  userId: string
+  createdAt?: Date | string
+  supportType?: $Enums.SupportType | null
+  jobProfileType: $Enums.JobProfileType
+  baseSalary?: number
+  lessonPrice?: number
+  targetCount?: number
+  bonusAmount?: number
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutJobProfileInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutJobProfileInput
+  wallets?: Prisma.WalletUncheckedCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type JobProfileCreateOrConnectWithoutCreatedClientsInput = {
+  where: Prisma.JobProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedClientsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedClientsInput>
+}
+
+export type JobProfileUpsertWithoutCreatedClientsInput = {
+  update: Prisma.XOR<Prisma.JobProfileUpdateWithoutCreatedClientsInput, Prisma.JobProfileUncheckedUpdateWithoutCreatedClientsInput>
+  create: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedClientsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedClientsInput>
+  where?: Prisma.JobProfileWhereInput
+}
+
+export type JobProfileUpdateToOneWithWhereWithoutCreatedClientsInput = {
+  where?: Prisma.JobProfileWhereInput
+  data: Prisma.XOR<Prisma.JobProfileUpdateWithoutCreatedClientsInput, Prisma.JobProfileUncheckedUpdateWithoutCreatedClientsInput>
+}
+
+export type JobProfileUpdateWithoutCreatedClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportType?: Prisma.NullableEnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType | null
+  jobProfileType?: Prisma.EnumJobProfileTypeFieldUpdateOperationsInput | $Enums.JobProfileType
+  baseSalary?: Prisma.FloatFieldUpdateOperationsInput | number
+  lessonPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  targetCount?: Prisma.IntFieldUpdateOperationsInput | number
+  bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  user?: Prisma.UserUpdateOneRequiredWithoutJobProfileNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutJobProfileNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutJobProfileNestedInput
+  wallets?: Prisma.WalletUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUpdateManyWithoutCreatedByNestedInput
+}
+
+export type JobProfileUncheckedUpdateWithoutCreatedClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportType?: Prisma.NullableEnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType | null
+  jobProfileType?: Prisma.EnumJobProfileTypeFieldUpdateOperationsInput | $Enums.JobProfileType
+  baseSalary?: Prisma.FloatFieldUpdateOperationsInput | number
+  lessonPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  targetCount?: Prisma.IntFieldUpdateOperationsInput | number
+  bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutJobProfileNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutJobProfileNestedInput
+  wallets?: Prisma.WalletUncheckedUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileCreateWithoutSubscriptionsInput = {
@@ -720,6 +862,8 @@ export type JobProfileCreateWithoutSubscriptionsInput = {
   lessons?: Prisma.LessonCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollCreateNestedManyWithoutJobProfileInput
   wallets?: Prisma.WalletCreateNestedManyWithoutJobProfileInput
+  createdClients?: Prisma.ClientCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileUncheckedCreateWithoutSubscriptionsInput = {
@@ -736,6 +880,8 @@ export type JobProfileUncheckedCreateWithoutSubscriptionsInput = {
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutJobProfileInput
   wallets?: Prisma.WalletUncheckedCreateNestedManyWithoutJobProfileInput
+  createdClients?: Prisma.ClientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileCreateOrConnectWithoutSubscriptionsInput = {
@@ -768,6 +914,8 @@ export type JobProfileUpdateWithoutSubscriptionsInput = {
   lessons?: Prisma.LessonUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUpdateManyWithoutJobProfileNestedInput
   wallets?: Prisma.WalletUpdateManyWithoutJobProfileNestedInput
+  createdClients?: Prisma.ClientUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileUncheckedUpdateWithoutSubscriptionsInput = {
@@ -784,6 +932,8 @@ export type JobProfileUncheckedUpdateWithoutSubscriptionsInput = {
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutJobProfileNestedInput
   wallets?: Prisma.WalletUncheckedUpdateManyWithoutJobProfileNestedInput
+  createdClients?: Prisma.ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileCreateWithoutUserInput = {
@@ -798,8 +948,10 @@ export type JobProfileCreateWithoutUserInput = {
   bonusAmount?: number
   lessons?: Prisma.LessonCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileUncheckedCreateWithoutUserInput = {
@@ -814,8 +966,10 @@ export type JobProfileUncheckedCreateWithoutUserInput = {
   bonusAmount?: number
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutJobProfileInput
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletUncheckedCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileCreateOrConnectWithoutUserInput = {
@@ -846,8 +1000,10 @@ export type JobProfileUpdateWithoutUserInput = {
   bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   lessons?: Prisma.LessonUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileUncheckedUpdateWithoutUserInput = {
@@ -862,8 +1018,51 @@ export type JobProfileUncheckedUpdateWithoutUserInput = {
   bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUncheckedUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type JobProfileCreateWithoutCreatedLessonsInput = {
+  id?: string
+  isActive?: boolean
+  createdAt?: Date | string
+  supportType?: $Enums.SupportType | null
+  jobProfileType: $Enums.JobProfileType
+  baseSalary?: number
+  lessonPrice?: number
+  targetCount?: number
+  bonusAmount?: number
+  user: Prisma.UserCreateNestedOneWithoutJobProfileInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutJobProfileInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutJobProfileInput
+  wallets?: Prisma.WalletCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientCreateNestedManyWithoutCreatedByInput
+}
+
+export type JobProfileUncheckedCreateWithoutCreatedLessonsInput = {
+  id?: string
+  isActive?: boolean
+  userId: string
+  createdAt?: Date | string
+  supportType?: $Enums.SupportType | null
+  jobProfileType: $Enums.JobProfileType
+  baseSalary?: number
+  lessonPrice?: number
+  targetCount?: number
+  bonusAmount?: number
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutJobProfileInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutJobProfileInput
+  wallets?: Prisma.WalletUncheckedCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type JobProfileCreateOrConnectWithoutCreatedLessonsInput = {
+  where: Prisma.JobProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedLessonsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedLessonsInput>
 }
 
 export type JobProfileCreateWithoutLessonsInput = {
@@ -878,8 +1077,10 @@ export type JobProfileCreateWithoutLessonsInput = {
   bonusAmount?: number
   user: Prisma.UserCreateNestedOneWithoutJobProfileInput
   payrolls?: Prisma.PayrollCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileUncheckedCreateWithoutLessonsInput = {
@@ -894,13 +1095,62 @@ export type JobProfileUncheckedCreateWithoutLessonsInput = {
   targetCount?: number
   bonusAmount?: number
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletUncheckedCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileCreateOrConnectWithoutLessonsInput = {
   where: Prisma.JobProfileWhereUniqueInput
   create: Prisma.XOR<Prisma.JobProfileCreateWithoutLessonsInput, Prisma.JobProfileUncheckedCreateWithoutLessonsInput>
+}
+
+export type JobProfileUpsertWithoutCreatedLessonsInput = {
+  update: Prisma.XOR<Prisma.JobProfileUpdateWithoutCreatedLessonsInput, Prisma.JobProfileUncheckedUpdateWithoutCreatedLessonsInput>
+  create: Prisma.XOR<Prisma.JobProfileCreateWithoutCreatedLessonsInput, Prisma.JobProfileUncheckedCreateWithoutCreatedLessonsInput>
+  where?: Prisma.JobProfileWhereInput
+}
+
+export type JobProfileUpdateToOneWithWhereWithoutCreatedLessonsInput = {
+  where?: Prisma.JobProfileWhereInput
+  data: Prisma.XOR<Prisma.JobProfileUpdateWithoutCreatedLessonsInput, Prisma.JobProfileUncheckedUpdateWithoutCreatedLessonsInput>
+}
+
+export type JobProfileUpdateWithoutCreatedLessonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportType?: Prisma.NullableEnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType | null
+  jobProfileType?: Prisma.EnumJobProfileTypeFieldUpdateOperationsInput | $Enums.JobProfileType
+  baseSalary?: Prisma.FloatFieldUpdateOperationsInput | number
+  lessonPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  targetCount?: Prisma.IntFieldUpdateOperationsInput | number
+  bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  user?: Prisma.UserUpdateOneRequiredWithoutJobProfileNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutJobProfileNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutJobProfileNestedInput
+  wallets?: Prisma.WalletUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUpdateManyWithoutCreatedByNestedInput
+}
+
+export type JobProfileUncheckedUpdateWithoutCreatedLessonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportType?: Prisma.NullableEnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType | null
+  jobProfileType?: Prisma.EnumJobProfileTypeFieldUpdateOperationsInput | $Enums.JobProfileType
+  baseSalary?: Prisma.FloatFieldUpdateOperationsInput | number
+  lessonPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  targetCount?: Prisma.IntFieldUpdateOperationsInput | number
+  bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutJobProfileNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutJobProfileNestedInput
+  wallets?: Prisma.WalletUncheckedUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileUpsertWithoutLessonsInput = {
@@ -926,8 +1176,10 @@ export type JobProfileUpdateWithoutLessonsInput = {
   bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutJobProfileNestedInput
   payrolls?: Prisma.PayrollUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileUncheckedUpdateWithoutLessonsInput = {
@@ -942,8 +1194,10 @@ export type JobProfileUncheckedUpdateWithoutLessonsInput = {
   targetCount?: Prisma.IntFieldUpdateOperationsInput | number
   bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUncheckedUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileCreateWithoutPayrollsInput = {
@@ -958,8 +1212,10 @@ export type JobProfileCreateWithoutPayrollsInput = {
   bonusAmount?: number
   user: Prisma.UserCreateNestedOneWithoutJobProfileInput
   lessons?: Prisma.LessonCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileUncheckedCreateWithoutPayrollsInput = {
@@ -974,8 +1230,10 @@ export type JobProfileUncheckedCreateWithoutPayrollsInput = {
   targetCount?: number
   bonusAmount?: number
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutJobProfileInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
   wallets?: Prisma.WalletUncheckedCreateNestedManyWithoutJobProfileInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdClients?: Prisma.ClientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type JobProfileCreateOrConnectWithoutPayrollsInput = {
@@ -1006,8 +1264,10 @@ export type JobProfileUpdateWithoutPayrollsInput = {
   bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutJobProfileNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUpdateManyWithoutCreatedByNestedInput
 }
 
 export type JobProfileUncheckedUpdateWithoutPayrollsInput = {
@@ -1022,8 +1282,10 @@ export type JobProfileUncheckedUpdateWithoutPayrollsInput = {
   targetCount?: Prisma.IntFieldUpdateOperationsInput | number
   bonusAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutJobProfileNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
   wallets?: Prisma.WalletUncheckedUpdateManyWithoutJobProfileNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdClients?: Prisma.ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLessons?: Prisma.LessonUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 
@@ -1034,15 +1296,19 @@ export type JobProfileUncheckedUpdateWithoutPayrollsInput = {
 export type JobProfileCountOutputType = {
   lessons: number
   payrolls: number
-  subscriptions: number
   wallets: number
+  subscriptions: number
+  createdClients: number
+  createdLessons: number
 }
 
 export type JobProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lessons?: boolean | JobProfileCountOutputTypeCountLessonsArgs
   payrolls?: boolean | JobProfileCountOutputTypeCountPayrollsArgs
-  subscriptions?: boolean | JobProfileCountOutputTypeCountSubscriptionsArgs
   wallets?: boolean | JobProfileCountOutputTypeCountWalletsArgs
+  subscriptions?: boolean | JobProfileCountOutputTypeCountSubscriptionsArgs
+  createdClients?: boolean | JobProfileCountOutputTypeCountCreatedClientsArgs
+  createdLessons?: boolean | JobProfileCountOutputTypeCountCreatedLessonsArgs
 }
 
 /**
@@ -1072,6 +1338,13 @@ export type JobProfileCountOutputTypeCountPayrollsArgs<ExtArgs extends runtime.T
 /**
  * JobProfileCountOutputType without action
  */
+export type JobProfileCountOutputTypeCountWalletsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WalletWhereInput
+}
+
+/**
+ * JobProfileCountOutputType without action
+ */
 export type JobProfileCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SubscriptionWhereInput
 }
@@ -1079,8 +1352,15 @@ export type JobProfileCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runt
 /**
  * JobProfileCountOutputType without action
  */
-export type JobProfileCountOutputTypeCountWalletsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.WalletWhereInput
+export type JobProfileCountOutputTypeCountCreatedClientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientWhereInput
+}
+
+/**
+ * JobProfileCountOutputType without action
+ */
+export type JobProfileCountOutputTypeCountCreatedLessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LessonWhereInput
 }
 
 
@@ -1098,8 +1378,10 @@ export type JobProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.JobProfile$lessonsArgs<ExtArgs>
   payrolls?: boolean | Prisma.JobProfile$payrollsArgs<ExtArgs>
-  subscriptions?: boolean | Prisma.JobProfile$subscriptionsArgs<ExtArgs>
   wallets?: boolean | Prisma.JobProfile$walletsArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.JobProfile$subscriptionsArgs<ExtArgs>
+  createdClients?: boolean | Prisma.JobProfile$createdClientsArgs<ExtArgs>
+  createdLessons?: boolean | Prisma.JobProfile$createdLessonsArgs<ExtArgs>
   _count?: boolean | Prisma.JobProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["jobProfile"]>
 
@@ -1123,8 +1405,10 @@ export type JobProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.JobProfile$lessonsArgs<ExtArgs>
   payrolls?: boolean | Prisma.JobProfile$payrollsArgs<ExtArgs>
-  subscriptions?: boolean | Prisma.JobProfile$subscriptionsArgs<ExtArgs>
   wallets?: boolean | Prisma.JobProfile$walletsArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.JobProfile$subscriptionsArgs<ExtArgs>
+  createdClients?: boolean | Prisma.JobProfile$createdClientsArgs<ExtArgs>
+  createdLessons?: boolean | Prisma.JobProfile$createdLessonsArgs<ExtArgs>
   _count?: boolean | Prisma.JobProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1134,8 +1418,10 @@ export type $JobProfilePayload<ExtArgs extends runtime.Types.Extensions.Internal
     user: Prisma.$UserPayload<ExtArgs>
     lessons: Prisma.$LessonPayload<ExtArgs>[]
     payrolls: Prisma.$PayrollPayload<ExtArgs>[]
-    subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
     wallets: Prisma.$WalletPayload<ExtArgs>[]
+    subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    createdClients: Prisma.$ClientPayload<ExtArgs>[]
+    createdLessons: Prisma.$LessonPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1491,8 +1777,10 @@ export interface Prisma__JobProfileClient<T, Null = never, ExtArgs extends runti
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   lessons<T extends Prisma.JobProfile$lessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobProfile$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payrolls<T extends Prisma.JobProfile$payrollsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobProfile$payrollsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PayrollPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  subscriptions<T extends Prisma.JobProfile$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobProfile$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wallets<T extends Prisma.JobProfile$walletsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobProfile$walletsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subscriptions<T extends Prisma.JobProfile$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobProfile$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdClients<T extends Prisma.JobProfile$createdClientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobProfile$createdClientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdLessons<T extends Prisma.JobProfile$createdLessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobProfile$createdLessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1928,6 +2216,30 @@ export type JobProfile$payrollsArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * JobProfile.wallets
+ */
+export type JobProfile$walletsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Wallet
+   */
+  select?: Prisma.WalletSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Wallet
+   */
+  omit?: Prisma.WalletOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WalletInclude<ExtArgs> | null
+  where?: Prisma.WalletWhereInput
+  orderBy?: Prisma.WalletOrderByWithRelationInput | Prisma.WalletOrderByWithRelationInput[]
+  cursor?: Prisma.WalletWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WalletScalarFieldEnum | Prisma.WalletScalarFieldEnum[]
+}
+
+/**
  * JobProfile.subscriptions
  */
 export type JobProfile$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1952,27 +2264,51 @@ export type JobProfile$subscriptionsArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * JobProfile.wallets
+ * JobProfile.createdClients
  */
-export type JobProfile$walletsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type JobProfile$createdClientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Wallet
+   * Select specific fields to fetch from the Client
    */
-  select?: Prisma.WalletSelect<ExtArgs> | null
+  select?: Prisma.ClientSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Wallet
+   * Omit specific fields from the Client
    */
-  omit?: Prisma.WalletOmit<ExtArgs> | null
+  omit?: Prisma.ClientOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.WalletInclude<ExtArgs> | null
-  where?: Prisma.WalletWhereInput
-  orderBy?: Prisma.WalletOrderByWithRelationInput | Prisma.WalletOrderByWithRelationInput[]
-  cursor?: Prisma.WalletWhereUniqueInput
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  where?: Prisma.ClientWhereInput
+  orderBy?: Prisma.ClientOrderByWithRelationInput | Prisma.ClientOrderByWithRelationInput[]
+  cursor?: Prisma.ClientWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.WalletScalarFieldEnum | Prisma.WalletScalarFieldEnum[]
+  distinct?: Prisma.ClientScalarFieldEnum | Prisma.ClientScalarFieldEnum[]
+}
+
+/**
+ * JobProfile.createdLessons
+ */
+export type JobProfile$createdLessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Lesson
+   */
+  select?: Prisma.LessonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Lesson
+   */
+  omit?: Prisma.LessonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LessonInclude<ExtArgs> | null
+  where?: Prisma.LessonWhereInput
+  orderBy?: Prisma.LessonOrderByWithRelationInput | Prisma.LessonOrderByWithRelationInput[]
+  cursor?: Prisma.LessonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LessonScalarFieldEnum | Prisma.LessonScalarFieldEnum[]
 }
 
 /**

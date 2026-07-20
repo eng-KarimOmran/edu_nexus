@@ -31,6 +31,7 @@ export type ClientMinAggregateOutputType = {
   source: $Enums.ClientSource | null
   academyId: string | null
   createdAt: Date | null
+  createdById: string | null
 }
 
 export type ClientMaxAggregateOutputType = {
@@ -40,6 +41,7 @@ export type ClientMaxAggregateOutputType = {
   source: $Enums.ClientSource | null
   academyId: string | null
   createdAt: Date | null
+  createdById: string | null
 }
 
 export type ClientCountAggregateOutputType = {
@@ -49,6 +51,7 @@ export type ClientCountAggregateOutputType = {
   source: number
   academyId: number
   createdAt: number
+  createdById: number
   _all: number
 }
 
@@ -60,6 +63,7 @@ export type ClientMinAggregateInputType = {
   source?: true
   academyId?: true
   createdAt?: true
+  createdById?: true
 }
 
 export type ClientMaxAggregateInputType = {
@@ -69,6 +73,7 @@ export type ClientMaxAggregateInputType = {
   source?: true
   academyId?: true
   createdAt?: true
+  createdById?: true
 }
 
 export type ClientCountAggregateInputType = {
@@ -78,6 +83,7 @@ export type ClientCountAggregateInputType = {
   source?: true
   academyId?: true
   createdAt?: true
+  createdById?: true
   _all?: true
 }
 
@@ -160,6 +166,7 @@ export type ClientGroupByOutputType = {
   source: $Enums.ClientSource
   academyId: string
   createdAt: Date
+  createdById: string | null
   _count: ClientCountAggregateOutputType | null
   _min: ClientMinAggregateOutputType | null
   _max: ClientMaxAggregateOutputType | null
@@ -190,10 +197,12 @@ export type ClientWhereInput = {
   source?: Prisma.EnumClientSourceFilter<"Client"> | $Enums.ClientSource
   academyId?: Prisma.StringFilter<"Client"> | string
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  createdById?: Prisma.StringNullableFilter<"Client"> | string | null
   academy?: Prisma.XOR<Prisma.AcademyScalarRelationFilter, Prisma.AcademyWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  createdBy?: Prisma.XOR<Prisma.JobProfileNullableScalarRelationFilter, Prisma.JobProfileWhereInput> | null
 }
 
 export type ClientOrderByWithRelationInput = {
@@ -203,10 +212,12 @@ export type ClientOrderByWithRelationInput = {
   source?: Prisma.SortOrder
   academyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   academy?: Prisma.AcademyOrderByWithRelationInput
   lessons?: Prisma.LessonOrderByRelationAggregateInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
   wallet?: Prisma.WalletOrderByWithRelationInput
+  createdBy?: Prisma.JobProfileOrderByWithRelationInput
   _relevance?: Prisma.ClientOrderByRelevanceInput
 }
 
@@ -221,10 +232,12 @@ export type ClientWhereUniqueInput = Prisma.AtLeast<{
   source?: Prisma.EnumClientSourceFilter<"Client"> | $Enums.ClientSource
   academyId?: Prisma.StringFilter<"Client"> | string
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  createdById?: Prisma.StringNullableFilter<"Client"> | string | null
   academy?: Prisma.XOR<Prisma.AcademyScalarRelationFilter, Prisma.AcademyWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  createdBy?: Prisma.XOR<Prisma.JobProfileNullableScalarRelationFilter, Prisma.JobProfileWhereInput> | null
 }, "id" | "phone_academyId">
 
 export type ClientOrderByWithAggregationInput = {
@@ -234,6 +247,7 @@ export type ClientOrderByWithAggregationInput = {
   source?: Prisma.SortOrder
   academyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClientCountOrderByAggregateInput
   _max?: Prisma.ClientMaxOrderByAggregateInput
   _min?: Prisma.ClientMinOrderByAggregateInput
@@ -249,6 +263,7 @@ export type ClientScalarWhereWithAggregatesInput = {
   source?: Prisma.EnumClientSourceWithAggregatesFilter<"Client"> | $Enums.ClientSource
   academyId?: Prisma.StringWithAggregatesFilter<"Client"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
+  createdById?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
 }
 
 export type ClientCreateInput = {
@@ -261,6 +276,7 @@ export type ClientCreateInput = {
   lessons?: Prisma.LessonCreateNestedManyWithoutClientInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletCreateNestedOneWithoutClientInput
+  createdBy?: Prisma.JobProfileCreateNestedOneWithoutCreatedClientsInput
 }
 
 export type ClientUncheckedCreateInput = {
@@ -270,6 +286,7 @@ export type ClientUncheckedCreateInput = {
   source?: $Enums.ClientSource
   academyId: string
   createdAt?: Date | string
+  createdById?: string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutClientInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutClientInput
@@ -285,6 +302,7 @@ export type ClientUpdateInput = {
   lessons?: Prisma.LessonUpdateManyWithoutClientNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutClientNestedInput
+  createdBy?: Prisma.JobProfileUpdateOneWithoutCreatedClientsNestedInput
 }
 
 export type ClientUncheckedUpdateInput = {
@@ -294,6 +312,7 @@ export type ClientUncheckedUpdateInput = {
   source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
   academyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutClientNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutClientNestedInput
@@ -306,6 +325,7 @@ export type ClientCreateManyInput = {
   source?: $Enums.ClientSource
   academyId: string
   createdAt?: Date | string
+  createdById?: string | null
 }
 
 export type ClientUpdateManyMutationInput = {
@@ -323,6 +343,7 @@ export type ClientUncheckedUpdateManyInput = {
   source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
   academyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ClientListRelationFilter = {
@@ -358,6 +379,7 @@ export type ClientCountOrderByAggregateInput = {
   source?: Prisma.SortOrder
   academyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
 }
 
 export type ClientMaxOrderByAggregateInput = {
@@ -367,6 +389,7 @@ export type ClientMaxOrderByAggregateInput = {
   source?: Prisma.SortOrder
   academyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
 }
 
 export type ClientMinOrderByAggregateInput = {
@@ -376,6 +399,7 @@ export type ClientMinOrderByAggregateInput = {
   source?: Prisma.SortOrder
   academyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
 }
 
 export type ClientScalarRelationFilter = {
@@ -459,6 +483,48 @@ export type ClientUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.ClientUpdateWithoutSubscriptionsInput>, Prisma.ClientUncheckedUpdateWithoutSubscriptionsInput>
 }
 
+export type ClientCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutCreatedByInput, Prisma.ClientUncheckedCreateWithoutCreatedByInput> | Prisma.ClientCreateWithoutCreatedByInput[] | Prisma.ClientUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutCreatedByInput | Prisma.ClientCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.ClientCreateManyCreatedByInputEnvelope
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+}
+
+export type ClientUncheckedCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutCreatedByInput, Prisma.ClientUncheckedCreateWithoutCreatedByInput> | Prisma.ClientCreateWithoutCreatedByInput[] | Prisma.ClientUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutCreatedByInput | Prisma.ClientCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.ClientCreateManyCreatedByInputEnvelope
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+}
+
+export type ClientUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutCreatedByInput, Prisma.ClientUncheckedCreateWithoutCreatedByInput> | Prisma.ClientCreateWithoutCreatedByInput[] | Prisma.ClientUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutCreatedByInput | Prisma.ClientCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.ClientUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.ClientUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.ClientCreateManyCreatedByInputEnvelope
+  set?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  disconnect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  delete?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  update?: Prisma.ClientUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.ClientUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.ClientUpdateManyWithWhereWithoutCreatedByInput | Prisma.ClientUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
+}
+
+export type ClientUncheckedUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutCreatedByInput, Prisma.ClientUncheckedCreateWithoutCreatedByInput> | Prisma.ClientCreateWithoutCreatedByInput[] | Prisma.ClientUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutCreatedByInput | Prisma.ClientCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.ClientUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.ClientUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.ClientCreateManyCreatedByInputEnvelope
+  set?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  disconnect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  delete?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  update?: Prisma.ClientUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.ClientUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.ClientUpdateManyWithWhereWithoutCreatedByInput | Prisma.ClientUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
+}
+
 export type ClientCreateNestedOneWithoutLessonsInput = {
   create?: Prisma.XOR<Prisma.ClientCreateWithoutLessonsInput, Prisma.ClientUncheckedCreateWithoutLessonsInput>
   connectOrCreate?: Prisma.ClientCreateOrConnectWithoutLessonsInput
@@ -482,6 +548,7 @@ export type ClientCreateWithoutAcademyInput = {
   lessons?: Prisma.LessonCreateNestedManyWithoutClientInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletCreateNestedOneWithoutClientInput
+  createdBy?: Prisma.JobProfileCreateNestedOneWithoutCreatedClientsInput
 }
 
 export type ClientUncheckedCreateWithoutAcademyInput = {
@@ -490,6 +557,7 @@ export type ClientUncheckedCreateWithoutAcademyInput = {
   phone: string
   source?: $Enums.ClientSource
   createdAt?: Date | string
+  createdById?: string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutClientInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutClientInput
@@ -531,6 +599,7 @@ export type ClientScalarWhereInput = {
   source?: Prisma.EnumClientSourceFilter<"Client"> | $Enums.ClientSource
   academyId?: Prisma.StringFilter<"Client"> | string
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  createdById?: Prisma.StringNullableFilter<"Client"> | string | null
 }
 
 export type ClientCreateWithoutWalletInput = {
@@ -542,6 +611,7 @@ export type ClientCreateWithoutWalletInput = {
   academy: Prisma.AcademyCreateNestedOneWithoutClientsInput
   lessons?: Prisma.LessonCreateNestedManyWithoutClientInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutClientInput
+  createdBy?: Prisma.JobProfileCreateNestedOneWithoutCreatedClientsInput
 }
 
 export type ClientUncheckedCreateWithoutWalletInput = {
@@ -551,6 +621,7 @@ export type ClientUncheckedCreateWithoutWalletInput = {
   source?: $Enums.ClientSource
   academyId: string
   createdAt?: Date | string
+  createdById?: string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutClientInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutClientInput
 }
@@ -580,6 +651,7 @@ export type ClientUpdateWithoutWalletInput = {
   academy?: Prisma.AcademyUpdateOneRequiredWithoutClientsNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutClientNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutClientNestedInput
+  createdBy?: Prisma.JobProfileUpdateOneWithoutCreatedClientsNestedInput
 }
 
 export type ClientUncheckedUpdateWithoutWalletInput = {
@@ -589,6 +661,7 @@ export type ClientUncheckedUpdateWithoutWalletInput = {
   source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
   academyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutClientNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutClientNestedInput
 }
@@ -602,6 +675,7 @@ export type ClientCreateWithoutSubscriptionsInput = {
   academy: Prisma.AcademyCreateNestedOneWithoutClientsInput
   lessons?: Prisma.LessonCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletCreateNestedOneWithoutClientInput
+  createdBy?: Prisma.JobProfileCreateNestedOneWithoutCreatedClientsInput
 }
 
 export type ClientUncheckedCreateWithoutSubscriptionsInput = {
@@ -611,6 +685,7 @@ export type ClientUncheckedCreateWithoutSubscriptionsInput = {
   source?: $Enums.ClientSource
   academyId: string
   createdAt?: Date | string
+  createdById?: string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutClientInput
 }
@@ -640,6 +715,7 @@ export type ClientUpdateWithoutSubscriptionsInput = {
   academy?: Prisma.AcademyUpdateOneRequiredWithoutClientsNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutClientNestedInput
+  createdBy?: Prisma.JobProfileUpdateOneWithoutCreatedClientsNestedInput
 }
 
 export type ClientUncheckedUpdateWithoutSubscriptionsInput = {
@@ -649,8 +725,59 @@ export type ClientUncheckedUpdateWithoutSubscriptionsInput = {
   source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
   academyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutClientNestedInput
+}
+
+export type ClientCreateWithoutCreatedByInput = {
+  id?: string
+  name: string
+  phone: string
+  source?: $Enums.ClientSource
+  createdAt?: Date | string
+  academy: Prisma.AcademyCreateNestedOneWithoutClientsInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutClientInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutClientInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutClientInput
+}
+
+export type ClientUncheckedCreateWithoutCreatedByInput = {
+  id?: string
+  name: string
+  phone: string
+  source?: $Enums.ClientSource
+  academyId: string
+  createdAt?: Date | string
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutClientInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutClientInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutClientInput
+}
+
+export type ClientCreateOrConnectWithoutCreatedByInput = {
+  where: Prisma.ClientWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientCreateWithoutCreatedByInput, Prisma.ClientUncheckedCreateWithoutCreatedByInput>
+}
+
+export type ClientCreateManyCreatedByInputEnvelope = {
+  data: Prisma.ClientCreateManyCreatedByInput | Prisma.ClientCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type ClientUpsertWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.ClientWhereUniqueInput
+  update: Prisma.XOR<Prisma.ClientUpdateWithoutCreatedByInput, Prisma.ClientUncheckedUpdateWithoutCreatedByInput>
+  create: Prisma.XOR<Prisma.ClientCreateWithoutCreatedByInput, Prisma.ClientUncheckedCreateWithoutCreatedByInput>
+}
+
+export type ClientUpdateWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.ClientWhereUniqueInput
+  data: Prisma.XOR<Prisma.ClientUpdateWithoutCreatedByInput, Prisma.ClientUncheckedUpdateWithoutCreatedByInput>
+}
+
+export type ClientUpdateManyWithWhereWithoutCreatedByInput = {
+  where: Prisma.ClientScalarWhereInput
+  data: Prisma.XOR<Prisma.ClientUpdateManyMutationInput, Prisma.ClientUncheckedUpdateManyWithoutCreatedByInput>
 }
 
 export type ClientCreateWithoutLessonsInput = {
@@ -662,6 +789,7 @@ export type ClientCreateWithoutLessonsInput = {
   academy: Prisma.AcademyCreateNestedOneWithoutClientsInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletCreateNestedOneWithoutClientInput
+  createdBy?: Prisma.JobProfileCreateNestedOneWithoutCreatedClientsInput
 }
 
 export type ClientUncheckedCreateWithoutLessonsInput = {
@@ -671,6 +799,7 @@ export type ClientUncheckedCreateWithoutLessonsInput = {
   source?: $Enums.ClientSource
   academyId: string
   createdAt?: Date | string
+  createdById?: string | null
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutClientInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutClientInput
 }
@@ -700,6 +829,7 @@ export type ClientUpdateWithoutLessonsInput = {
   academy?: Prisma.AcademyUpdateOneRequiredWithoutClientsNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutClientNestedInput
+  createdBy?: Prisma.JobProfileUpdateOneWithoutCreatedClientsNestedInput
 }
 
 export type ClientUncheckedUpdateWithoutLessonsInput = {
@@ -709,6 +839,7 @@ export type ClientUncheckedUpdateWithoutLessonsInput = {
   source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
   academyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutClientNestedInput
 }
@@ -719,6 +850,7 @@ export type ClientCreateManyAcademyInput = {
   phone: string
   source?: $Enums.ClientSource
   createdAt?: Date | string
+  createdById?: string | null
 }
 
 export type ClientUpdateWithoutAcademyInput = {
@@ -730,6 +862,7 @@ export type ClientUpdateWithoutAcademyInput = {
   lessons?: Prisma.LessonUpdateManyWithoutClientNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutClientNestedInput
+  createdBy?: Prisma.JobProfileUpdateOneWithoutCreatedClientsNestedInput
 }
 
 export type ClientUncheckedUpdateWithoutAcademyInput = {
@@ -738,6 +871,7 @@ export type ClientUncheckedUpdateWithoutAcademyInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutClientNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutClientNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutClientNestedInput
@@ -748,6 +882,49 @@ export type ClientUncheckedUpdateManyWithoutAcademyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ClientCreateManyCreatedByInput = {
+  id?: string
+  name: string
+  phone: string
+  source?: $Enums.ClientSource
+  academyId: string
+  createdAt?: Date | string
+}
+
+export type ClientUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  academy?: Prisma.AcademyUpdateOneRequiredWithoutClientsNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutClientNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutClientNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
+  academyId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutClientNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutClientNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateManyWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumClientSourceFieldUpdateOperationsInput | $Enums.ClientSource
+  academyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -798,10 +975,12 @@ export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   source?: boolean
   academyId?: boolean
   createdAt?: boolean
+  createdById?: boolean
   academy?: boolean | Prisma.AcademyDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.Client$lessonsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.Client$subscriptionsArgs<ExtArgs>
   wallet?: boolean | Prisma.Client$walletArgs<ExtArgs>
+  createdBy?: boolean | Prisma.Client$createdByArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
@@ -814,14 +993,16 @@ export type ClientSelectScalar = {
   source?: boolean
   academyId?: boolean
   createdAt?: boolean
+  createdById?: boolean
 }
 
-export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "source" | "academyId" | "createdAt", ExtArgs["result"]["client"]>
+export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "source" | "academyId" | "createdAt" | "createdById", ExtArgs["result"]["client"]>
 export type ClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   academy?: boolean | Prisma.AcademyDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.Client$lessonsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.Client$subscriptionsArgs<ExtArgs>
   wallet?: boolean | Prisma.Client$walletArgs<ExtArgs>
+  createdBy?: boolean | Prisma.Client$createdByArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -832,6 +1013,7 @@ export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     lessons: Prisma.$LessonPayload<ExtArgs>[]
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
     wallet: Prisma.$WalletPayload<ExtArgs> | null
+    createdBy: Prisma.$JobProfilePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -840,6 +1022,7 @@ export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     source: $Enums.ClientSource
     academyId: string
     createdAt: Date
+    createdById: string | null
   }, ExtArgs["result"]["client"]>
   composites: {}
 }
@@ -1184,6 +1367,7 @@ export interface Prisma__ClientClient<T, Null = never, ExtArgs extends runtime.T
   lessons<T extends Prisma.Client$lessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscriptions<T extends Prisma.Client$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wallet<T extends Prisma.Client$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$walletArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  createdBy<T extends Prisma.Client$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$createdByArgs<ExtArgs>>): Prisma.Prisma__JobProfileClient<runtime.Types.Result.GetResult<Prisma.$JobProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1219,6 +1403,7 @@ export interface ClientFieldRefs {
   readonly source: Prisma.FieldRef<"Client", 'ClientSource'>
   readonly academyId: Prisma.FieldRef<"Client", 'String'>
   readonly createdAt: Prisma.FieldRef<"Client", 'DateTime'>
+  readonly createdById: Prisma.FieldRef<"Client", 'String'>
 }
     
 
@@ -1631,6 +1816,25 @@ export type Client$walletArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.WalletInclude<ExtArgs> | null
   where?: Prisma.WalletWhereInput
+}
+
+/**
+ * Client.createdBy
+ */
+export type Client$createdByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobProfile
+   */
+  select?: Prisma.JobProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobProfile
+   */
+  omit?: Prisma.JobProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobProfileInclude<ExtArgs> | null
+  where?: Prisma.JobProfileWhereInput
 }
 
 /**

@@ -3,6 +3,7 @@ import type { Car } from "../car/car.type";
 import type { Area } from "../area/area.type";
 import type { Client } from "../client/client.type";
 import type { JobProfile } from "../jobProfile/jobProfile.type";
+import type { CreatedBy } from "@/types/createdBy";
 
 export type Lesson = {
     id: string;
@@ -31,4 +32,6 @@ export type Lesson = {
     client: Client,
 
     jobProfile: JobProfile
+
+    createdBy: CreatedBy
 };

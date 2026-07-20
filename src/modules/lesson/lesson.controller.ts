@@ -6,8 +6,9 @@ import { ILessonController } from "./lesson.type";
 const LessonController: ILessonController = {
   createLesson: async (req, res) => {
     const dataSafe = req.dataSafe as DTO.CreateLessonDto;
+    const userId = req.userLogin!.id
 
-    const lesson = await LessonService.createLesson(dataSafe);
+    const lesson = await LessonService.createLesson({ ...dataSafe, userId });
 
     return sendSuccess({
       res,

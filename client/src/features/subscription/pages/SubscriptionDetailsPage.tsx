@@ -10,6 +10,7 @@ import {
   RiTimeLine,
   RiWallet3Line,
   RiUserLine,
+  RiUserSettingsFill,
 } from "@remixicon/react";
 
 import DisplayDetails, {
@@ -162,6 +163,17 @@ export default function SubscriptionDetailsPage() {
           title: "تاريخ الإنشاء",
           content: formatDate(data.createdAt, "date"),
           icon: RiCalendarLine,
+        },
+        {
+          key: "createdBy",
+          title: "تم بواسطة",
+          content: (
+            <div>
+              <div>{data.createdBy?.user.name ?? "غير معروف"}</div>
+              <div>{data.createdBy?.user.phone ?? "غير معروف"}</div>
+            </div>
+          ),
+          icon: RiUserSettingsFill,
         },
         {
           key: "id",

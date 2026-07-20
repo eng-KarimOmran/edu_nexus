@@ -25,7 +25,6 @@ export interface Lesson {
     startTime: string;
     endTime: string;
     lessonStatus: LessonStatus;
-    subscriptionId: string
     expectedPaymentAmount: number
 
     car: {
@@ -58,6 +57,11 @@ export interface Lesson {
             phone: string;
         };
     };
+
+    subscription: {
+        id: string,
+        courseName: true
+    }
 }
 
 export interface BaseLesson {

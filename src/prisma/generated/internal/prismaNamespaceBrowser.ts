@@ -183,7 +183,8 @@ export const ClientScalarFieldEnum = {
   phone: 'phone',
   source: 'source',
   academyId: 'academyId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  createdById: 'createdById'
 } as const
 
 export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
@@ -314,6 +315,7 @@ export const LessonScalarFieldEnum = {
   areaId: 'areaId',
   walletMovementId: 'walletMovementId',
   payrollId: 'payrollId',
+  createdById: 'createdById',
   createdAt: 'createdAt'
 } as const
 
@@ -460,7 +462,8 @@ export const ClientOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
   phone: 'phone',
-  academyId: 'academyId'
+  academyId: 'academyId',
+  createdById: 'createdById'
 } as const
 
 export type ClientOrderByRelevanceFieldEnum = (typeof ClientOrderByRelevanceFieldEnum)[keyof typeof ClientOrderByRelevanceFieldEnum]
@@ -546,7 +549,8 @@ export const LessonOrderByRelevanceFieldEnum = {
   jobProfileId: 'jobProfileId',
   areaId: 'areaId',
   walletMovementId: 'walletMovementId',
-  payrollId: 'payrollId'
+  payrollId: 'payrollId',
+  createdById: 'createdById'
 } as const
 
 export type LessonOrderByRelevanceFieldEnum = (typeof LessonOrderByRelevanceFieldEnum)[keyof typeof LessonOrderByRelevanceFieldEnum]

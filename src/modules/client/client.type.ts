@@ -13,16 +13,23 @@ import {
 } from "./client.dto";
 
 type ClientDetails = {
-    currentClient: ClientGetPayload<{ include: { subscriptions: true } }>
+    currentClient: ClientGetPayload<{
+        include: {
+            subscriptions: true,
+            createdBy: {
+                select: { id: true, user: { select: { id: true, name: true, phone: true } } }
+            }
+        }
+    }>
     otherFiles: Client[]
 }
 
 export interface IClientService {
-    createClient(data: CreateClientDto & { tx?: TransactionClient }): Promise<Client>;
+    createClient(data: CreateClientDto & { tx?: TransactionClient, userId: string }): Promise<Client>;
 
     updateClient(data: UpdateClientDto): Promise<Client>;
 
-    deleteClient(data: DeleteClientDto & {tx?:TransactionClient}): Promise<Client>;
+    deleteClient(data: DeleteClientDto & { tx?: TransactionClient }): Promise<Client>;
 
     getAllClients(data: GetAllClientsDto): Promise<PaginatedResponse<Client>>;
 

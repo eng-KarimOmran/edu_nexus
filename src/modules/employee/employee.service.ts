@@ -25,13 +25,13 @@ const EmployeeService: IEmployeeService = {
             startTime: true,
             endTime: true,
             lessonStatus: true,
-            subscriptionId: true,
             expectedPaymentAmount: true,
             car: { select: { id: true, modelName: true, plateNumber: true } },
             area: { select: { id: true, name: true } },
             client: { select: { id: true, name: true, phone: true } },
             academy: { select: { id: true, name: true } },
-            jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } }
+            jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } },
+            subscription: { select: { id: true, courseName: true } }
         }
 
         const lessons = await prisma.lesson.findMany({ where, select, orderBy: { startTime: "asc" } });

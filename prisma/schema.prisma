@@ -124,6 +124,9 @@ model Client {
   subscriptions Subscription[]
   wallet        Wallet?
 
+  createdById String?
+  createdBy   JobProfile? @relation("ClientCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
   @@unique([phone, academyId])
   @@index([academyId], map: "Client_academyId_fkey")
 }
@@ -166,15 +169,17 @@ model Subscription {
   academyId                  String
   areaId                     String
   payrollId                  String?
-  createdById                String?
-  lessons                    Lesson[]
-  academy                    Academy            @relation(fields: [academyId], references: [id], onDelete: Restrict)
-  area                       Area               @relation(fields: [areaId], references: [id], onDelete: Restrict)
-  client                     Client             @relation(fields: [clientId], references: [id], onDelete: Restrict)
-  course                     Course             @relation(fields: [courseId], references: [id], onDelete: Restrict)
-  createdBy                  JobProfile?        @relation("CreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
-  payroll                    Payroll?           @relation(fields: [payrollId], references: [id], onDelete: SetNull)
-  walletMovements            WalletMovement[]
+
+  createdById String?
+  createdBy   JobProfile? @relation("CreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  lessons         Lesson[]
+  academy         Academy          @relation(fields: [academyId], references: [id], onDelete: Restrict)
+  area            Area             @relation(fields: [areaId], references: [id], onDelete: Restrict)
+  client          Client           @relation(fields: [clientId], references: [id], onDelete: Restrict)
+  course          Course           @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  payroll         Payroll?         @relation(fields: [payrollId], references: [id], onDelete: SetNull)
+  walletMovements WalletMovement[]
 
   @@index([clientId])
   @@index([academyId])
@@ -198,8 +203,11 @@ model JobProfile {
   user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   lessons        Lesson[]
   payrolls       Payroll[]
-  subscriptions  Subscription[] @relation("CreatedBy")
   wallets        Wallet[]
+
+  subscriptions  Subscription[] @relation("CreatedBy")
+  createdClients Client[]       @relation("ClientCreatedBy")
+  createdLessons Lesson[]       @relation("LessonCreatedBy")
 }
 
 model User {
@@ -248,10 +256,10 @@ model Area {
 }
 
 model Lesson {
-  id                     String          @id @default(cuid())
+  id                     String       @id @default(cuid())
   startTime              DateTime
   endTime                DateTime
-  lessonStatus           LessonStatus    @default(SCHEDULED)
+  lessonStatus           LessonStatus @default(SCHEDULED)
   transmission           Transmission
   sessionDurationMinutes Int
   expectedPaymentAmount  Float?
@@ -265,15 +273,19 @@ model Lesson {
   areaId                 String
   walletMovementId       String?
   payrollId              String?
-  createdAt              DateTime        @default(now())
-  academy                Academy         @relation(fields: [academyId], references: [id], onDelete: Restrict)
-  area                   Area            @relation(fields: [areaId], references: [id], onDelete: Restrict)
-  car                    Car             @relation(fields: [carId], references: [id], onDelete: Restrict)
-  client                 Client          @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  jobProfile             JobProfile      @relation(fields: [jobProfileId], references: [id], onDelete: Restrict)
-  payroll                Payroll?        @relation(fields: [payrollId], references: [id], onDelete: SetNull)
-  subscription           Subscription    @relation(fields: [subscriptionId], references: [id], onDelete: Restrict)
-  walletMovement         WalletMovement? @relation(fields: [walletMovementId], references: [id], onDelete: SetNull)
+
+  createdById String?
+  createdBy   JobProfile? @relation("LessonCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt      DateTime        @default(now())
+  academy        Academy         @relation(fields: [academyId], references: [id], onDelete: Restrict)
+  area           Area            @relation(fields: [areaId], references: [id], onDelete: Restrict)
+  car            Car             @relation(fields: [carId], references: [id], onDelete: Restrict)
+  client         Client          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  jobProfile     JobProfile      @relation(fields: [jobProfileId], references: [id], onDelete: Restrict)
+  payroll        Payroll?        @relation(fields: [payrollId], references: [id], onDelete: SetNull)
+  subscription   Subscription    @relation(fields: [subscriptionId], references: [id], onDelete: Restrict)
+  walletMovement WalletMovement? @relation(fields: [walletMovementId], references: [id], onDelete: SetNull)
 
   @@index([academyId], map: "Lesson_academyId_fkey")
   @@index([areaId], map: "Lesson_areaId_fkey")

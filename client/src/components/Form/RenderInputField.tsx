@@ -62,6 +62,7 @@ export type FieldConfig<T extends FieldValues> = {
   disabled?: boolean;
   accept?: string;
   options?: Option[];
+  dir?: "rtl" | "ltr";
   onChange?: (value: unknown) => void;
 };
 
@@ -99,9 +100,11 @@ export default function RenderInputField<T extends FieldValues>({
       type: config.type,
       placeholder: config.placeholder,
       disabled: config.disabled,
-      dir: ["password", "url", "tel", "number"].includes(config.type)
-        ? "ltr"
-        : "rtl",
+      dir: config.dir
+        ? config.dir
+        : ["password", "url", "tel", "number"].includes(config.type)
+          ? "ltr"
+          : "rtl",
       ...register(config.name, registerOption),
     };
   };
@@ -116,15 +119,12 @@ export default function RenderInputField<T extends FieldValues>({
     if (config.type === "number") {
       registerOption.valueAsNumber = true;
     }
-    
+
     return {
       readOnly: config.readOnly,
       id: String(config.name),
       placeholder: config.placeholder,
       disabled: config.disabled,
-      dir: ["password", "url", "tel", "number"].includes(config.type)
-        ? "ltr"
-        : "rtl",
       ...register(config.name, registerOption),
     };
   };

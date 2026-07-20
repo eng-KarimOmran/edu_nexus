@@ -14,8 +14,9 @@ export default function SearchClientForm() {
     inputs: [
       {
         name: "search",
-        type: "tel",
+        type: "text",
         label: "بحث",
+        dir: "ltr",
         placeholder: "ابحث عن العميل بالمعرف او رقم الهاتف...",
       },
     ],
@@ -26,7 +27,20 @@ export default function SearchClientForm() {
       text: "بحث",
     },
 
-    service: (query) => getClient({ query }),
+    service: (body) => {
+      let search = body.search;
+      search.trim();
+      if (body.search.length !== 25) {
+        let phone = search.replace(/\D/g, "");
+        const index = phone.indexOf("1");
+        if (index !== -1) {
+          phone = phone.slice(index);
+        }
+        phone = "0" + phone;
+        search = phone;
+      }
+      return getClient({ query: { search } });
+    },
 
     onSuccess: (data) => {
       if ("data" in data) {

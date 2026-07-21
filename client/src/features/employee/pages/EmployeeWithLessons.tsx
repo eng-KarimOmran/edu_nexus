@@ -40,8 +40,7 @@ import { Button } from "@/components/ui/button";
 
 export default function EmployeeWithLessons() {
   const initialDateFilter: DateFormProps = {
-    // startDate: dayjs().startOf("day").toISOString(),
-    startDate: dayjs().subtract(3, "month").startOf("day").toISOString(),
+    startDate: dayjs().startOf("day").toISOString(),
     endDate: dayjs().endOf("day").toISOString(),
   };
 

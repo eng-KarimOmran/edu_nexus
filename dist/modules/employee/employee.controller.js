@@ -36,5 +36,13 @@ const EmployeeController = {
             data,
         });
     },
+    getAllEmployeesWithLesson: async (req, res) => {
+        const dataSafe = req.dataSafe;
+        const data = await employee_service_1.default.getAllEmployeesWithLesson(dataSafe);
+        return (0, successResponse_1.default)({
+            res,
+            data,
+        });
+    }
 };
 exports.default = EmployeeController;

@@ -40,24 +40,30 @@ import DebtsPage from "@/features/employee/pages/DebtsPage";
 
 import {
   RiBriefcaseLine,
-  RiCalendarScheduleLine,
+  RiCalendar2Fill,
+  RiCalendar2Line,
+  RiCalendarCheckLine,
+  RiCalendarTodoLine,
   RiCarLine,
+  RiCheckboxCircleLine,
   RiExchangeDollarLine,
-  RiFileList3Fill,
-  RiGraduationCapFill,
+  RiHandCoinFill,
   RiLayout2Line,
+  RiRefund2Fill,
   RiRoadMapLine,
   RiRouteLine,
   RiSchoolFill,
   RiSteering2Line,
   RiUserSettingsFill,
-  RiWalletFill,
+  RiUserStarFill,
+  RiUserStarLine,
 } from "@remixicon/react";
 
 import { ROLES } from "./roles";
 
 import ChangePasswordDashboardPage from "@/features/auth/pages/ChangePasswordDashboard";
 import GetAllCarAndLesson from "@/features/employee/pages/GetAllCarAndLesson";
+import EmployeeWithLessons from "@/features/employee/pages/EmployeeWithLessons";
 
 export const DASHBOARD_ROUTES: AppRoute[] = [
   {
@@ -75,26 +81,16 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     element: <CustomerManagementPage />,
     nav: {
       label: "إدارة العملاء",
-      icon: <RiLayout2Line />,
+      icon: <RiUserStarLine />,
     },
     roles: [ROLES.SECRETARY, ROLES.MANAGER],
-  },
-
-  {
-    path: PATHS.lessonSchedule,
-    element: <GetAllLessonsPage />,
-    nav: {
-      label: "جدول الحصص",
-      icon: <RiCalendarScheduleLine />,
-    },
-    roles: [ROLES.OWNER, ROLES.SECRETARY, ROLES.MANAGER],
   },
   {
     path: PATHS.carAndLesson,
     element: <GetAllCarAndLesson />,
     nav: {
       label: "جدول الحصص المحجوزه",
-      icon: <RiCalendarScheduleLine />,
+      icon: <RiCalendarCheckLine />,
     },
     roles: [ROLES.OWNER, ROLES.SECRETARY, ROLES.MANAGER],
   },
@@ -104,7 +100,7 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     element: <MyLessonsPage date="today" />,
     nav: {
       label: "حصص اليوم",
-      icon: <RiLayout2Line />,
+      icon: <RiCalendarTodoLine />,
     },
     roles: [ROLES.CAPTAIN, ROLES.MANAGER],
   },
@@ -114,9 +110,19 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     element: <MyLessonsPage date="tomorrow" />,
     nav: {
       label: "حصص غدًا",
-      icon: <RiLayout2Line />,
+      icon: <RiCalendar2Line />,
     },
     roles: [ROLES.CAPTAIN, ROLES.MANAGER],
+  },
+
+  {
+    path: PATHS.employeeWithLessons,
+    element: <EmployeeWithLessons />,
+    nav: {
+      label: "الحصص المكتملة",
+      icon: <RiCheckboxCircleLine />,
+    },
+    roles: [ROLES.OWNER, ROLES.MANAGER],
   },
 
   {
@@ -124,7 +130,7 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     element: <ClientPage />,
     nav: {
       label: "العملاء",
-      icon: <RiGraduationCapFill />,
+      icon: <RiUserStarFill />,
     },
     roles: [ROLES.OWNER],
   },
@@ -134,7 +140,7 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     element: <SubscriptionPage />,
     nav: {
       label: "الاشتراكات",
-      icon: <RiFileList3Fill />,
+      icon: <RiRefund2Fill />,
     },
     roles: [ROLES.OWNER],
   },
@@ -158,7 +164,15 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     },
     roles: [ROLES.OWNER],
   },
-
+  {
+    path: PATHS.lessonSchedule,
+    element: <GetAllLessonsPage />,
+    nav: {
+      label: "جدول حصص الأسبوع",
+      icon: <RiCalendar2Fill />,
+    },
+    roles: [ROLES.OWNER, ROLES.SECRETARY, ROLES.MANAGER],
+  },
   {
     path: PATHS.courses,
     element: <CoursePage />,
@@ -184,7 +198,7 @@ export const DASHBOARD_ROUTES: AppRoute[] = [
     element: <DebtsPage />,
     nav: {
       label: "مديونية الموظفين",
-      icon: <RiWalletFill />,
+      icon: <RiHandCoinFill />,
     },
     roles: [ROLES.MANAGER],
   },

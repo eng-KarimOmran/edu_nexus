@@ -20,6 +20,7 @@ import {
 
 import CardCarAndLesson from "../components/CardCarAndLesson";
 import { RiCalendarScheduleLine } from "@remixicon/react";
+import { Button } from "@/components/ui/button";
 
 export default function GetAllCarAndLesson() {
   const startTime = dayjs().startOf("day").toDate();
@@ -67,6 +68,19 @@ export default function GetAllCarAndLesson() {
 
   return (
     <section className="space-y-12">
+      <nav className="flex items-center md:justify-between flex-wrap gap-1">
+        {days.map((day) => {
+          const dayKey = day.format("YYYY-MM-DD");
+          const arabicDate = day
+            .toDate()
+            .toLocaleDateString("ar-EG", { weekday: "long" });
+          return (
+            <a key={dayKey} href={`#${dayKey}`}>
+              <Button variant={"outline"}>{arabicDate}</Button>
+            </a>
+          );
+        })}
+      </nav>
       {days.map((day) => {
         const dayKey = day.format("YYYY-MM-DD");
 
@@ -78,7 +92,11 @@ export default function GetAllCarAndLesson() {
         });
 
         return (
-          <div key={dayKey} className="space-y-4 bg-sidebar p-2 rounded-md">
+          <div
+            id={dayKey}
+            key={dayKey}
+            className="space-y-4 bg-sidebar p-2 rounded-md"
+          >
             <div className="flex items-center gap-2">
               <RiCalendarScheduleLine />
               <h2 className="text-primary shadow p-2 rounded-md font-bold">
@@ -102,7 +120,10 @@ export default function GetAllCarAndLesson() {
                     {data.map((car) => {
                       const lesson = carMap.get(`${car.id}-${dayKey}-${hour}`);
                       return (
-                        <TableCell className="border" key={`${dayKey}-${car.id}-${hour}`}>
+                        <TableCell
+                          className="border"
+                          key={`${dayKey}-${car.id}-${hour}`}
+                        >
                           <CardCarAndLesson
                             car={car}
                             day={dayKey}

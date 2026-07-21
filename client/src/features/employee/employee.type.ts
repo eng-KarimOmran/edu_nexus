@@ -1,4 +1,4 @@
-import type { LessonStatus } from "@/types/enums";
+import type { LessonStatus, PaymentMethod } from "@/types/enums";
 import type { Car } from "../car/car.type";
 
 export interface wallets {
@@ -91,4 +91,51 @@ export interface BaseLesson {
 
 export interface CarWithLessons extends Car {
     lessons: BaseLesson[]
+}
+
+export interface EmployeeWithLessons {
+    id: string;
+    name: string;
+    phone: string;
+    jobProfile: {
+        id: string;
+        lessons: {
+            id: string;
+            expectedPaymentAmount: number;
+            startTime: string;
+            lessonStatus: LessonStatus;
+
+            walletMovement: {
+                id: string;
+                amount: number;
+                paymentMethod: PaymentMethod;
+            } | null;
+
+            academy: {
+                id: string;
+                name: string;
+            };
+
+            area: {
+                id: string;
+                name: string;
+            };
+
+            car: {
+                id: string;
+                modelName: string;
+                plateNumber: string;
+            };
+
+            client: {
+                id: string;
+                name: string;
+                phone: string;
+            };
+
+            subscription: {
+                id: string, courseName: string
+            },
+        }[];
+    };
 }

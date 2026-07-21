@@ -86,7 +86,55 @@ const EmployeeService: IEmployeeService = {
                 }
             }
         });
-    }
+    },
+
+    async getAllEmployeesWithLesson({ query }) {
+        const { startTime, endTime } = query
+        const lessonWhere: LessonWhereInput = {
+            startTime: {
+                gte: startTime,
+                lte: endTime,
+            },
+            lessonStatus: {
+                in: ["CANCELED_CHARGED", "COMPLETED"],
+            },
+        };
+        const employees = await prisma.user.findMany({
+            where: {
+                jobProfile: {
+                    lessons: {
+                        some: lessonWhere,
+                    }
+                },
+            },
+            select: {
+                id: true,
+                name: true,
+                phone: true,
+                jobProfile: {
+                    select: {
+                        id: true,
+                        lessons: {
+                            where: lessonWhere,
+                            select: {
+                                id: true,
+                                expectedPaymentAmount: true,
+                                lessonStatus: true,
+                                startTime: true,
+                                subscription: { select: { id: true, courseName: true } },
+                                walletMovement: { select: { id: true, amount: true, paymentMethod: true } },
+                                academy: { select: { id: true, name: true } },
+                                area: { select: { id: true, name: true } },
+                                car: { select: { id: true, modelName: true, plateNumber: true } },
+                                client: { select: { id: true, name: true, phone: true } },
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        return employees
+    },
 };
 
 export default EmployeeService;

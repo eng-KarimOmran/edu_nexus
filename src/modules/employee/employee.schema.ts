@@ -23,3 +23,10 @@ export const GetAllCarAndLessonSchema = {
         endTime: date,
     }),
 };
+
+export const GetAllEmployeesWithLessonSchema = {
+    query: z.object({
+        startTime: date,
+        endTime: date,
+    }),
+}

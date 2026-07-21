@@ -14,7 +14,7 @@ export default function DashboardLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full bg-background">
+      <main className="w-full bg-background overflow-x-auto">
         <NavTop />
         <section className="p-2">
           <Outlet />

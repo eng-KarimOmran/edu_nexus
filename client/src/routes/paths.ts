@@ -70,6 +70,10 @@ export const PATHS = {
         "my-lessons/tomorrow",
 
     myDebts: "my-debts",
+
     allDebts: "all-debts",
-    carAndLesson: "car-and-lesson"
+
+    carAndLesson: "car-and-lesson",
+
+    employeeWithLessons: "employee-with-lessons"
 } as const;

@@ -22,3 +22,10 @@ export const GetAllCarAndLessonSchema = {
         endTime: date,
     }),
 };
+
+export const GetAllEmployeesWithLessonSchema = {
+    query: z.object({
+        startTime: z.string(),
+        endTime: z.string(),
+    }),
+}

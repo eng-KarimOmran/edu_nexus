@@ -42,6 +42,16 @@ const EmployeeController: IEmployeeController = {
             data,
         });
     },
+    getAllEmployeesWithLesson: async (req, res) => {
+        const dataSafe = req.dataSafe as DTO.GetAllEmployeesWithLessonDto;
+
+        const data = await EmployeeService.getAllEmployeesWithLesson(dataSafe);
+        
+        return sendSuccess({
+            res,
+            data,
+        });
+    }
 };
 
 export default EmployeeController;

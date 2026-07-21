@@ -39,4 +39,11 @@ router.get(
     EmployeeController.getAllCarAndLesson
 );
 
+router.get(
+    "/employees-with-lesson",
+    validate(Schema.GetAllEmployeesWithLessonSchema),
+    allowJobProfiles(["MANAGER"]),
+    EmployeeController.getAllEmployeesWithLesson
+);
+
 export default router;

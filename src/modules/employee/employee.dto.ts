@@ -16,3 +16,7 @@ export type GetClient = {
 export type GetAllCarAndLessonDto = {
     query: z.infer<typeof Schema.GetAllCarAndLessonSchema.query>;
 };
+
+export type GetAllEmployeesWithLessonDto = {
+    query: z.infer<typeof Schema.GetAllEmployeesWithLessonSchema.query>;
+}

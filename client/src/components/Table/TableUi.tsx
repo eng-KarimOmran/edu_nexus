@@ -43,12 +43,13 @@ export default function TableUi<T>({
 }: DataTableProps<T>) {
   const [searchParams, setSearchParams] = useSearchParams();
   const colSpan = headers.length + (actions ? 1 : 0);
+  const search = false;
 
   return (
     <div className="rounded-md border bg-muted/50 p-2">
       <div className="py-2 flex justify-between items-start md:items-center flex-col gap-2 md:flex-row">
         {ButtonAddTable && <ButtonAdd {...ButtonAddTable} />}
-        {isSearch && (
+        {isSearch && search && (
           <div className="flex items-center gap-1 w-full max-w-sm">
             <SearchInput
               searchParams={searchParams}

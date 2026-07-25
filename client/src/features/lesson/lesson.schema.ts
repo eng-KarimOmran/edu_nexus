@@ -15,7 +15,7 @@ export const CreateLessonSchema = {
         academyId: id,
     }),
     body: z.object({
-        startTime: date,
+        startTime: z.string(),
         transmission: transmission,
         expectedPaymentAmount: price.optional(),
         jobProfileId: id,
@@ -61,7 +61,7 @@ export const UpdateLessonSchema = {
         lessonId: id,
     }),
     body: z.object({
-        startTime: date.optional(),
+        startTime: z.string(),
         transmission: transmission.optional(),
         expectedPaymentAmount: price.optional(),
         jobProfileId: id.optional(),

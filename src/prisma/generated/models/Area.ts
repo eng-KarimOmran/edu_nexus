@@ -20,13 +20,24 @@ export type AreaModel = runtime.Types.Result.DefaultSelection<Prisma.$AreaPayloa
 
 export type AggregateArea = {
   _count: AreaCountAggregateOutputType | null
+  _avg: AreaAvgAggregateOutputType | null
+  _sum: AreaSumAggregateOutputType | null
   _min: AreaMinAggregateOutputType | null
   _max: AreaMaxAggregateOutputType | null
+}
+
+export type AreaAvgAggregateOutputType = {
+  travelDurationInMinutes: number | null
+}
+
+export type AreaSumAggregateOutputType = {
+  travelDurationInMinutes: number | null
 }
 
 export type AreaMinAggregateOutputType = {
   id: string | null
   name: string | null
+  travelDurationInMinutes: number | null
   supportType: $Enums.SupportType | null
   isActive: boolean | null
   createdAt: Date | null
@@ -35,6 +46,7 @@ export type AreaMinAggregateOutputType = {
 export type AreaMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  travelDurationInMinutes: number | null
   supportType: $Enums.SupportType | null
   isActive: boolean | null
   createdAt: Date | null
@@ -43,6 +55,7 @@ export type AreaMaxAggregateOutputType = {
 export type AreaCountAggregateOutputType = {
   id: number
   name: number
+  travelDurationInMinutes: number
   supportType: number
   isActive: number
   createdAt: number
@@ -50,9 +63,18 @@ export type AreaCountAggregateOutputType = {
 }
 
 
+export type AreaAvgAggregateInputType = {
+  travelDurationInMinutes?: true
+}
+
+export type AreaSumAggregateInputType = {
+  travelDurationInMinutes?: true
+}
+
 export type AreaMinAggregateInputType = {
   id?: true
   name?: true
+  travelDurationInMinutes?: true
   supportType?: true
   isActive?: true
   createdAt?: true
@@ -61,6 +83,7 @@ export type AreaMinAggregateInputType = {
 export type AreaMaxAggregateInputType = {
   id?: true
   name?: true
+  travelDurationInMinutes?: true
   supportType?: true
   isActive?: true
   createdAt?: true
@@ -69,6 +92,7 @@ export type AreaMaxAggregateInputType = {
 export type AreaCountAggregateInputType = {
   id?: true
   name?: true
+  travelDurationInMinutes?: true
   supportType?: true
   isActive?: true
   createdAt?: true
@@ -113,6 +137,18 @@ export type AreaAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: AreaAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: AreaSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: AreaMinAggregateInputType
@@ -143,6 +179,8 @@ export type AreaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: AreaCountAggregateInputType | true
+  _avg?: AreaAvgAggregateInputType
+  _sum?: AreaSumAggregateInputType
   _min?: AreaMinAggregateInputType
   _max?: AreaMaxAggregateInputType
 }
@@ -150,10 +188,13 @@ export type AreaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type AreaGroupByOutputType = {
   id: string
   name: string
+  travelDurationInMinutes: number
   supportType: $Enums.SupportType
   isActive: boolean
   createdAt: Date
   _count: AreaCountAggregateOutputType | null
+  _avg: AreaAvgAggregateOutputType | null
+  _sum: AreaSumAggregateOutputType | null
   _min: AreaMinAggregateOutputType | null
   _max: AreaMaxAggregateOutputType | null
 }
@@ -179,6 +220,7 @@ export type AreaWhereInput = {
   NOT?: Prisma.AreaWhereInput | Prisma.AreaWhereInput[]
   id?: Prisma.StringFilter<"Area"> | string
   name?: Prisma.StringFilter<"Area"> | string
+  travelDurationInMinutes?: Prisma.IntFilter<"Area"> | number
   supportType?: Prisma.EnumSupportTypeFilter<"Area"> | $Enums.SupportType
   isActive?: Prisma.BoolFilter<"Area"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Area"> | Date | string
@@ -189,6 +231,7 @@ export type AreaWhereInput = {
 export type AreaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  travelDurationInMinutes?: Prisma.SortOrder
   supportType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -203,6 +246,7 @@ export type AreaWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AreaWhereInput | Prisma.AreaWhereInput[]
   OR?: Prisma.AreaWhereInput[]
   NOT?: Prisma.AreaWhereInput | Prisma.AreaWhereInput[]
+  travelDurationInMinutes?: Prisma.IntFilter<"Area"> | number
   supportType?: Prisma.EnumSupportTypeFilter<"Area"> | $Enums.SupportType
   isActive?: Prisma.BoolFilter<"Area"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Area"> | Date | string
@@ -213,12 +257,15 @@ export type AreaWhereUniqueInput = Prisma.AtLeast<{
 export type AreaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  travelDurationInMinutes?: Prisma.SortOrder
   supportType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.AreaCountOrderByAggregateInput
+  _avg?: Prisma.AreaAvgOrderByAggregateInput
   _max?: Prisma.AreaMaxOrderByAggregateInput
   _min?: Prisma.AreaMinOrderByAggregateInput
+  _sum?: Prisma.AreaSumOrderByAggregateInput
 }
 
 export type AreaScalarWhereWithAggregatesInput = {
@@ -227,6 +274,7 @@ export type AreaScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AreaScalarWhereWithAggregatesInput | Prisma.AreaScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Area"> | string
   name?: Prisma.StringWithAggregatesFilter<"Area"> | string
+  travelDurationInMinutes?: Prisma.IntWithAggregatesFilter<"Area"> | number
   supportType?: Prisma.EnumSupportTypeWithAggregatesFilter<"Area"> | $Enums.SupportType
   isActive?: Prisma.BoolWithAggregatesFilter<"Area"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Area"> | Date | string
@@ -235,6 +283,7 @@ export type AreaScalarWhereWithAggregatesInput = {
 export type AreaCreateInput = {
   id?: string
   name: string
+  travelDurationInMinutes?: number
   supportType: $Enums.SupportType
   isActive?: boolean
   createdAt?: Date | string
@@ -245,6 +294,7 @@ export type AreaCreateInput = {
 export type AreaUncheckedCreateInput = {
   id?: string
   name: string
+  travelDurationInMinutes?: number
   supportType: $Enums.SupportType
   isActive?: boolean
   createdAt?: Date | string
@@ -255,6 +305,7 @@ export type AreaUncheckedCreateInput = {
 export type AreaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -265,6 +316,7 @@ export type AreaUpdateInput = {
 export type AreaUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -275,6 +327,7 @@ export type AreaUncheckedUpdateInput = {
 export type AreaCreateManyInput = {
   id?: string
   name: string
+  travelDurationInMinutes?: number
   supportType: $Enums.SupportType
   isActive?: boolean
   createdAt?: Date | string
@@ -283,6 +336,7 @@ export type AreaCreateManyInput = {
 export type AreaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -291,6 +345,7 @@ export type AreaUpdateManyMutationInput = {
 export type AreaUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -310,14 +365,20 @@ export type AreaOrderByRelevanceInput = {
 export type AreaCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  travelDurationInMinutes?: Prisma.SortOrder
   supportType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
+export type AreaAvgOrderByAggregateInput = {
+  travelDurationInMinutes?: Prisma.SortOrder
+}
+
 export type AreaMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  travelDurationInMinutes?: Prisma.SortOrder
   supportType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -326,9 +387,14 @@ export type AreaMaxOrderByAggregateInput = {
 export type AreaMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  travelDurationInMinutes?: Prisma.SortOrder
   supportType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type AreaSumOrderByAggregateInput = {
+  travelDurationInMinutes?: Prisma.SortOrder
 }
 
 export type AreaCreateNestedOneWithoutSubscriptionsInput = {
@@ -366,6 +432,7 @@ export type AreaUpdateOneRequiredWithoutLessonsNestedInput = {
 export type AreaCreateWithoutSubscriptionsInput = {
   id?: string
   name: string
+  travelDurationInMinutes?: number
   supportType: $Enums.SupportType
   isActive?: boolean
   createdAt?: Date | string
@@ -375,6 +442,7 @@ export type AreaCreateWithoutSubscriptionsInput = {
 export type AreaUncheckedCreateWithoutSubscriptionsInput = {
   id?: string
   name: string
+  travelDurationInMinutes?: number
   supportType: $Enums.SupportType
   isActive?: boolean
   createdAt?: Date | string
@@ -400,6 +468,7 @@ export type AreaUpdateToOneWithWhereWithoutSubscriptionsInput = {
 export type AreaUpdateWithoutSubscriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -409,6 +478,7 @@ export type AreaUpdateWithoutSubscriptionsInput = {
 export type AreaUncheckedUpdateWithoutSubscriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -418,6 +488,7 @@ export type AreaUncheckedUpdateWithoutSubscriptionsInput = {
 export type AreaCreateWithoutLessonsInput = {
   id?: string
   name: string
+  travelDurationInMinutes?: number
   supportType: $Enums.SupportType
   isActive?: boolean
   createdAt?: Date | string
@@ -427,6 +498,7 @@ export type AreaCreateWithoutLessonsInput = {
 export type AreaUncheckedCreateWithoutLessonsInput = {
   id?: string
   name: string
+  travelDurationInMinutes?: number
   supportType: $Enums.SupportType
   isActive?: boolean
   createdAt?: Date | string
@@ -452,6 +524,7 @@ export type AreaUpdateToOneWithWhereWithoutLessonsInput = {
 export type AreaUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -461,6 +534,7 @@ export type AreaUpdateWithoutLessonsInput = {
 export type AreaUncheckedUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  travelDurationInMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   supportType?: Prisma.EnumSupportTypeFieldUpdateOperationsInput | $Enums.SupportType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -510,6 +584,7 @@ export type AreaCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Ty
 export type AreaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  travelDurationInMinutes?: boolean
   supportType?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -523,12 +598,13 @@ export type AreaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type AreaSelectScalar = {
   id?: boolean
   name?: boolean
+  travelDurationInMinutes?: boolean
   supportType?: boolean
   isActive?: boolean
   createdAt?: boolean
 }
 
-export type AreaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "supportType" | "isActive" | "createdAt", ExtArgs["result"]["area"]>
+export type AreaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "travelDurationInMinutes" | "supportType" | "isActive" | "createdAt", ExtArgs["result"]["area"]>
 export type AreaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lessons?: boolean | Prisma.Area$lessonsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.Area$subscriptionsArgs<ExtArgs>
@@ -544,6 +620,7 @@ export type $AreaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    travelDurationInMinutes: number
     supportType: $Enums.SupportType
     isActive: boolean
     createdAt: Date
@@ -920,6 +997,7 @@ export interface Prisma__AreaClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface AreaFieldRefs {
   readonly id: Prisma.FieldRef<"Area", 'String'>
   readonly name: Prisma.FieldRef<"Area", 'String'>
+  readonly travelDurationInMinutes: Prisma.FieldRef<"Area", 'Int'>
   readonly supportType: Prisma.FieldRef<"Area", 'SupportType'>
   readonly isActive: Prisma.FieldRef<"Area", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Area", 'DateTime'>

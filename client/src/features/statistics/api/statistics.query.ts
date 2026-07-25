@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDashboardAnalytics } from "./statistics.service";
 import { queryKey } from "../statistics.constants";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 
 export const useStatistics = ({ academyId, startDate, endDate }: { academyId?: string, startDate: string, endDate: string }) => {
     return useQuery({

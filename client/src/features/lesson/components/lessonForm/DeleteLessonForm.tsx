@@ -20,7 +20,7 @@ export default function DeleteLessonForm({
   item,
 }: {
   academyId: string;
-  item: Lesson;
+  item: Pick<Lesson, "id">;
 }) {
   const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 

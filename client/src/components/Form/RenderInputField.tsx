@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   type FieldValues,
   type UseFormRegister,
@@ -7,18 +8,16 @@ import {
   type Control,
   type RegisterOptions,
 } from "react-hook-form";
-import { format } from "date-fns";
+
 import {
   RiCalendarLine,
   RiCheckboxCircleFill,
   RiCloseCircleFill,
 } from "@remixicon/react";
 
-import { arSA } from "date-fns/locale";
-import { arSA as arSADayPicker } from "react-day-picker/locale";
-
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
+
 import {
   Select,
   SelectContent,
@@ -26,12 +25,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+
 import { Textarea } from "../ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
+
 import type { FormCol } from "./Form";
+
 import { Badge } from "../ui/badge";
+
+import { cairo } from "@/lib/dayjs";
+import { formatDate } from "@/lib/formatDate";
 
 export type InputType =
   | "text"
@@ -199,15 +204,14 @@ export default function RenderInputField<T extends FieldValues>({
           )}
         />
       );
+
     case "date":
       return (
         <Controller
           name={config.name}
           control={control}
           render={({ field }) => {
-            const value = field.value
-              ? new Date(field.value as string | number | Date)
-              : undefined;
+            const value = field.value ? cairo(field.value).toDate() : undefined;
             return (
               <Popover>
                 <PopoverTrigger asChild className="w-full">
@@ -216,26 +220,29 @@ export default function RenderInputField<T extends FieldValues>({
                     className="w-full justify-start font-normal"
                     dir="rtl"
                   >
-                    {value ? (
-                      format(value, "PPP", { locale: arSA })
+                    {field.value ? (
+                      formatDate(field.value, "date")
                     ) : (
                       <span>{config.placeholder || "اختر التاريخ"}</span>
                     )}
+
                     <RiCalendarLine className="mr-auto h-4 w-4 opacity-50" />
                   </Button>
                 </PopoverTrigger>
+
                 <PopoverContent className="w-auto p-0" align="start" dir="rtl">
                   <Calendar
                     mode="single"
                     selected={value}
                     onSelect={(date) => {
                       if (!date) return;
-                      const isoString = date.toISOString();
-                      field.onChange(isoString);
-                      handleChange(isoString);
+
+                      const value = cairo(date).format("YYYY-MM-DD");
+
+                      field.onChange(value);
+                      handleChange(value);
                     }}
                     disabled={config.disabled}
-                    locale={arSADayPicker}
                     dir="rtl"
                   />
                 </PopoverContent>
@@ -244,38 +251,47 @@ export default function RenderInputField<T extends FieldValues>({
           }}
         />
       );
+
     case "date&time":
       return (
         <Controller
           name={config.name}
           control={control}
           render={({ field }) => {
-            const date = field.value
-              ? new Date(field.value as string | number | Date)
-              : undefined;
-            const handleDateChange = (d?: Date) => {
-              if (!d) return;
-              const newDate = new Date(d);
-              if (date) {
-                newDate.setHours(date.getHours());
-                newDate.setMinutes(date.getMinutes());
-              }
-              const isoString = newDate.toISOString();
-              field.onChange(isoString);
-              handleChange(isoString);
+            const value = field.value ? cairo(field.value) : undefined;
+
+            const handleDateChange = (selectedDate?: Date) => {
+              if (!selectedDate) return;
+
+              const newValue = cairo(selectedDate)
+                .hour(value?.hour() ?? 0)
+                .minute(value?.minute() ?? 0)
+                .second(0)
+                .millisecond(0);
+
+              const iso = newValue.toISOString();
+
+              field.onChange(iso);
+              handleChange(iso);
             };
+
             const handleTimeChange = (
               e: React.ChangeEvent<HTMLInputElement>,
             ) => {
               const [hours, minutes] = e.target.value.split(":").map(Number);
-              const baseDate = date ? new Date(date) : new Date();
-              baseDate.setHours(hours || 0);
-              baseDate.setMinutes(minutes || 0);
-              baseDate.setSeconds(0);
-              const isoString = baseDate.toISOString();
-              field.onChange(isoString);
-              handleChange(isoString);
+
+              const newValue = (value ?? cairo())
+                .hour(hours)
+                .minute(minutes)
+                .second(0)
+                .millisecond(0);
+
+              const iso = newValue.toISOString();
+
+              field.onChange(iso);
+              handleChange(iso);
             };
+
             return (
               <div className="flex gap-2" dir="rtl">
                 <Popover open={open} onOpenChange={setOpen}>
@@ -284,16 +300,18 @@ export default function RenderInputField<T extends FieldValues>({
                       variant="outline"
                       className="flex-1 justify-between font-normal text-right"
                     >
-                      {date ? (
-                        format(date, "PPP", { locale: arSA })
+                      {field.value ? (
+                        formatDate(field.value, "date")
                       ) : (
                         <span className="text-muted-foreground">
                           {config.placeholder || "اختر التاريخ"}
                         </span>
                       )}
+
                       <RiCalendarLine className="h-4 w-4 opacity-50" />
                     </Button>
                   </PopoverTrigger>
+
                   <PopoverContent
                     className="w-auto p-0"
                     align="start"
@@ -301,13 +319,12 @@ export default function RenderInputField<T extends FieldValues>({
                   >
                     <Calendar
                       mode="single"
-                      selected={date}
-                      onSelect={(d) => {
-                        handleDateChange(d);
+                      selected={value?.toDate()}
+                      onSelect={(date) => {
+                        handleDateChange(date);
                         setOpen(false);
                       }}
                       disabled={config.disabled}
-                      locale={arSADayPicker}
                       dir="rtl"
                     />
                   </PopoverContent>
@@ -316,7 +333,7 @@ export default function RenderInputField<T extends FieldValues>({
                   type="time"
                   className="w-30 text-center"
                   disabled={config.disabled}
-                  value={date ? format(date, "HH:mm") : ""}
+                  value={field.value ? cairo(field.value).format("HH:mm") : ""}
                   onChange={handleTimeChange}
                 />
               </div>
@@ -324,6 +341,7 @@ export default function RenderInputField<T extends FieldValues>({
           }}
         />
       );
+
     case "file":
       return (
         <Controller

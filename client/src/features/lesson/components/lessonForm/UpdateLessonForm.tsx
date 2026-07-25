@@ -32,7 +32,16 @@ export default function UpdateLessonForm({
   item,
 }: {
   academyId: string;
-  item: Lesson;
+  item: Pick<
+    Lesson,
+    | "id"
+    | "transmission"
+    | "startTime"
+    | "expectedPaymentAmount"
+    | "areaId"
+    | "carId"
+    | "jobProfileId"
+  >;
 }) {
   const setConfigDialog = useDialogState((state) => state.setConfigDialog);
 
@@ -62,7 +71,7 @@ export default function UpdateLessonForm({
 
   const config: FormProps<UpdateLessonDto["body"], Lesson> = {
     defaultValues: {
-      startTime: new Date(item.startTime),
+      startTime: item.startTime,
       transmission: item.transmission,
       expectedPaymentAmount: item.expectedPaymentAmount,
       areaId: item.areaId,

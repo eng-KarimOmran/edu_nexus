@@ -67,9 +67,10 @@ export interface Lesson {
 export interface BaseLesson {
     id: string
     startTime: string,
-    endTime: string
-    subscriptionId: string
-    academyId: string
+    endTime: string,
+    subscriptionId: string,
+    academyId: string,
+    expectedPaymentAmount: string,
     client: {
         id: string,
         name: string,

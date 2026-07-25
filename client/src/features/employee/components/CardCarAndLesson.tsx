@@ -19,6 +19,8 @@ import {
   RiAddLine,
   RiTimeLine,
   RiCarLine,
+  RiDeleteBinLine,
+  RiEditBoxLine,
 } from "@remixicon/react";
 
 import { Link } from "react-router-dom";
@@ -26,12 +28,15 @@ import { Link } from "react-router-dom";
 import { ROUTE_BUILDERS } from "@/routes/routes.builders";
 
 import { Separator } from "@/components/ui/separator";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 import type { Car } from "@/features/car/car.type";
-import { formatArabicDayAndDate } from "@/lib/formatDate";
 import { useDialogState } from "@/store/DialogState";
 import SearchClientSubscriptionForm from "./forms/SearchClientSubscriptionForm";
 import React from "react";
+import { formatDate } from "@/lib/formatDate";
+import UpdateLessonForm from "@/features/lesson/components/lessonForm/UpdateLessonForm";
+import DeleteLessonForm from "@/features/lesson/components/lessonForm/DeleteLessonForm";
 
 const CardCarAndLesson = ({
   hour,
@@ -45,17 +50,19 @@ const CardCarAndLesson = ({
   car: Car;
 }) => {
   const setConfigDialog = useDialogState((state) => state.setConfigDialog);
+
   const handleClick = (hour: number) => {
-    const slotStart = dayjs(day)
+    const slotStart = dayjs
+      .tz(day, "Africa/Cairo")
       .hour(hour)
       .minute(0)
       .second(0)
       .millisecond(0)
-      .toDate();
+      .toISOString();
 
     setConfigDialog({
-      title: "",
-      description: "",
+      title: "العميل",
+      description: "اكتب رقم هاتف العميل",
       children: (
         <SearchClientSubscriptionForm
           carId={car.id}
@@ -64,6 +71,47 @@ const CardCarAndLesson = ({
         />
       ),
     });
+  };
+
+  const handleAction = (action: "update" | "delete") => {
+    console.log(lesson);
+    if (!lesson) return;
+    switch (action) {
+      case "update":
+        setConfigDialog({
+          title: "تعديل الحصة",
+          description: "تعديل بيانات الحصة",
+          children: (
+            <UpdateLessonForm
+              academyId={lesson.academyId}
+              item={{
+                id: lesson.id,
+                areaId: lesson.area.id,
+                carId: car.id,
+                startTime: lesson.startTime,
+                transmission: car.gearType,
+                jobProfileId: lesson.jobProfile.id,
+                expectedPaymentAmount: Number(lesson.expectedPaymentAmount),
+              }}
+            />
+          ),
+        });
+        break;
+      case "delete":
+        setConfigDialog({
+          title: "حذف الحصة",
+          description: "لن تتمكن من التراجع عن هذا الإجراء.",
+          children: (
+            <DeleteLessonForm
+              academyId={lesson.academyId}
+              item={{
+                id: lesson.id,
+              }}
+            />
+          ),
+        });
+        break;
+    }
   };
 
   return (
@@ -87,7 +135,7 @@ const CardCarAndLesson = ({
               </div>
 
               <div className="text-sm text-muted-foreground">
-                {formatArabicDayAndDate(day)}
+                {formatDate(day, "dateWithDay")}
               </div>
             </>
           )}
@@ -182,7 +230,7 @@ const CardCarAndLesson = ({
           </div>
         ) : (
           <Button
-            className="w-full h-24"
+            className="w-full h-46"
             variant="outline"
             onClick={() => handleClick(hour)}
           >
@@ -193,9 +241,22 @@ const CardCarAndLesson = ({
       </CardContent>
       <CardFooter>
         {lesson ? (
-          <div className="flex items-center gap-1">
-            <RiMapPinLine className="size-4" />
-            <p>{lesson?.area.name}</p>
+          <div className="w-full flex justify-between items-center">
+            <div className="flex items-center gap-1">
+              <RiMapPinLine className="size-4" />
+              <p>{lesson.area.name}</p>
+            </div>
+            <div className="flex items-center gap-1">
+              <Button variant="outline" onClick={() => handleAction("update")}>
+                <RiEditBoxLine />
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => handleAction("delete")}
+              >
+                <RiDeleteBinLine />
+              </Button>
+            </div>
           </div>
         ) : (
           ""
@@ -206,8 +267,10 @@ const CardCarAndLesson = ({
 };
 
 function formatHour(hour: number) {
-  const period = hour >= 12 ? "م" : "ص";
+  const period = hour < 12 ? "ص" : "م";
+
   const formattedHour = hour % 12 || 12;
+
   return `${formattedHour} ${period}`;
 }
 

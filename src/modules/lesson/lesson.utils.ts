@@ -13,6 +13,7 @@ type ValidateAreaTransitionInput = {
   jobProfileId: string;
   startTime: Date;
   endTime: Date;
+  travelDurationInMinutes: number
 };
 
 export const calculateLessonTime = (
@@ -188,13 +189,14 @@ export const validateAreaTransition = async ({
   jobProfileId,
   startTime,
   endTime,
+  travelDurationInMinutes
 }: ValidateAreaTransitionInput) => {
-  const ONE_HOUR = 60 * 60 * 1000;
-
   const checkTransition = async (
     where: LessonWhereInput,
     resourceName: string
   ) => {
+    const travelDurationMs = travelDurationInMinutes * 60 * 1000;
+
     const previousLesson = await tx.lesson.findFirst({
       where: {
         ...where,
@@ -209,7 +211,7 @@ export const validateAreaTransition = async ({
     if (
       previousLesson &&
       previousLesson.areaId !== areaId &&
-      startTime.getTime() - previousLesson.endTime.getTime() < ONE_HOUR
+      startTime.getTime() - previousLesson.endTime.getTime() < travelDurationMs
     ) {
       throw ApiError.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`)
     }
@@ -217,7 +219,7 @@ export const validateAreaTransition = async ({
     const nextLesson = await tx.lesson.findFirst({
       where: {
         ...where,
-        lessonStatus: { not: "CANCELED" },
+        lessonStatus: { equals: "SCHEDULED" },
         startTime: { gte: endTime },
       },
       orderBy: {
@@ -228,7 +230,7 @@ export const validateAreaTransition = async ({
     if (
       nextLesson &&
       nextLesson.areaId !== areaId &&
-      nextLesson.startTime.getTime() - endTime.getTime() < ONE_HOUR
+      nextLesson.startTime.getTime() - endTime.getTime() < travelDurationMs
     ) {
       throw ApiError.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`)
     }

@@ -23,12 +23,6 @@ router.get(
     PublicController.getAreas
 );
 
-router.get(
-    "/client/:clientId",
-    validate(Schema.GetClientSchema),
-    PublicController.getClient
-);
-
 router.post(
     "/captains",
     PublicController.getCaptains
@@ -39,6 +33,12 @@ router.post(
     "/register",
     validate(Schema.RegisterSchema),
     PublicController.register
+);
+
+router.get(
+    "/client/:clientId",
+    validate(Schema.GetClientSchema),
+    PublicController.getClient
 );
 
 export default router;

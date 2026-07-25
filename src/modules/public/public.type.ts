@@ -14,7 +14,7 @@ export type PublicRequestHandler = (
     req: RequestValidation,
     res: Response,
     next: NextFunction
-) => Promise<Response>
+) => Promise<Response> | Response
 
 
 export interface IPublicService {
@@ -39,6 +39,8 @@ export interface IPublicService {
     ): Promise<Client>;
 
     getCaptains(): Promise<JobProfile[]>
+
+    timezoneOffset(): number
 }
 
 export interface IPublicController {
@@ -53,4 +55,6 @@ export interface IPublicController {
     getCaptains: PublicRequestHandler
 
     register: PublicRequestHandler;
+
+    timezoneOffset: PublicRequestHandler;
 }

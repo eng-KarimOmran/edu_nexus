@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllLessons } from "../api/employee.service";
 import type { GetAllLessonsDto } from "../employee.dto";
 import { queryKey } from "../../lesson/lesson.constants";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 import displayError from "@/lib/displayError";
 import type { Lesson } from "../employee.type";
 import { lessonColumns } from "../config/employee.columns";
 import TableUi from "@/components/Table/TableUi";
-import { formatArabicDayAndDate } from "@/lib/formatDate";
 import { LoadingList } from "@/components/Loading/Loading";
 import EmptyState from "@/components/EmptyState/EmptyState";
 
@@ -51,11 +51,17 @@ export default function GetAllLessonsPage() {
   });
 
   const lessonsTables = Array.from(groupedLessons.entries()).map(
-    ([date, lessons]) => ({
-      title: formatArabicDayAndDate(date),
-      data: lessons,
-      headers: lessonColumns,
-    }),
+    ([date, lessons]) => {
+      console.log({
+        title: dayjs.tz(date, "Africa/Cairo").format("dddd"),
+        date,
+      });
+      return {
+        title: dayjs.tz(date, "Africa/Cairo").format("dddd"),
+        data: lessons,
+        headers: lessonColumns,
+      };
+    },
   );
 
   return (

@@ -1982,6 +1982,7 @@ export type CarScalarFieldEnum = (typeof CarScalarFieldEnum)[keyof typeof CarSca
 export const AreaScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  travelDurationInMinutes: 'travelDurationInMinutes',
   supportType: 'supportType',
   isActive: 'isActive',
   createdAt: 'createdAt'

@@ -1,7 +1,8 @@
 import type { FormProps } from "@/components/Form/Form";
 import Form from "@/components/Form/Form";
 import { useDialogState } from "@/store/DialogState";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 
 export interface DateFormProps {
   startDate: string;

@@ -13,7 +13,8 @@ import { LoadingCards, LoadingCharts } from "@/components/Loading/Loading";
 import EmptyState from "@/components/EmptyState/EmptyState";
 import type { PageHeaderProps } from "@/components/PageHeader/PageHeader";
 import PageHeader from "@/components/PageHeader/PageHeader";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 import { useStatistics } from "../api/statistics.query";
 import type { DateFormProps } from "../components/statisticsForm/DateForm";
 import DateFilterActions from "../components/DateFilterActions";

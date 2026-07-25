@@ -4,6 +4,7 @@ import ApiError from "../../shared/utils/ApiError";
 import ClientService from "../client/client.service";
 import SubscriptionService from "../subscription/subscription.service";
 import WalletMovementService from "../walletMovement/walletMovement.service";
+import dayjs from "../../config/dayjs-config";
 
 const PublicService: IPublicService = {
     async getAcademy({ params }) {
@@ -111,6 +112,11 @@ const PublicService: IPublicService = {
 
     async getCaptains() {
         return await prisma.jobProfile.findMany({ where: { supportType: { not: null }, isActive: true }, include: { user: { select: { id: true, name: true, phone: true } } } })
+    },
+
+    timezoneOffset() {
+        const now = dayjs().valueOf();
+        return now
     },
 };
 

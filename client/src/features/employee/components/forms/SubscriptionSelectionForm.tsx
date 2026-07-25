@@ -17,7 +17,7 @@ export default function SubscriptionSelectionForm({
 }: {
   clientSubscriptions: ClientSubscriptions[];
   academyId: string;
-  startTime: Date;
+  startTime: string;
   carId: string;
   gearType: Transmission;
 }) {

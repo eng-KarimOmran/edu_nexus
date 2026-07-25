@@ -26,11 +26,18 @@ export default function AddAreaForm() {
         type: "text",
         label: "اسم المنطقة",
       },
+      
       {
         name: "supportType",
         type: "select",
         label: "نوع الدعم",
         options: supportTypeOptions,
+      },
+
+      {
+        name: "travelDurationInMinutes",
+        type: "number",
+        label: "مدة الأنتقال بالدقائق",
       },
     ],
 

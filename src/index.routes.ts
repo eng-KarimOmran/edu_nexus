@@ -9,9 +9,15 @@ import routerAcademy from "./modules/academy/academy.routes";
 import routerEmployee from "./modules/employee/employee.router";
 import routerPublic from "./modules/public/public.routes";
 import routerAdmin from "./modules/admin/admin.routes";
+import PublicController from "./modules/public/public.controller";
 
 
 const router = Router();
+
+router.get(
+    "/time-now",
+    PublicController.timezoneOffset
+);
 
 router.use("/auth", routerAuth);
 

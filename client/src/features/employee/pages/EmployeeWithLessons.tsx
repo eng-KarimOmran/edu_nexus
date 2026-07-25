@@ -2,7 +2,8 @@ import { queryKey } from "@/features/lesson/lesson.constants";
 import DateFilterActions from "@/features/statistics/components/DateFilterActions";
 import type { DateFormProps } from "@/features/statistics/components/statisticsForm/DateForm";
 import { useQuery } from "@tanstack/react-query";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 import { useState } from "react";
 import { getEmployeeWithLessons } from "../api/employee.service";
 import { LoadingCards } from "@/components/Loading/Loading";

@@ -61,9 +61,17 @@ const PublicController: IPublicController = {
         });
     },
 
-    async getCaptains(req, res) {
+    async getCaptains(_, res) {
         const result = await PublicService.getCaptains();
 
+        return sendSuccess({
+            res,
+            data: result,
+        });
+    },
+
+    timezoneOffset(_, res) {
+        const result = PublicService.timezoneOffset();
         return sendSuccess({
             res,
             data: result,

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import dayjs from "dayjs";
+import { cairo } from "@/lib/dayjs";
 
 import { getAllCarAndLesson } from "../api/employee.service";
 import EmptyState from "@/components/EmptyState/EmptyState";
@@ -21,10 +21,24 @@ import {
 import CardCarAndLesson from "../components/CardCarAndLesson";
 import { RiCalendarScheduleLine } from "@remixicon/react";
 import { Button } from "@/components/ui/button";
+import { formatDate } from "@/lib/formatDate";
 
 export default function GetAllCarAndLesson() {
-  const startTime = dayjs().startOf("day").toDate();
-  const endTime = dayjs().add(7, "day").endOf("day").toDate();
+  const numberOfDays = 7;
+
+  const today = cairo().startOf("day");
+
+  const startTime = today.toDate();
+  const endTime = today
+    .add(numberOfDays - 1, "day")
+    .endOf("day")
+    .toDate();
+
+  const days = Array.from({ length: numberOfDays }, (_, i) =>
+    today.add(i, "day"),
+  );
+
+  const HOURS = Array.from({ length: 23 - 9 + 1 }, (_, i) => 9 + i);
 
   const {
     data = [],
@@ -53,15 +67,12 @@ export default function GetAllCarAndLesson() {
     return <EmptyState message="لا توجد سيارات" />;
   }
 
-  const days = Array.from({ length: 7 }, (_, i) => dayjs().add(i, "day"));
-  const HOURS = Array.from({ length: 15 }, (_, i) => 9 + i);
-
   const carMap = new Map<string, BaseLesson>();
 
   data.forEach((car) => {
     car.lessons.forEach((lesson) => {
-      const day = dayjs(lesson.startTime).format("YYYY-MM-DD").toString();
-      const hour = dayjs(lesson.startTime).hour();
+      const day = cairo(lesson.startTime).format("YYYY-MM-DD");
+      const hour = cairo(lesson.startTime).format("H");
       carMap.set(`${car.id}-${day}-${hour}`, lesson);
     });
   });
@@ -71,9 +82,7 @@ export default function GetAllCarAndLesson() {
       <nav className="flex items-center md:justify-between flex-wrap gap-1">
         {days.map((day) => {
           const dayKey = day.format("YYYY-MM-DD");
-          const arabicDate = day
-            .toDate()
-            .toLocaleDateString("ar-EG", { weekday: "long" });
+          const arabicDate = formatDate(day.toISOString(), "day");
           return (
             <a key={dayKey} href={`#${dayKey}`}>
               <Button variant={"outline"}>{arabicDate}</Button>
@@ -84,13 +93,6 @@ export default function GetAllCarAndLesson() {
       {days.map((day) => {
         const dayKey = day.format("YYYY-MM-DD");
 
-        const arabicDate = day.toDate().toLocaleDateString("ar-EG", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-
         return (
           <div
             id={dayKey}
@@ -100,7 +102,7 @@ export default function GetAllCarAndLesson() {
             <div className="flex items-center gap-2">
               <RiCalendarScheduleLine />
               <h2 className="text-primary shadow p-2 rounded-md font-bold">
-                {arabicDate}
+                {formatDate(dayKey, "dateWithDay")}
               </h2>
             </div>
 

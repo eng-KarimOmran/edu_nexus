@@ -13,7 +13,8 @@ import {
   WalletMovementStatus,
 } from "@/types/enums";
 
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 
 
 export const id = z.string().transform((val) => val.toLowerCase()).pipe(z.cuid2({ message: "معرف غير صالح" }));

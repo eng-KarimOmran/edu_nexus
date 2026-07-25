@@ -28,6 +28,7 @@ export default function UpdateAreaForm({ item }: { item: Area }) {
       name: item.name,
       supportType: item.supportType,
       isActive: item.isActive,
+      travelDurationInMinutes: item.travelDurationInMinutes,
     },
 
     inputs: [
@@ -36,12 +37,20 @@ export default function UpdateAreaForm({ item }: { item: Area }) {
         type: "text",
         label: "اسم المنطقة",
       },
+      
       {
         name: "supportType",
         type: "select",
         label: "نوع الدعم",
         options: supportTypeOptions,
       },
+
+      {
+        name: "travelDurationInMinutes",
+        type: "number",
+        label: "مدة الأنتقال بالدقائق",
+      },
+
       {
         name: "isActive",
         type: "switch",

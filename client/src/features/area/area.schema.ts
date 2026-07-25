@@ -6,6 +6,7 @@ import {
     booleanQuery,
     page,
     supportType,
+    number,
 } from "@/lib/common.validation";
 
 import z from "zod";
@@ -14,6 +15,7 @@ export const CreateAreaSchema = {
     body: z.object({
         name: entityName,
         supportType,
+        travelDurationInMinutes: number
     }),
 };
 
@@ -25,6 +27,7 @@ export const UpdateAreaSchema = {
         name: entityName.optional(),
         supportType: supportType.optional(),
         isActive: boolean.optional(),
+        travelDurationInMinutes: number.optional()
     }),
 };
 

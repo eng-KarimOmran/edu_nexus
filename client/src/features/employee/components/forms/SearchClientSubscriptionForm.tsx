@@ -15,7 +15,7 @@ export default function SearchClientSubscriptionForm({
   gearType,
 }: {
   carId: string;
-  startTime: Date;
+  startTime: string;
   gearType: Transmission;
 }) {
   const setConfigDialog = useDialogState((state) => state.setConfigDialog);
@@ -26,7 +26,7 @@ export default function SearchClientSubscriptionForm({
         name: "search",
         type: "tel",
         label: "رقم هاتف العميل",
-        placeholder: "01000000000",
+        placeholder: "01xxxxxxxxx",
       },
     ],
 

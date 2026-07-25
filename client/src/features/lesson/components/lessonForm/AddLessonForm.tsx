@@ -24,7 +24,8 @@ import { queryKey as queryKeyLesson } from "../../lesson.constants";
 import { queryKey as queryKeyClient } from "../../../client/client.constants";
 import { queryKey as queryKeySubscription } from "../../../subscription/subscription.constants";
 
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
 import type { Transmission } from "@/types/enums";
 
 type Props = {
@@ -171,9 +172,9 @@ export default function AddLessonForm({ body, params }: Props) {
     schema: CreateLessonSchema.body,
 
     defaultValues: {
+      startTime: body?.startTime ?? nextDay.toISOString(),
       transmission: transmissionLesson,
       subscriptionId: body?.subscriptionId ?? "",
-      startTime: body?.startTime ?? nextDay,
       areaId: body?.areaId ?? "",
       carId: body?.carId ?? "",
       expectedPaymentAmount: body?.expectedPaymentAmount ?? 0,

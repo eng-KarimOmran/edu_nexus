@@ -1,4 +1,5 @@
 import z from "zod";
+
 import {
   LessonStatus,
   PaymentMethod,
@@ -12,7 +13,9 @@ import {
   WalletMovementStatus
 } from "@/prisma/generated/enums";
 
-import dayjs from "dayjs";
+import dayjs from "../../config/dayjs-config"
+
+import { toEgyptDate } from "./toEgyptDate";
 
 
 export const id = z.string().transform((val) => val.toLowerCase()).pipe(z.cuid2({ message: "معرف غير صالح" }));
@@ -76,13 +79,21 @@ export const limit = z.coerce.number<number>().int().min(1).max(100).optional().
 
 // --- Dates ---
 
-export const date = z.coerce.date<Date>();
+export const date = z.coerce
+  .date<Date>()
+  .transform((val) => toEgyptDate(val));
 
 export const futureDate = z.coerce
   .date<Date>()
-  .refine((val) => dayjs(val).isAfter(dayjs().subtract(1, "minute")), {
-    message: "يجب أن يكون التاريخ في الحاضر أو المستقبل",
-  });
+  .transform((val) => toEgyptDate(val))
+  .refine(
+    (val) => dayjs(val).tz("Africa/Cairo").isAfter(
+      dayjs().tz("Africa/Cairo").subtract(1, "minute")
+    ),
+    {
+      message: "يجب أن يكون التاريخ في الحاضر أو المستقبل",
+    }
+  );
 
 // --- Enums Validation ---
 

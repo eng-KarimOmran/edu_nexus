@@ -34,6 +34,7 @@ import ChangeLessonStateForm from "../components/forms/ChangeLessonStateForm";
 import type { Lesson } from "../employee.type";
 import EmptyState from "@/components/EmptyState/EmptyState";
 import { LoadingList } from "@/components/Loading/Loading";
+import { cairo } from "@/lib/dayjs";
 
 export default function MyLessonsPage({ date }: { date: DateFilter }) {
   const { startTime, endTime } = getDateRange(date);
@@ -97,7 +98,7 @@ export default function MyLessonsPage({ date }: { date: DateFilter }) {
             </CardTitle>
             <CardAction>
               <Button
-                disabled={new Date(l.startTime) > new Date()}
+                disabled={cairo(startTime).isAfter(cairo())}
                 onClick={() => handleCompleteLesson(l)}
               >
                 اكملت الحصة

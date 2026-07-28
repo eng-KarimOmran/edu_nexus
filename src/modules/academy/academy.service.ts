@@ -323,6 +323,7 @@ const AcademyService: IAcademyService = {
       where: { id: academyId },
       select: { id: true }
     });
+    
     if (!academyExists) throw ApiError.NotFound("Academy");
 
     return await prisma.academy.update({

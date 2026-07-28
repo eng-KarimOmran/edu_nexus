@@ -149,7 +149,7 @@ export type PaymentLinkGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type PaymentLinkGroupByOutputType = {
   id: string
-  url: string
+  url: string | null
   phone: string | null
   walletProvider: string
   academyId: string
@@ -178,7 +178,7 @@ export type PaymentLinkWhereInput = {
   OR?: Prisma.PaymentLinkWhereInput[]
   NOT?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[]
   id?: Prisma.StringFilter<"PaymentLink"> | string
-  url?: Prisma.StringFilter<"PaymentLink"> | string
+  url?: Prisma.StringNullableFilter<"PaymentLink"> | string | null
   phone?: Prisma.StringNullableFilter<"PaymentLink"> | string | null
   walletProvider?: Prisma.StringFilter<"PaymentLink"> | string
   academyId?: Prisma.StringFilter<"PaymentLink"> | string
@@ -187,7 +187,7 @@ export type PaymentLinkWhereInput = {
 
 export type PaymentLinkOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  url?: Prisma.SortOrder
+  url?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   walletProvider?: Prisma.SortOrder
   academyId?: Prisma.SortOrder
@@ -200,7 +200,7 @@ export type PaymentLinkWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[]
   OR?: Prisma.PaymentLinkWhereInput[]
   NOT?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[]
-  url?: Prisma.StringFilter<"PaymentLink"> | string
+  url?: Prisma.StringNullableFilter<"PaymentLink"> | string | null
   phone?: Prisma.StringNullableFilter<"PaymentLink"> | string | null
   walletProvider?: Prisma.StringFilter<"PaymentLink"> | string
   academyId?: Prisma.StringFilter<"PaymentLink"> | string
@@ -209,7 +209,7 @@ export type PaymentLinkWhereUniqueInput = Prisma.AtLeast<{
 
 export type PaymentLinkOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  url?: Prisma.SortOrder
+  url?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   walletProvider?: Prisma.SortOrder
   academyId?: Prisma.SortOrder
@@ -223,7 +223,7 @@ export type PaymentLinkScalarWhereWithAggregatesInput = {
   OR?: Prisma.PaymentLinkScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PaymentLinkScalarWhereWithAggregatesInput | Prisma.PaymentLinkScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PaymentLink"> | string
-  url?: Prisma.StringWithAggregatesFilter<"PaymentLink"> | string
+  url?: Prisma.StringNullableWithAggregatesFilter<"PaymentLink"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"PaymentLink"> | string | null
   walletProvider?: Prisma.StringWithAggregatesFilter<"PaymentLink"> | string
   academyId?: Prisma.StringWithAggregatesFilter<"PaymentLink"> | string
@@ -231,7 +231,7 @@ export type PaymentLinkScalarWhereWithAggregatesInput = {
 
 export type PaymentLinkCreateInput = {
   id?: string
-  url: string
+  url?: string | null
   phone?: string | null
   walletProvider: string
   academy: Prisma.AcademyCreateNestedOneWithoutPaymentLinksInput
@@ -239,7 +239,7 @@ export type PaymentLinkCreateInput = {
 
 export type PaymentLinkUncheckedCreateInput = {
   id?: string
-  url: string
+  url?: string | null
   phone?: string | null
   walletProvider: string
   academyId: string
@@ -247,7 +247,7 @@ export type PaymentLinkUncheckedCreateInput = {
 
 export type PaymentLinkUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletProvider?: Prisma.StringFieldUpdateOperationsInput | string
   academy?: Prisma.AcademyUpdateOneRequiredWithoutPaymentLinksNestedInput
@@ -255,7 +255,7 @@ export type PaymentLinkUpdateInput = {
 
 export type PaymentLinkUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletProvider?: Prisma.StringFieldUpdateOperationsInput | string
   academyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -263,7 +263,7 @@ export type PaymentLinkUncheckedUpdateInput = {
 
 export type PaymentLinkCreateManyInput = {
   id?: string
-  url: string
+  url?: string | null
   phone?: string | null
   walletProvider: string
   academyId: string
@@ -271,14 +271,14 @@ export type PaymentLinkCreateManyInput = {
 
 export type PaymentLinkUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletProvider?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PaymentLinkUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletProvider?: Prisma.StringFieldUpdateOperationsInput | string
   academyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -372,14 +372,14 @@ export type PaymentLinkUncheckedUpdateManyWithoutAcademyNestedInput = {
 
 export type PaymentLinkCreateWithoutAcademyInput = {
   id?: string
-  url: string
+  url?: string | null
   phone?: string | null
   walletProvider: string
 }
 
 export type PaymentLinkUncheckedCreateWithoutAcademyInput = {
   id?: string
-  url: string
+  url?: string | null
   phone?: string | null
   walletProvider: string
 }
@@ -415,7 +415,7 @@ export type PaymentLinkScalarWhereInput = {
   OR?: Prisma.PaymentLinkScalarWhereInput[]
   NOT?: Prisma.PaymentLinkScalarWhereInput | Prisma.PaymentLinkScalarWhereInput[]
   id?: Prisma.StringFilter<"PaymentLink"> | string
-  url?: Prisma.StringFilter<"PaymentLink"> | string
+  url?: Prisma.StringNullableFilter<"PaymentLink"> | string | null
   phone?: Prisma.StringNullableFilter<"PaymentLink"> | string | null
   walletProvider?: Prisma.StringFilter<"PaymentLink"> | string
   academyId?: Prisma.StringFilter<"PaymentLink"> | string
@@ -423,28 +423,28 @@ export type PaymentLinkScalarWhereInput = {
 
 export type PaymentLinkCreateManyAcademyInput = {
   id?: string
-  url: string
+  url?: string | null
   phone?: string | null
   walletProvider: string
 }
 
 export type PaymentLinkUpdateWithoutAcademyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletProvider?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PaymentLinkUncheckedUpdateWithoutAcademyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletProvider?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PaymentLinkUncheckedUpdateManyWithoutAcademyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletProvider?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -482,7 +482,7 @@ export type $PaymentLinkPayload<ExtArgs extends runtime.Types.Extensions.Interna
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    url: string
+    url: string | null
     phone: string | null
     walletProvider: string
     academyId: string

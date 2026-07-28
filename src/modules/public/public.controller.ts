@@ -68,6 +68,7 @@ const PublicController: IPublicController = {
             res,
             data: result,
         });
+        
     },
 
     timezoneOffset(_, res) {

@@ -128,7 +128,7 @@ export const AcademySchema = {
       }),
       body: z.object({
         url: url,
-        walletProvider: z.string(),
+        walletProvider: z.string().optional(),
         phone: phone.optional()
       }),
     },

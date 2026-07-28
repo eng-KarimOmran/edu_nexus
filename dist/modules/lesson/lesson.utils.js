@@ -121,9 +121,9 @@ const getLessonStats = (lessons) => {
     return result;
 };
 exports.getLessonStats = getLessonStats;
-const validateAreaTransition = async ({ tx, areaId, carId, jobProfileId, startTime, endTime, }) => {
-    const ONE_HOUR = 60 * 60 * 1000;
+const validateAreaTransition = async ({ tx, areaId, carId, jobProfileId, startTime, endTime, travelDurationInMinutes }) => {
     const checkTransition = async (where, resourceName) => {
+        const travelDurationMs = travelDurationInMinutes * 60 * 1000;
         const previousLesson = await tx.lesson.findFirst({
             where: {
                 ...where,
@@ -136,13 +136,13 @@ const validateAreaTransition = async ({ tx, areaId, carId, jobProfileId, startTi
         });
         if (previousLesson &&
             previousLesson.areaId !== areaId &&
-            startTime.getTime() - previousLesson.endTime.getTime() < ONE_HOUR) {
+            startTime.getTime() - previousLesson.endTime.getTime() < travelDurationMs) {
             throw ApiError_1.default.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`);
         }
         const nextLesson = await tx.lesson.findFirst({
             where: {
                 ...where,
-                lessonStatus: { not: "CANCELED" },
+                lessonStatus: { equals: "SCHEDULED" },
                 startTime: { gte: endTime },
             },
             orderBy: {
@@ -151,7 +151,7 @@ const validateAreaTransition = async ({ tx, areaId, carId, jobProfileId, startTi
         });
         if (nextLesson &&
             nextLesson.areaId !== areaId &&
-            nextLesson.startTime.getTime() - endTime.getTime() < ONE_HOUR) {
+            nextLesson.startTime.getTime() - endTime.getTime() < travelDurationMs) {
             throw ApiError_1.default.Conflict("TRANSITIONING", `يجب ترك ساعة انتقال لل${resourceName} بين المنطقتين.`);
         }
     };

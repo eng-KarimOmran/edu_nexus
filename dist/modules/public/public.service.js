@@ -8,6 +8,7 @@ const ApiError_1 = __importDefault(require("../../shared/utils/ApiError"));
 const client_service_1 = __importDefault(require("../client/client.service"));
 const subscription_service_1 = __importDefault(require("../subscription/subscription.service"));
 const walletMovement_service_1 = __importDefault(require("../walletMovement/walletMovement.service"));
+const dayjs_config_1 = __importDefault(require("../../config/dayjs-config"));
 const PublicService = {
     async getAcademy({ params }) {
         const { academyId } = params;
@@ -101,6 +102,10 @@ const PublicService = {
     },
     async getCaptains() {
         return await prisma_1.prisma.jobProfile.findMany({ where: { supportType: { not: null }, isActive: true }, include: { user: { select: { id: true, name: true, phone: true } } } });
+    },
+    timezoneOffset() {
+        const now = (0, dayjs_config_1.default)().valueOf();
+        return now;
     },
 };
 exports.default = PublicService;

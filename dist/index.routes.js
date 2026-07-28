@@ -11,7 +11,9 @@ const academy_routes_1 = __importDefault(require("./modules/academy/academy.rout
 const employee_router_1 = __importDefault(require("./modules/employee/employee.router"));
 const public_routes_1 = __importDefault(require("./modules/public/public.routes"));
 const admin_routes_1 = __importDefault(require("./modules/admin/admin.routes"));
+const public_controller_1 = __importDefault(require("./modules/public/public.controller"));
 const router = (0, express_1.Router)();
+router.get("/time-now", public_controller_1.default.timezoneOffset);
 router.use("/auth", auth_routes_1.default);
 router.use("/public/:academyId", public_routes_1.default);
 router.use((0, auth_middleware_1.auth)(auth_type_1.TokenType.ACCESS), auth_middleware_1.checkPasswordChange);

@@ -241,6 +241,7 @@ exports.CarScalarFieldEnum = {
 exports.AreaScalarFieldEnum = {
     id: 'id',
     name: 'name',
+    travelDurationInMinutes: 'travelDurationInMinutes',
     supportType: 'supportType',
     isActive: 'isActive',
     createdAt: 'createdAt'

@@ -23,7 +23,7 @@ router.get(
     PublicController.getAreas
 );
 
-router.post(
+router.get(
     "/captains",
     PublicController.getCaptains
 );

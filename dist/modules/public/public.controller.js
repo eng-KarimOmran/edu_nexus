@@ -48,8 +48,15 @@ const PublicController = {
             message: "تم التسجيل بنجاح",
         });
     },
-    async getCaptains(req, res) {
+    async getCaptains(_, res) {
         const result = await public_service_1.default.getCaptains();
+        return (0, successResponse_1.default)({
+            res,
+            data: result,
+        });
+    },
+    timezoneOffset(_, res) {
+        const result = public_service_1.default.timezoneOffset();
         return (0, successResponse_1.default)({
             res,
             data: result,

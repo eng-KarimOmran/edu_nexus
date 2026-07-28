@@ -10,6 +10,7 @@ exports.CreateAreaSchema = {
     body: zod_1.default.object({
         name: common_validation_1.entityName,
         supportType: common_validation_1.supportType,
+        travelDurationInMinutes: common_validation_1.number
     }),
 };
 exports.UpdateAreaSchema = {
@@ -20,6 +21,7 @@ exports.UpdateAreaSchema = {
         name: common_validation_1.entityName.optional(),
         supportType: common_validation_1.supportType.optional(),
         isActive: common_validation_1.boolean.optional(),
+        travelDurationInMinutes: common_validation_1.number.optional()
     }),
 };
 exports.GetAllAreasSchema = {

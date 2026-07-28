@@ -6,6 +6,5 @@ export type Area = {
     supportType: SupportType;
     travelDurationInMinutes: number
     isActive: boolean;
-    academyId: string;
     createdAt: string;
 };

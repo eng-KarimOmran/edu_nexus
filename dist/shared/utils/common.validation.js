@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.plateNumber = exports.boolean = exports.booleanQuery = exports.walletMovementStatus = exports.platform = exports.transactionType = exports.jobProfileType = exports.clientSource = exports.subscriptionStatus = exports.lessonStatus = exports.paymentMethod = exports.transmission = exports.supportType = exports.futureDate = exports.date = exports.limit = exports.count = exports.price = exports.page = exports.number = exports.positiveNumber = exports.url = exports.address = exports.password = exports.phone = exports.entityName = exports.personName = exports.id = void 0;
 const zod_1 = __importDefault(require("zod"));
 const enums_1 = require("../../prisma/generated/enums");
-const dayjs_1 = __importDefault(require("dayjs"));
+const dayjs_config_1 = __importDefault(require("../../config/dayjs-config"));
+const toEgyptDate_1 = require("./toEgyptDate");
 exports.id = zod_1.default.string().transform((val) => val.toLowerCase()).pipe(zod_1.default.cuid2({ message: "معرف غير صالح" }));
 exports.personName = zod_1.default
     .string("الاسم مطلوب")
@@ -50,10 +51,13 @@ exports.count = zod_1.default.coerce
     .min(1, "يجب أن يكون العدد 1 على الأقل");
 exports.limit = zod_1.default.coerce.number().int().min(1).max(100).optional().default(50);
 // --- Dates ---
-exports.date = zod_1.default.coerce.date();
+exports.date = zod_1.default.coerce
+    .date()
+    .transform((val) => (0, toEgyptDate_1.toEgyptDate)(val));
 exports.futureDate = zod_1.default.coerce
     .date()
-    .refine((val) => (0, dayjs_1.default)(val).isAfter((0, dayjs_1.default)().subtract(1, "minute")), {
+    .transform((val) => (0, toEgyptDate_1.toEgyptDate)(val))
+    .refine((val) => (0, dayjs_config_1.default)(val).tz("Africa/Cairo").isAfter((0, dayjs_config_1.default)().tz("Africa/Cairo").subtract(1, "minute")), {
     message: "يجب أن يكون التاريخ في الحاضر أو المستقبل",
 });
 // --- Enums Validation ---

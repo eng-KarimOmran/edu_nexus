@@ -14,18 +14,21 @@ const LessonService = {
         const { academyId } = params;
         const { areaId, startTime, carId, subscriptionId, expectedPaymentAmount, transmission, jobProfileId } = body;
         const lesson = await prisma_1.prisma.$transaction(async (tx) => {
-            const { subscription, car, jobProfile } = await (0, lesson_utils_1.getValidatedLessonDependencies)({ areaId, carId, jobProfileId, subscriptionId, tx, transmission });
+            const { subscription, car, jobProfile, area } = await (0, lesson_utils_1.getValidatedLessonDependencies)({ areaId, carId, jobProfileId, subscriptionId, tx, transmission });
             (0, lesson_utils_1.getBookingError)(subscription.subscriptionStatus);
             const timeLesson = (0, lesson_utils_1.calculateLessonTime)(startTime, subscription.sessionDurationMinutes);
             await (0, lesson_utils_1.validateTimeSlotConflict)({ jobProfileId, carId, startTime: timeLesson.startTime, endTime: timeLesson.endTime, clientId: subscription.clientId, tx });
-            await (0, lesson_utils_1.validateAreaTransition)({
-                tx,
-                areaId,
-                carId,
-                jobProfileId,
-                startTime: timeLesson.startTime,
-                endTime: timeLesson.endTime,
-            });
+            if (area.travelDurationInMinutes) {
+                await (0, lesson_utils_1.validateAreaTransition)({
+                    tx,
+                    areaId,
+                    carId,
+                    jobProfileId,
+                    startTime: timeLesson.startTime,
+                    endTime: timeLesson.endTime,
+                    travelDurationInMinutes: area.travelDurationInMinutes
+                });
+            }
             const createdBy = await tx.jobProfile.findUnique({ where: { userId } });
             const data = {
                 expectedPaymentAmount,
@@ -157,17 +160,20 @@ const LessonService = {
                 transmission: transmission ?? lessonEx.transmission,
                 subscriptionId: lessonEx.subscriptionId,
             };
-            const { subscription, car, jobProfile } = await (0, lesson_utils_1.getValidatedLessonDependencies)({ ...finalData, tx });
+            const { subscription, car, jobProfile, area } = await (0, lesson_utils_1.getValidatedLessonDependencies)({ ...finalData, tx });
             const timeLesson = (0, lesson_utils_1.calculateLessonTime)(startTime ?? lessonEx.startTime, lessonEx.sessionDurationMinutes);
             await (0, lesson_utils_1.validateTimeSlotConflict)({ id: lessonEx.id, jobProfileId: finalData.jobProfileId, carId: finalData.carId, startTime: timeLesson.startTime, endTime: timeLesson.endTime, clientId: subscription.clientId, tx });
-            await (0, lesson_utils_1.validateAreaTransition)({
-                tx,
-                areaId: finalData.areaId,
-                carId: finalData.carId,
-                jobProfileId: finalData.jobProfileId,
-                startTime: timeLesson.startTime,
-                endTime: timeLesson.endTime,
-            });
+            if (area.travelDurationInMinutes) {
+                await (0, lesson_utils_1.validateAreaTransition)({
+                    tx,
+                    areaId: finalData.areaId,
+                    carId: finalData.carId,
+                    jobProfileId: finalData.jobProfileId,
+                    startTime: timeLesson.startTime,
+                    endTime: timeLesson.endTime,
+                    travelDurationInMinutes: area.travelDurationInMinutes
+                });
+            }
             const data = {
                 expectedPaymentAmount,
                 transmission,

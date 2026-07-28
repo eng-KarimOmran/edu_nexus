@@ -30,7 +30,7 @@ model Address {
 
 model PaymentLink {
   id             String  @id @default(cuid())
-  url            String
+  url            String?
   phone          String?
   walletProvider String
   academyId      String

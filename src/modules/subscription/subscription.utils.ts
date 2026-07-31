@@ -19,9 +19,9 @@ export const buildSubscriptionWhere = ({
 
   if (search) {
     where.OR = [
-      { id: { contains: search } },
-      { client: { name: { contains: search, } } },
-      { client: { phone: { contains: search } } },
+      { id: { equals: search } },
+      { client: { name: { equals: search, } } },
+      { client: { phone: { equals: search } } },
     ];
   }
 

@@ -35,7 +35,7 @@ export const buildWalletMovementWhere = ({
   if (search) {
     where.OR = [
       {
-        subscription: { id: { contains: search } },
+        subscription: { id: { equals: search } },
       },
     ];
   }

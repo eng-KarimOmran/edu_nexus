@@ -1,3 +1,4 @@
+import { lessonStatus } from './../../shared/utils/common.validation';
 import { Client } from "@/prisma/generated/client";
 import { LessonSelect, LessonWhereInput } from "@/prisma/generated/models";
 import { prisma } from "../../lib/prisma";
@@ -31,7 +32,7 @@ const EmployeeService: IEmployeeService = {
             client: { select: { id: true, name: true, phone: true } },
             academy: { select: { id: true, name: true } },
             jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } },
-            subscription: { select: { id: true, courseName: true } }
+            subscription: { select: { id: true, courseName: true, totalSessions:true,lessons: { where: { lessonStatus: { in: ["CANCELED_CHARGED", "COMPLETED", "SCHEDULED"] } }, select: { id: true } } } }
         }
 
         const lessons = await prisma.lesson.findMany({ where, select, orderBy: { startTime: "asc" } });
@@ -82,6 +83,19 @@ const EmployeeService: IEmployeeService = {
                         client: { select: { id: true, name: true, phone: true } },
                         jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } },
                         area: { select: { id: true, name: true } },
+                        subscription: {
+                            select: {
+                                totalSessions: true,
+                                lessons: {
+                                    where: {
+                                        lessonStatus: { in: ["SCHEDULED", "COMPLETED", "CANCELED_CHARGED"] }
+                                    },
+                                    select: {
+                                        id: true
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

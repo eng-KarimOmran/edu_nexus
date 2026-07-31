@@ -49,7 +49,7 @@ export const buildLessonWhere = ({
 
   if (search) {
     where.OR = [
-      { id: { contains: search } },
+      { id: { equals: search } },
     ];
   }
 

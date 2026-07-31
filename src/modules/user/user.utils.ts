@@ -33,8 +33,8 @@ export const buildUserWhere = ({
 
   if (search) {
     where.OR = [
-      { name: { contains: search,  } },
-      { phone: { contains: search } },
+      { name: { equals: search,  } },
+      { phone: { equals: search } },
     ];
   }
 

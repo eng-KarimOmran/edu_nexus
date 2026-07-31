@@ -14,8 +14,8 @@ export const buildCarWhere = ({
 
   if (search) {
     where.OR = [
-      { modelName: { contains: search,  } },
-      { plateNumber: { contains: search,  } },
+      { modelName: { equals: search,  } },
+      { plateNumber: { equals: search,  } },
     ];
   }
 

@@ -19,18 +19,18 @@ export const buildJobProfileWhere = ({
 
   if (search) {
     where.OR = [
-      { id: { contains: search } },
+      { id: { equals: search } },
       {
         user: {
           OR: [
             {
               name: {
-                contains: search,
+                equals: search,
               },
             },
             {
               phone: {
-                contains: search,
+                equals: search,
               },
             },
           ],

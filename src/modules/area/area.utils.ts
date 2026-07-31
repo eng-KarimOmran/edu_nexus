@@ -14,8 +14,8 @@ export const buildAreaWhere = ({
 
   if (search) {
     where.OR = [
-      { id: { startsWith: search,  } },
-      { name: { contains: search,  } },
+      { id: { equals: search, } },
+      { name: { equals: search, } },
     ];
   }
 

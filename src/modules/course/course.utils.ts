@@ -17,12 +17,12 @@ export const buildCourseWhere = ({
     where.OR = [
       {
         name: {
-          contains: search,
+          equals: search,
         },
       },
       {
         description: {
-          contains: search,
+          equals: search,
         },
       },
     ];

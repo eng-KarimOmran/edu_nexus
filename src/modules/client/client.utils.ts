@@ -18,13 +18,13 @@ export const buildClientWhere = ({
   if (search) {
     where.OR = [
       {
-        id: { contains: search }
+        id: { equals: search }
       },
       {
-        name: { contains: search,  }
+        name: { equals: search,  }
       },
       {
-        phone: { contains: search }
+        phone: { equals: search }
       }
     ]
   }

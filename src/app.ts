@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import globalErrorHandler from "./shared/middlewares/errors.middleware";
 import router from "./index.routes";
 import compression from "compression"
-import path from "path"
 import helmet from "helmet"
 import hpp from "hpp"
 
@@ -33,16 +32,11 @@ app.use(hpp());
 
 app.use("/api/v1", router);
 
-const clientPath = path.resolve(process.cwd(), "./client/dist");
-
-app.use(express.static(clientPath));
-
-app.get("/{*path}", (_, res) => {
-  res.sendFile(path.join(clientPath, "index.html"));
+app.get("/", (req, res) => {
+  res.redirect(301, "https://royalblue-mole-560764.hostingersite.com/");
 });
 
 app.use(notFoundRouter);
-
 app.use(globalErrorHandler);
 
 export default app;

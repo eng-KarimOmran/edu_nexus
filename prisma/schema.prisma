@@ -16,7 +16,7 @@ model AcademyRule {
   academyId String
   academy   Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
 
-  @@index([academyId], map: "AcademyRule_academyId_fkey")
+  @@index([academyId])
 }
 
 model Address {
@@ -25,7 +25,7 @@ model Address {
   academyId String
   academy   Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
 
-  @@index([academyId], map: "Address_academyId_fkey")
+  @@index([academyId])
 }
 
 model PaymentLink {
@@ -36,7 +36,7 @@ model PaymentLink {
   academyId      String
   academy        Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
 
-  @@index([academyId], map: "PaymentLink_academyId_fkey")
+  @@index([academyId])
 }
 
 model SocialMedia {
@@ -47,7 +47,7 @@ model SocialMedia {
   academy   Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
 
   @@unique([academyId, platform])
-  @@index([academyId], map: "SocialMedia_academyId_fkey")
+  @@index([academyId])
 }
 
 model AcademyPhone {
@@ -56,7 +56,7 @@ model AcademyPhone {
   academyId String
   academy   Academy @relation(fields: [academyId], references: [id], onDelete: Cascade)
 
-  @@index([academyId], map: "AcademyPhone_academyId_fkey")
+  @@index([academyId])
 }
 
 model Academy {
@@ -101,7 +101,7 @@ model Wallet {
   senders      WalletMovement[] @relation("SenderAccount")
 
   @@unique([jobProfileId, academyId])
-  @@index([academyId], map: "Wallet_academyId_fkey")
+  @@index([academyId])
 }
 
 model BlacklistedToken {
@@ -128,7 +128,7 @@ model Client {
   createdBy   JobProfile? @relation("ClientCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
 
   @@unique([phone, academyId])
-  @@index([academyId], map: "Client_academyId_fkey")
+  @@index([academyId])
 }
 
 model Course {
@@ -136,6 +136,7 @@ model Course {
   name                      String
   description               String
   isActive                  Boolean         @default(true)
+  showOnWebsite             Boolean         @default(true)
   priceOriginal             Float
   priceDiscounted           Float
   requiredInitialDeposit    Float
@@ -183,10 +184,10 @@ model Subscription {
 
   @@index([clientId])
   @@index([academyId])
-  @@index([areaId], map: "Subscription_areaId_fkey")
-  @@index([courseId], map: "Subscription_courseId_fkey")
-  @@index([createdById], map: "Subscription_createdById_fkey")
-  @@index([payrollId], map: "Subscription_payrollId_fkey")
+  @@index([areaId])
+  @@index([courseId])
+  @@index([createdById])
+  @@index([payrollId])
 }
 
 model JobProfile {
@@ -231,7 +232,7 @@ model CourseFeature {
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  @@index([courseId], map: "CourseFeature_courseId_fkey")
+  @@index([courseId])
 }
 
 model Car {
@@ -251,6 +252,7 @@ model Area {
   travelDurationInMinutes Int            @default(0)
   supportType             SupportType
   isActive                Boolean        @default(true)
+  showOnWebsite           Boolean        @default(true)
   createdAt               DateTime       @default(now())
   lessons                 Lesson[]
   subscriptions           Subscription[]
@@ -288,14 +290,14 @@ model Lesson {
   subscription   Subscription    @relation(fields: [subscriptionId], references: [id], onDelete: Restrict)
   walletMovement WalletMovement? @relation(fields: [walletMovementId], references: [id], onDelete: SetNull)
 
-  @@index([academyId], map: "Lesson_academyId_fkey")
-  @@index([areaId], map: "Lesson_areaId_fkey")
-  @@index([carId], map: "Lesson_carId_fkey")
-  @@index([clientId], map: "Lesson_clientId_fkey")
-  @@index([jobProfileId], map: "Lesson_jobProfileId_fkey")
-  @@index([payrollId], map: "Lesson_payrollId_fkey")
-  @@index([subscriptionId], map: "Lesson_subscriptionId_fkey")
-  @@index([walletMovementId], map: "Lesson_walletMovementId_fkey")
+  @@index([academyId])
+  @@index([areaId])
+  @@index([carId])
+  @@index([clientId])
+  @@index([jobProfileId])
+  @@index([payrollId])
+  @@index([subscriptionId])
+  @@index([walletMovementId])
 }
 
 model WalletMovement {
@@ -319,9 +321,9 @@ model WalletMovement {
 
   @@index([senderId])
   @@index([receiverId])
-  @@index([academyId], map: "WalletMovement_academyId_fkey")
-  @@index([paymentProofImageId], map: "WalletMovement_paymentProofImageId_fkey")
-  @@index([subscriptionId], map: "WalletMovement_subscriptionId_fkey")
+  @@index([academyId])
+  @@index([paymentProofImageId])
+  @@index([subscriptionId])
 }
 
 model Payroll {
@@ -344,8 +346,8 @@ model Payroll {
   jobProfile              JobProfile?    @relation(fields: [jobProfileId], references: [id], onDelete: Restrict)
   subscriptions           Subscription[]
 
-  @@index([academyId], map: "Payroll_academyId_fkey")
-  @@index([jobProfileId], map: "Payroll_jobProfileId_fkey")
+  @@index([academyId])
+  @@index([jobProfileId])
 }
 
 enum Platform {

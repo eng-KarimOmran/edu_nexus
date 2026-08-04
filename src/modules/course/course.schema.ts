@@ -43,6 +43,7 @@ export const UpdateSchema = {
     sessionDurationMinutes: positiveNumber.optional(),
     featuredReason: z.string().optional(),
     isActive: boolean.optional(),
+    showOnWebsite: boolean.optional()
   }).refine(
     (data) => {
       if (data.priceOriginal !== undefined && data.priceDiscounted !== undefined) {

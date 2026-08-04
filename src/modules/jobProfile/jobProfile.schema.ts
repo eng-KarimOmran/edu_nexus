@@ -36,6 +36,7 @@ export const updateJobProfileSchema = {
     supportType: supportType.optional(),
 
     isActive: boolean.optional(),
+    showOnWebsite: boolean.optional(),
 
     baseSalary: price.optional(),
     lessonPrice: price.optional(),

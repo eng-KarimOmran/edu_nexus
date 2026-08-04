@@ -42,11 +42,23 @@ const EmployeeController: IEmployeeController = {
             data,
         });
     },
+
     getAllEmployeesWithLesson: async (req, res) => {
         const dataSafe = req.dataSafe as DTO.GetAllEmployeesWithLessonDto;
 
         const data = await EmployeeService.getAllEmployeesWithLesson(dataSafe);
-        
+
+        return sendSuccess({
+            res,
+            data,
+        });
+    },
+
+    getAreaWithSubscription: async (req, res) => {
+        const dataSafe = req.dataSafe as DTO.GetAreaWithSubscriptionDto;
+
+        const data = await EmployeeService.getAreaWithSubscription(dataSafe);
+
         return sendSuccess({
             res,
             data,

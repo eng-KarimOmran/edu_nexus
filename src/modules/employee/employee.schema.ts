@@ -1,5 +1,5 @@
 import z from "zod";
-import { date, id, lessonStatus } from "../../shared/utils/common.validation";
+import { date, id, lessonStatus, limit, page } from "../../shared/utils/common.validation";
 
 export const getAllLessonsSchema = {
     query: z.object({
@@ -28,5 +28,13 @@ export const GetAllEmployeesWithLessonSchema = {
     query: z.object({
         startTime: date,
         endTime: date,
+    }),
+}
+
+export const getAreaWithSubscriptionSchema = {
+    query: z.object({
+        areaId: id,
+        page,
+        limit,
     }),
 }

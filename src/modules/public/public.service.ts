@@ -33,6 +33,7 @@ const PublicService: IPublicService = {
             where: {
                 academyId,
                 isActive: true,
+                showOnWebsite: true
             },
             include: {
                 features: true,
@@ -45,6 +46,7 @@ const PublicService: IPublicService = {
         return prisma.area.findMany({
             where: {
                 isActive: true,
+                showOnWebsite: true
             },
         });
     },
@@ -111,7 +113,14 @@ const PublicService: IPublicService = {
     },
 
     async getCaptains() {
-        return await prisma.jobProfile.findMany({ where: { supportType: { not: null }, isActive: true }, include: { user: { select: { id: true, name: true, phone: true } } } })
+        return await prisma.jobProfile.findMany({
+            where: {
+                supportType: { not: null },
+                isActive: true,
+                showOnWebsite: true
+            },
+            include: { user: { select: { id: true, name: true, phone: true } } }
+        })
     },
 
     timezoneOffset() {

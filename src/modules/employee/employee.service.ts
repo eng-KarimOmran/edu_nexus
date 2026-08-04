@@ -1,10 +1,10 @@
-import { lessonStatus } from './../../shared/utils/common.validation';
 import { Client } from "@/prisma/generated/client";
-import { LessonSelect, LessonWhereInput } from "@/prisma/generated/models";
+import { LessonSelect, LessonWhereInput, SubscriptionWhereInput } from "@/prisma/generated/models";
 import { prisma } from "../../lib/prisma";
 import ApiError from "../../shared/utils/ApiError";
 import { jobProfileSelect } from "./employee.select";
 import { IEmployeeService } from "./employee.type";
+import { buildPagination, buildPaginationMeta } from '@/shared/utils/Pagination';
 
 const EmployeeService: IEmployeeService = {
     async getJobProfileDebts({ jobProfileId }) {
@@ -32,7 +32,7 @@ const EmployeeService: IEmployeeService = {
             client: { select: { id: true, name: true, phone: true } },
             academy: { select: { id: true, name: true } },
             jobProfile: { select: { id: true, user: { select: { id: true, name: true, phone: true } } } },
-            subscription: { select: { id: true, courseName: true, totalSessions:true,lessons: { where: { lessonStatus: { in: ["CANCELED_CHARGED", "COMPLETED", "SCHEDULED"] } }, select: { id: true } } } }
+            subscription: { select: { id: true, courseName: true, totalSessions: true, lessons: { where: { lessonStatus: { in: ["CANCELED_CHARGED", "COMPLETED", "SCHEDULED"] } }, select: { id: true } } } }
         }
 
         const lessons = await prisma.lesson.findMany({ where, select, orderBy: { startTime: "asc" } });
@@ -148,6 +148,61 @@ const EmployeeService: IEmployeeService = {
             }
         })
         return employees
+    },
+
+    async getAreaWithSubscription({ query }) {
+        const { areaId, limit, page } = query
+        const { take, skip } = buildPagination({ page, limit });
+
+        const subscriptionWhere: SubscriptionWhereInput = {
+            areaId,
+            subscriptionStatus: {
+                notIn: ["CANCELED", "COMPLETED"]
+            },
+        }
+
+        const { area, subscriptions, countSub } = await prisma.$transaction(async (tx) => {
+            const areaWithSubscriptions = await tx.area.findUnique({
+                where: { id: areaId }, include: {
+                    subscriptions: {
+                        where: subscriptionWhere,
+                        include: {
+                            client: true
+                        },
+                        orderBy: {
+                            createdAt: "desc"
+                        },
+                        skip,
+                        take,
+                    }
+                }
+            })
+
+            if (!areaWithSubscriptions) {
+                throw ApiError.NotFound("Area")
+            }
+
+            const countSub = await tx.subscription.count({
+                where: subscriptionWhere
+            })
+
+            const { subscriptions, ...area } = areaWithSubscriptions;
+
+
+            return { countSub, area, subscriptions }
+        })
+
+
+
+        return {
+            area: area,
+            items: subscriptions,
+            pagination: buildPaginationMeta({
+                count: countSub,
+                page,
+                limit,
+            }),
+        };
     },
 };
 

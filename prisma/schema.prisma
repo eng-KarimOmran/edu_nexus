@@ -195,6 +195,7 @@ model JobProfile {
   isActive       Boolean        @default(true)
   userId         String         @unique
   createdAt      DateTime       @default(now())
+  showOnWebsite  Boolean        @default(true)
   supportType    SupportType?
   jobProfileType JobProfileType
   baseSalary     Float          @default(0)

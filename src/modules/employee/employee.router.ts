@@ -46,4 +46,11 @@ router.get(
     EmployeeController.getAllEmployeesWithLesson
 );
 
+router.get(
+    "/area-with-subscription",
+    validate(Schema.getAreaWithSubscriptionSchema),
+    allowJobProfiles(["MANAGER"]),
+    EmployeeController.getAreaWithSubscription
+);
+
 export default router;

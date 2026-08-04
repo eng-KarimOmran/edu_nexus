@@ -1,8 +1,9 @@
 import { JobProfileSelectType } from './employee.select';
-import { Car, Client, Lesson, User, Wallet } from "@/prisma/generated/client";
+import { Area, Car, Client, Lesson, Subscription, User, Wallet } from "@/prisma/generated/client";
 import { JobProfileRequestHandler } from "../jobProfile/jobProfile.type";
 import * as Dto from "./employee.dto"
 import { UserGetPayload } from '@/prisma/generated/models';
+import { PaginatedResponse } from '@/shared/types/types';
 
 export type EmployeeWithLessons = UserGetPayload<{
     select: {
@@ -70,6 +71,7 @@ export interface IEmployeeService {
     getAllCarAndLesson(data: Dto.GetAllCarAndLessonDto): Promise<Car[]>;
 
     getAllEmployeesWithLesson(data: Dto.GetAllEmployeesWithLessonDto): Promise<EmployeeWithLessons[]>
+    getAreaWithSubscription(data: Dto.GetAreaWithSubscriptionDto): Promise<PaginatedResponse<Subscription> & { area: Area }>
 }
 
 
@@ -80,4 +82,5 @@ export interface IEmployeeController {
     getEmployeesWithDebts: JobProfileRequestHandler;
     getAllCarAndLesson: JobProfileRequestHandler;
     getAllEmployeesWithLesson: JobProfileRequestHandler
+    getAreaWithSubscription: JobProfileRequestHandler
 }
